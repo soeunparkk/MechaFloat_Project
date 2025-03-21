@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private const float Y_ANGLE_MAX = 50.0f;
 
     private Rigidbody rb;
+    private bool canJump = true;
     public float fallingThreshold = -0.1f;
 
     [Header("Ground Check Setting")]
@@ -38,8 +39,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"{isGrounded()}");
-
         HandleRotation();
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -81,6 +80,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canJump = false;
         }
     }
 
@@ -121,7 +121,12 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, 2.0f);
+        bool grounded = Physics.Raycast(transform.position, Vector3.down, 1.0f);
+        if (grounded)
+        {
+            canJump = true;
+        }
+        return grounded;
     }
 
     public float GetVerticalVelocity()
