@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Movement")]
     public float moveSpeed = 5.0f;
-    public float jumpForce = 5.0f;
     public float rotationSpeed = 10f;
 
     [Header("Camera Settings")]
@@ -16,23 +15,21 @@ public class PlayerController : MonoBehaviour
     public float maxDistance = 10.0f;
     public float mouseSensitivity = 200f;
 
+    [Header("Mouse Settings")]
     private float CurrentX = 0.0f;
     private float CurrentY = 45.0f;
-    private const float Y_ANGLE_MIN = 0.0f;
-    private const float Y_ANGLE_MAX = 50.0f;
+    private const float Y_ANGLE_MIN = -50.0f;
+    private const float Y_ANGLE_MAX = 80.0f;
 
+    [Header("Component")]
     private Rigidbody rb;
-    private bool canJump = true;
-    public float fallingThreshold = -0.1f;
-
-    [Header("Ground Check Setting")]
-    public float groundCheckDistance = 0.3f;
-    public float slopedLimit = 45f;
-    public const int groundCheckPoints = 5;
+    private PlayerJump playerJump;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerJump = GetComponent<PlayerJump>();
+
         Cursor.lockState = CursorLockMode.Locked;
         thirdPersonCamera.gameObject.SetActive(true);
     }
@@ -43,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            HandleJump();
+            playerJump.HandleJump();
         }
     }
 
@@ -75,15 +72,6 @@ public class PlayerController : MonoBehaviour
         );
     }
 
-    void HandleJump()
-    {
-        if (isGrounded())
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            canJump = false;
-        }
-    }
-
     public void HandleMovement()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -112,25 +100,5 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
-    }
-
-    public bool isFalling()
-    {
-        return rb.velocity.y < fallingThreshold && !isGrounded();
-    }
-
-    public bool isGrounded()
-    {
-        bool grounded = Physics.Raycast(transform.position, Vector3.down, 1.0f);
-        if (grounded)
-        {
-            canJump = true;
-        }
-        return grounded;
-    }
-
-    public float GetVerticalVelocity()
-    {
-        return rb.velocity.y;
     }
 }

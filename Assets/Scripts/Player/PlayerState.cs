@@ -8,12 +8,14 @@ public abstract class PlayerState
     protected PlayerStateMachine stateMachine;
     protected PlayerController playerController;
     protected PlayerAnimationManager animationManager;
+    protected PlayerJump playerJump;
 
     public PlayerState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
         this.playerController = stateMachine.PlayerController;
         this.animationManager = stateMachine.GetComponent<PlayerAnimationManager>();
+        this.playerJump = stateMachine.GetComponent<PlayerJump>();
     }
 
     public virtual void Enter() { }             
@@ -24,7 +26,7 @@ public abstract class PlayerState
     // 상태 전호나 조건을 체크하는 메서드
     protected void CheckTransitions()
     {
-        if (playerController.isGrounded())
+        if (playerJump.isGrounded())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -42,7 +44,7 @@ public abstract class PlayerState
         else
         {
             // 공중에 있을대 상태 전환 로직
-            if (playerController.GetVerticalVelocity() > 0)        // 받아온 Y축 속도 값이 + 일때
+            if (playerJump.GetVerticalVelocity() > 0)        // 받아온 Y축 속도 값이 + 일때
             {
                 stateMachine.TransitionToState(new JumpingState(stateMachine));
             }
