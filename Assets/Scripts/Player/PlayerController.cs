@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private PlayerJump playerJump;
 
+    public bool HasBalloon { get; set; } = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -100,5 +102,14 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+    }
+    public void PickupBalloon()
+    {
+        HasBalloon = true;
+    }
+
+    public void DropBalloon()
+    {
+        HasBalloon = false;
     }
 }
