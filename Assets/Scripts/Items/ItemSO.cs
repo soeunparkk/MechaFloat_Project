@@ -17,7 +17,7 @@ public class ItemSO : ScriptableObject
 
     public override string ToString()
     {
-        return $"[{id}] {itemName} ({itemType}) - HP : {HP}°ñµå";
+        return $"[{id}] {itemName} ({itemType}) - HP";
     }
 
     public string DisplayName
