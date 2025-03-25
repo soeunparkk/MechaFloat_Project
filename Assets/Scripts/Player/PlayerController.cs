@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [Header("Component")]
     private Rigidbody rb;
     private PlayerJump playerJump;
+    private PlayerPickup playerPickup;
 
     public bool HasBalloon { get; set; } = false;
 
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerJump = GetComponent<PlayerJump>();
+        playerPickup = GetComponent<PlayerPickup>();
 
         Cursor.lockState = CursorLockMode.Locked;
         thirdPersonCamera.gameObject.SetActive(true);
@@ -43,6 +45,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerJump.HandleJump();
+        }
+
+        playerPickup.FindNearbyBalloon();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (playerPickup.currentBalloon == null && playerPickup.nearbyBalloon != null)
+            {
+                playerPickup.PickupBalloon();
+            }
+            else if (playerPickup.currentBalloon != null)
+            {
+                playerPickup.DropBalloon();
+            }
         }
     }
 

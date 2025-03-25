@@ -1,0 +1,75 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerPickup : MonoBehaviour
+{
+    [Header("Pickup Settings")]
+    public Transform balloonPivot;
+    public float pickupRange = 1.0f;
+
+    [NonSerialized]
+    public GameObject currentBalloon = null;
+    [NonSerialized]
+    public GameObject nearbyBalloon = null;
+
+    public void FindNearbyBalloon()
+    {
+        Collider[] balloonCol = Physics.OverlapSphere(transform.position, pickupRange);
+        nearbyBalloon = null;
+
+        foreach (Collider colliders in balloonCol)
+        {
+            if (colliders.CompareTag("Balloon"))
+            {
+                nearbyBalloon = colliders.gameObject;
+                break;
+            }
+        }
+    }
+
+    public void PickupBalloon()
+    {
+        if (nearbyBalloon == null) return;
+
+        currentBalloon = nearbyBalloon;
+        currentBalloon.transform.SetParent(balloonPivot);
+        currentBalloon.transform.localPosition = Vector3.zero;
+        currentBalloon.transform.localRotation = Quaternion.identity;
+
+        Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
+        if (rb) rb.isKinematic = true;
+
+        Collider col = currentBalloon.GetComponent<Collider>();
+        if (col) col.enabled = false;
+
+        GetComponent<PlayerController>().PickupBalloon();
+        nearbyBalloon = null;
+    }
+
+
+    // 드랍을 할때 원래 스폰했던 풍선 위치로 드랍되는건지 아니면 자기 앞에 그냥 떨어지는건지 알면 수정 예정
+    public void DropBalloon()
+    {
+        if (currentBalloon == null) return;
+
+        currentBalloon.transform.SetParent(null);
+
+        Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
+        if (rb) rb.isKinematic = false;
+
+        Collider col = currentBalloon.GetComponent<Collider>();
+        if (col) col.enabled = true;
+
+        currentBalloon.transform.position += Vector3.down * 0.5f;
+
+        currentBalloon = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, pickupRange);
+    }
+}
