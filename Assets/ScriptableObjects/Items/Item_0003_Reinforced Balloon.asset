@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025d4b899ac6da942a9b7160484ac843, type: 3}
+  m_Name: Item_0003+Reinforced Balloon
+  m_EditorClassIdentifier: 
+  id: 3
+  itemName: "\uAC15\uD654 \uD48D\uC120"
+  nameEng: Reinforced Balloon
+  description: "\uB0B4\uAD6C\uB3C4\uAC00 \uB192\uC740 \uD48D\uC120 \uC785\uB2C8\uB2E4"
+  itemType: 0
+  HP: 200
+  isBuoyancy: 0
+  icon: {fileID: 0}
