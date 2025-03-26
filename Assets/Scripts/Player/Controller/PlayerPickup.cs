@@ -66,6 +66,8 @@ public class PlayerPickup : MonoBehaviour
         Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
         if (rb) rb.isKinematic = true;
 
+        currentBalloon.GetComponent<BalloonController>()?.StartDurabilityReduction();
+
         GetComponent<PlayerController>().PickupBalloon();
         nearbyBalloon = null;
     }
@@ -82,6 +84,8 @@ public class PlayerPickup : MonoBehaviour
         if (rb) rb.isKinematic = false;
 
         currentBalloon.transform.position += Vector3.down * 0.5f;
+
+        currentBalloon.GetComponent<BalloonController>()?.StopDurabilityReduction();
 
         currentBalloon = null;
     }

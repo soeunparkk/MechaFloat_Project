@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BalloonController : MonoBehaviour
@@ -8,6 +7,7 @@ public class BalloonController : MonoBehaviour
 
     private float currentHP;
     private bool isDestroyed = false;
+    private Coroutine durabilityCoroutine;
 
     private void Start()
     {
@@ -19,8 +19,25 @@ public class BalloonController : MonoBehaviour
         {
             Debug.LogError("BalloonController: 풍선 데이터가 설정되지 않았습니다!");
         }
+    }
 
-        StartCoroutine(ReduceDurabilityOverTime());
+    // 픽업 시 내구도 감소 시작
+    public void StartDurabilityReduction()
+    {
+        if (durabilityCoroutine == null) // 중복 실행 방지
+        {
+            durabilityCoroutine = StartCoroutine(ReduceDurabilityOverTime());
+        }
+    }
+
+    // 해제 시 내구도 감소 멈춤
+    public void StopDurabilityReduction()
+    {
+        if (durabilityCoroutine != null)
+        {
+            StopCoroutine(durabilityCoroutine);
+            durabilityCoroutine = null; // 초기화
+        }
     }
 
     private IEnumerator ReduceDurabilityOverTime()
