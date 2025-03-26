@@ -47,18 +47,9 @@ public class PlayerController : MonoBehaviour
             playerJump.HandleJump();
         }
 
-        playerPickup.FindNearbyBalloon();
-
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (playerPickup.currentBalloon == null && playerPickup.nearbyBalloon != null)
-            {
-                playerPickup.PickupBalloon();
-            }
-            else if (playerPickup.currentBalloon != null)
-            {
-                playerPickup.DropBalloon();
-            }
+            playerPickup.HandlePickup();
         }
     }
 
@@ -119,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
+
     public void PickupBalloon()
     {
         HasBalloon = true;

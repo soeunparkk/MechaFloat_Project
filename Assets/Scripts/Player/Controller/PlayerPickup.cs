@@ -9,12 +9,27 @@ public class PlayerPickup : MonoBehaviour
     public Transform balloonPivot;
     public float pickupRange = 1.0f;
 
-    [NonSerialized]
-    public GameObject currentBalloon = null;
-    [NonSerialized]
-    public GameObject nearbyBalloon = null;
+    private GameObject currentBalloon = null;
+    private GameObject nearbyBalloon = null;
 
-    public void FindNearbyBalloon()
+    void Update()
+    {
+        FindNearbyBalloon();
+    }
+
+    public void HandlePickup()
+    {
+        if (currentBalloon == null && nearbyBalloon != null)
+        {
+            PickupBalloon();
+        }
+        else if (currentBalloon != null)
+        {
+            DropBalloon();
+        }
+    }
+
+    private void FindNearbyBalloon()
     {
         Collider[] balloonCol = Physics.OverlapSphere(transform.position, pickupRange);
         nearbyBalloon = null;
@@ -29,7 +44,7 @@ public class PlayerPickup : MonoBehaviour
         }
     }
 
-    public void PickupBalloon()
+    private void PickupBalloon()
     {
         if (nearbyBalloon == null) return;
 
@@ -50,7 +65,7 @@ public class PlayerPickup : MonoBehaviour
 
 
     // 드랍을 할때 원래 스폰했던 풍선 위치로 드랍되는건지 아니면 자기 앞에 그냥 떨어지는건지 알면 수정 예정
-    public void DropBalloon()
+    private void DropBalloon()
     {
         if (currentBalloon == null) return;
 
