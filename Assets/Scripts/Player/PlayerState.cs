@@ -9,6 +9,7 @@ public abstract class PlayerState
     protected PlayerController playerController;
     protected PlayerAnimationManager animationManager;
     protected PlayerJump playerJump;
+    protected PlayerPickup playerPickup;
 
     public PlayerState(PlayerStateMachine stateMachine)
     {
@@ -16,6 +17,7 @@ public abstract class PlayerState
         this.playerController = stateMachine.PlayerController;
         this.animationManager = stateMachine.GetComponent<PlayerAnimationManager>();
         this.playerJump = stateMachine.GetComponent<PlayerJump>();
+        this.playerPickup = stateMachine.GetComponent<PlayerPickup>();
     }
 
     public virtual void Enter() { }             
@@ -36,6 +38,10 @@ public abstract class PlayerState
             {
                 stateMachine.TransitionToState(new MovingState(stateMachine));
             }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                stateMachine.TransitionToState(new PickupState(stateMachine));
+            }
             else
             {
                 stateMachine.TransitionToState(new IdleState(stateMachine));
@@ -50,7 +56,7 @@ public abstract class PlayerState
             }
             else
             {
-                //stateMachine.TransitionToState(new FallingState(stateMachine));     // 받아온 Y축 속도 값이 - 일떼 [낙하 상태]
+                stateMachine.TransitionToState(new FallingState(stateMachine));     // 받아온 Y축 속도 값이 - 일떼 [낙하 상태]
             }
         }
     }
@@ -68,7 +74,6 @@ public class IdleState : PlayerState
 
 public class MovingState : PlayerState
 {
-    //private bool isRunnig;
     public MovingState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Update()
@@ -88,6 +93,36 @@ public class JumpingState : PlayerState
 
     public override void Update()
     {
+        CheckTransitions();
+    }
+
+    public override void FixedUpdate()
+    {
+        playerController.HandleMovement();
+    }
+}
+
+public class FallingState : PlayerState
+{
+    public FallingState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+
+    public override void Update()
+    {
+        CheckTransitions();
+    }
+
+    public override void FixedUpdate()
+    {
+        playerController.HandleMovement();
+    }
+}
+
+public class PickupState : PlayerState
+{
+    public PickupState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+
+    public override void Update()
+    { 
         CheckTransitions();
     }
 

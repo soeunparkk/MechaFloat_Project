@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class PlayerAnimationManager : MonoBehaviour
@@ -9,8 +8,10 @@ public class PlayerAnimationManager : MonoBehaviour
     public PlayerStateMachine stateMachine;
 
     // 애니메이션 파라미터 이름들을 상수로 정의
-    /*private const string PARAM_IS_RUNNING = "IsRunning";
-    private const string PARAM_IS_DASHING = "IsDashing";*/
+    private const string PARAM_IS_MOVING = "IsMoving";
+    private const string PARAM_IS_JUMPING = "IsJumping";
+    private const string PARAM_IS_FALLING = "IsFalling";
+    private const string PARAM_IS_PICKING = "IsPicking";
 
     void Update()
     {
@@ -19,7 +20,7 @@ public class PlayerAnimationManager : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        /*if (stateMachine.currentState != null)
+        if (stateMachine.currentState != null)
         {
             ResetAllBoolParameters();
 
@@ -27,20 +28,28 @@ public class PlayerAnimationManager : MonoBehaviour
             {
                 case IdleState:
                     break;
-                case RunningState:
-                    animator.SetBool(PARAM_IS_RUNNING, true);
+                case MovingState:
+                    animator.SetBool(PARAM_IS_MOVING, true);
                     break;
-                case DashingState:
-                    animator.SetBool(PARAM_IS_DASHING, true);
+                case JumpingState:
+                    animator.SetBool(PARAM_IS_JUMPING, true);
+                    break;
+                case FallingState:
+                    animator.SetBool(PARAM_IS_FALLING, true);
+                    break;
+                case PickupState:
+                    animator.SetBool(PARAM_IS_PICKING, true);
                     break;
             }
-        }*/
+        }
     }
 
     // 모든 bool 파라미터를 초기화 해주는 함수
     private void ResetAllBoolParameters()
     {
-        /*animator.SetBool(PARAM_IS_RUNNING, false);
-        animator.SetBool(PARAM_IS_DASHING, false);*/
+        animator.SetBool(PARAM_IS_MOVING, false);
+        animator.SetBool(PARAM_IS_JUMPING, false);
+        animator.SetBool(PARAM_IS_FALLING, false);
+        animator.SetBool(PARAM_IS_PICKING, false);
     }
 }
