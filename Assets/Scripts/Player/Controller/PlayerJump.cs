@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,28 +8,37 @@ public class PlayerJump : MonoBehaviour
     public float jumpForce = 5.0f;
     public float fallingThreshold = -0.1f;
 
+    [Header("Physics")]
+    public float liftForce = 2.0f;
+
     private Rigidbody rb;
+    private PlayerPickup playerPickup;
 
     private bool canJump = true;
-    private bool isZeroGravity = false;                 // ¹«Áß·Â »óÅÂ ¿©ºÎ
+    private bool isZeroGravity = false;                 // ë¬´ì¤‘ë ¥ ìƒíƒœ ì—¬ë¶€
 
     [Header("Ground Check Setting")]
     public float groundCheckDistance = 0.3f;
-    public float slopedLimit = 45f;                     // µî¹İ °¡´ÉÇÑ ÃÖ´ë °æ»ç °¢µµ
-    public const int groundCheckPoints = 5;             // Áö¸é Ã¼Å© Æ÷ÀÎÆ® ¼ö
+    public float slopedLimit = 45f;                     // ë“±ë°˜ ê°€ëŠ¥í•œ ìµœëŒ€ ê²½ì‚¬ ê°ë„
+    public const int groundCheckPoints = 5;             // ì§€ë©´ ì²´í¬ í¬ì¸íŠ¸ ìˆ˜
 
     [Header("Gravity Settings")]
-    public float spaceGravity = -0.1f;                  // ¿ìÁÖ °ø°£¿¡¼­ÀÇ °¡Â¥ Áß·Â
-    public float slowDownFactor = 0.5f;                 // Á¡ÇÁ ÈÄ °¨¼Ó ºñÀ²
-    public float maxRiseSpeed = 5.0f;                   // ÃÖ´ë »ó½Â ¼Óµµ
-    public float maxFallSpeed = -2.0f;                  // ÃÖ´ë ÇÏ°­ ¼Óµµ
-    public float zeroGravityJumpForce = 3.0f;           // ¿ìÁÖ¿¡¼­ÀÇ Á¡ÇÁ·Â
+    public float spaceGravity = -0.1f;                  // ìš°ì£¼ ê³µê°„ì—ì„œì˜ ê°€ì§œ ì¤‘ë ¥
+    public float slowDownFactor = 0.5f;                 // ì í”„ í›„ ê°ì† ë¹„ìœ¨
+    public float maxRiseSpeed = 5.0f;                   // ìµœëŒ€ ìƒìŠ¹ ì†ë„
+    public float maxFallSpeed = -2.0f;                  // ìµœëŒ€ í•˜ê°• ì†ë„
+    public float zeroGravityJumpForce = 3.0f;           // ìš°ì£¼ì—ì„œì˜ ì í”„ë ¥
 
-    private Vector3 defaultGravity;                     // ±âº» Áß·Â °ª ÀúÀå
+    private float normalGravity = -9.81f;
+    private float buoyancyGravityFactor = 0.5f;
+
+    private Vector3 defaultGravity;                     // ê¸°ë³¸ ì¤‘ë ¥ ê°’ ì €ì¥
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerPickup = GetComponent<PlayerPickup>();
+
         defaultGravity = Physics.gravity;
     }
 
@@ -37,22 +46,22 @@ public class PlayerJump : MonoBehaviour
     {
         if (isZeroGravity)
         {
-            // ¿ìÁÖ ±¸¿ª: °¡Â¥ Áß·Â Àû¿ë
+            // ìš°ì£¼ êµ¬ì—­: ê°€ì§œ ì¤‘ë ¥ ì ìš©
             rb.velocity += Vector3.up * spaceGravity * Time.fixedDeltaTime;
 
-            // Á¡ÇÁ ÈÄ °¨¼Ó ¹× ¼Óµµ Á¦ÇÑ
+            // ì í”„ í›„ ê°ì† ë° ì†ë„ ì œí•œ
             if (rb.velocity.y > 0)
             {
                 rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.fixedDeltaTime * slowDownFactor);
             }
 
-            // ÃÖ´ë »ó½Â ¼Óµµ Á¦ÇÑ
+            // ìµœëŒ€ ìƒìŠ¹ ì†ë„ ì œí•œ
             if (rb.velocity.y > maxRiseSpeed)
             {
                 rb.velocity = new Vector3(rb.velocity.x, maxRiseSpeed, rb.velocity.z);
             }
 
-            // ÃÖ´ë ÇÏ°­ ¼Óµµ Á¦ÇÑ
+            // ìµœëŒ€ í•˜ê°• ì†ë„ ì œí•œ
             if (rb.velocity.y < maxFallSpeed)
             {
                 rb.velocity = new Vector3(rb.velocity.x, maxFallSpeed, rb.velocity.z);
@@ -60,9 +69,11 @@ public class PlayerJump : MonoBehaviour
         }
         else
         {
-            // ÀÏ¹İ ±¸¿ª: ±âº» Áß·Â »ç¿ë
+            // ì¼ë°˜ êµ¬ì—­: ê¸°ë³¸ ì¤‘ë ¥ ì‚¬ìš©
             Physics.gravity = defaultGravity;
         }
+
+        ApplyBuoyancyEffect();
     }
 
     public void HandleJump()
@@ -81,6 +92,31 @@ public class PlayerJump : MonoBehaviour
         }
     }
 
+    private void ApplyBuoyancyEffect()
+    {
+        ItemSO balloonData = playerPickup.GetCurrentBalloonData();
+
+        if (balloonData != null && balloonData.isBuoyancy)
+        {
+            // ë¶€ë ¥ì´ ì ìš©ë˜ë©´ ì¤‘ë ¥ì„ ì¤„ì„
+            Physics.gravity = new Vector3(0, normalGravity * buoyancyGravityFactor, 0);
+        }
+        else
+        {
+            Physics.gravity = defaultGravity;
+        }
+    }
+
+    public void ApplyBuoyancy()
+    {
+        ItemSO balloonData = playerPickup.GetCurrentBalloonData();
+
+        if (balloonData != null && balloonData.isBuoyancy)
+        {
+            rb.AddForce(Vector3.up * liftForce, ForceMode.Acceleration);
+        }
+    }
+
     public bool isFalling()
     {
         return rb.velocity.y < fallingThreshold && !isGrounded();
@@ -88,19 +124,19 @@ public class PlayerJump : MonoBehaviour
 
     public bool isGrounded()
     {
-        // Áö¸é Ã¼Å© ·ÎÁ÷ (¿ìÁÖ °ø°£¿¡¼­µµ µ¿ÀÏÇÏ°Ô Àû¿ë)
+        // ì§€ë©´ ì²´í¬ ë¡œì§ (ìš°ì£¼ ê³µê°„ì—ì„œë„ ë™ì¼í•˜ê²Œ ì ìš©)
         RaycastHit hit;
         bool grounded = Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f);
 
         if (grounded)
         {
-            // ¿ìÁÖ °ø°£ ³»ÀÇ ¹ßÆÇÀ» ¹â¾Ò´ÂÁö È®ÀÎ
+            // ìš°ì£¼ ê³µê°„ ë‚´ì˜ ë°œíŒì„ ë°Ÿì•˜ëŠ”ì§€ í™•ì¸
             if (isZeroGravity && hit.collider.CompareTag("SpaceGround"))
             {
                 canJump = true;
                 return true;
             }
-            // ÀÏ¹İ Áö¸éÀ» ¹â¾Ò´ÂÁö È®ÀÎ
+            // ì¼ë°˜ ì§€ë©´ì„ ë°Ÿì•˜ëŠ”ì§€ í™•ì¸
             else if (!isZeroGravity)
             {
                 canJump = true;
@@ -114,16 +150,16 @@ public class PlayerJump : MonoBehaviour
     public void SetGravityState(bool zeroGravity)
     {
         isZeroGravity = zeroGravity;
-        rb.useGravity = !zeroGravity;           // ¹«Áß·Â »óÅÂ¸é Áß·Â OFF
+        rb.useGravity = !zeroGravity;           // ë¬´ì¤‘ë ¥ ìƒíƒœë©´ ì¤‘ë ¥ OFF
 
         if (zeroGravity)
         {
-            rb.velocity = Vector3.zero;         // ¹«Áß·Â »óÅÂ¿¡¼­ ¹Ù·Î ¼Óµµ¸¦ ¸®¼Â
-            Physics.gravity = Vector3.zero;     // Áß·Â Á¦°Å
+            rb.velocity = Vector3.zero;         // ë¬´ì¤‘ë ¥ ìƒíƒœì—ì„œ ë°”ë¡œ ì†ë„ë¥¼ ë¦¬ì…‹
+            Physics.gravity = Vector3.zero;     // ì¤‘ë ¥ ì œê±°
         }
         else
         {
-            Physics.gravity = defaultGravity;   // ±âº» Áß·Â º¹¿ø
+            Physics.gravity = defaultGravity;   // ê¸°ë³¸ ì¤‘ë ¥ ë³µì›
         }
     }
 
@@ -136,7 +172,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (other.CompareTag("SpaceZone"))
         {
-            SetGravityState(true);              // ¿ìÁÖ¿¡ µé¾î°¡¸é ¹«Áß·Â
+            SetGravityState(true);              // ìš°ì£¼ì— ë“¤ì–´ê°€ë©´ ë¬´ì¤‘ë ¥
         }
     }
 
@@ -144,7 +180,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (other.CompareTag("SpaceZone"))
         {
-            SetGravityState(false);             // ¿ìÁÖ¿¡¼­ ³ª¿À¸é Áß·Â ´Ù½Ã Àû¿ë
+            SetGravityState(false);             // ìš°ì£¼ì—ì„œ ë‚˜ì˜¤ë©´ ì¤‘ë ¥ ë‹¤ì‹œ ì ìš©
         }
     }
 }

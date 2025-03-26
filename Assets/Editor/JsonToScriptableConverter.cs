@@ -89,6 +89,7 @@ public class JsonToScriptableConverter : EditorWindow
                 // 기획자가 풍선 엑셀 시트 주면 그거에 맞게 더 추가할 예정
                 itemSO.HP = itemData.HP;
                 itemSO.isBuoyancy = itemData.isBuoyancy;
+                itemSO.isReinforced = itemData.isReinforced;
 
                 // 아이콘 로드 (경로가 있는 경우)
                 if (!string.IsNullOrEmpty(itemData.iconPath))

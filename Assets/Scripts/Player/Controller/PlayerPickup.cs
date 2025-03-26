@@ -44,6 +44,16 @@ public class PlayerPickup : MonoBehaviour
         }
     }
 
+    public ItemSO GetCurrentBalloonData()
+    {
+        if (currentBalloon != null)
+        {
+            BalloonController balloon = currentBalloon.GetComponent<BalloonController>();
+            return balloon != null ? balloon.balloonData : null;
+        }
+        return null;
+    }
+
     private void PickupBalloon()
     {
         if (nearbyBalloon == null) return;
@@ -55,9 +65,6 @@ public class PlayerPickup : MonoBehaviour
 
         Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
         if (rb) rb.isKinematic = true;
-
-        Collider col = currentBalloon.GetComponent<Collider>();
-        if (col) col.enabled = false;
 
         GetComponent<PlayerController>().PickupBalloon();
         nearbyBalloon = null;
@@ -73,9 +80,6 @@ public class PlayerPickup : MonoBehaviour
 
         Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
         if (rb) rb.isKinematic = false;
-
-        Collider col = currentBalloon.GetComponent<Collider>();
-        if (col) col.enabled = true;
 
         currentBalloon.transform.position += Vector3.down * 0.5f;
 

@@ -15,6 +15,7 @@ public class ItemData
     public ItemType itemType;
     public int HP;
     public bool isBuoyancy;
+    public bool isReinforced;
     public string iconPath;
 
     // 문자열을 열거형으로 변환하는 메서드

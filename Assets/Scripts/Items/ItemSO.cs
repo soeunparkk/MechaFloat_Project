@@ -13,6 +13,7 @@ public class ItemSO : ScriptableObject
     public ItemType itemType;
     public int HP;
     public bool isBuoyancy;
+    public bool isReinforced;
     public Sprite icon;                         // 실제 사용할 스프라이트 선언
 
     public override string ToString()

@@ -8,6 +8,7 @@ TagManager:
   - SpaceZone
   - SpaceGround
   - Balloon
+  - Obstacle
   layers:
   - Default
   - TransparentFX
