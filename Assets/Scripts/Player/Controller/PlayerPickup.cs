@@ -8,6 +8,7 @@ public class PlayerPickup : MonoBehaviour
     [Header("Pickup Settings")]
     public Transform balloonPivot;
     public float pickupRange = 1.0f;
+    public bool isHasBalloon = false;
 
     private GameObject currentBalloon = null;
     private GameObject nearbyBalloon = null;
@@ -68,7 +69,8 @@ public class PlayerPickup : MonoBehaviour
 
         currentBalloon.GetComponent<BalloonController>()?.StartDurabilityReduction();
 
-        GetComponent<PlayerController>().PickupBalloon();
+        isHasBalloon = true;
+
         nearbyBalloon = null;
     }
 
@@ -86,6 +88,8 @@ public class PlayerPickup : MonoBehaviour
         currentBalloon.transform.position += Vector3.down * 0.5f;
 
         currentBalloon.GetComponent<BalloonController>()?.StopDurabilityReduction();
+
+        isHasBalloon = false;
 
         currentBalloon = null;
     }

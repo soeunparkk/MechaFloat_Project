@@ -20,7 +20,7 @@ public class WindZone : MonoBehaviour
         {
             Vector3 force = windDirection.normalized * windStrength;
 
-            if (player.HasBalloon)
+            if (player.playerPickup.isHasBalloon)
             {
                 // 풍선이 있을 경우 천천히 밀리는 효과 + 공기 저항 증가
                 rb.drag = balloonDrag;

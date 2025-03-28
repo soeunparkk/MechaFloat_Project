@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour
     [Header("Component")]
     private Rigidbody rb;
     private PlayerJump playerJump;
-    private PlayerPickup playerPickup;
 
-    public bool HasBalloon { get; set; } = false;
+    [NonSerialized]
+    public PlayerPickup playerPickup;
 
     void Start()
     {
@@ -111,15 +111,5 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
-    }
-
-    public void PickupBalloon()
-    {
-        HasBalloon = true;
-    }
-
-    public void DropBalloon()
-    {
-        HasBalloon = false;
     }
 }

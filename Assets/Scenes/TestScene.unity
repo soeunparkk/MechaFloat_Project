@@ -850,7 +850,7 @@ Transform:
   m_GameObject: {fileID: 943970615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.02, y: 0.18, z: 33.41}
+  m_LocalPosition: {x: 5.02, y: 0.71, z: 33.41}
   m_LocalScale: {x: 1.99475, y: 1.99475, z: 1.99475}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1185,6 +1185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   balloonPivot: {fileID: 1536118041}
   pickupRange: 2
+  isHasBalloon: 0
 --- !u!1 &1536118040
 GameObject:
   m_ObjectHideFlags: 0
