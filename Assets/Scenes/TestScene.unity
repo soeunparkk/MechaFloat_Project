@@ -1004,7 +1004,7 @@ MonoBehaviour:
   cameraDistance: 7
   minDistance: 1
   maxDistance: 10
-  mouseSensitivity: 200
+  mouseSensitivity: 500
 --- !u!54 &1166490454
 Rigidbody:
   m_ObjectHideFlags: 0
