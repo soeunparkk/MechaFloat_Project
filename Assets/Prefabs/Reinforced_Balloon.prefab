@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 263350886230306983}
   - component: {fileID: 1895543819375789265}
   - component: {fileID: 3886025743971315265}
+  - component: {fileID: 5178496349597516421}
   m_Layer: 0
   m_Name: Reinforced_Balloon
   m_TagString: Balloon
@@ -147,3 +148,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   balloonData: {fileID: 11400000, guid: 07ad0846d130bd048bb8f4bb75d0aaa7, type: 2}
+  currentHP: 0
+--- !u!114 &5178496349597516421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5973418336988674338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460805d5fe9ed704d83499fad4f01b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -55,7 +55,7 @@ public class PlayerPickup : MonoBehaviour
         return null;
     }
 
-    private void PickupBalloon()
+    public void PickupBalloon()
     {
         if (nearbyBalloon == null) return;
 
@@ -74,7 +74,7 @@ public class PlayerPickup : MonoBehaviour
         nearbyBalloon = null;
     }
 
-    private void DropBalloon()
+    public void DropBalloon()
     {
         if (currentBalloon == null) return;
 
