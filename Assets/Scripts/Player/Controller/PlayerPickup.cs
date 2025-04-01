@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +12,8 @@ public class PlayerPickup : MonoBehaviour
 
     private GameObject currentBalloon = null;
     private GameObject nearbyBalloon = null;
+
+    public BalloonController equippedBalloon = null;
 
     void Update()
     {
@@ -67,7 +69,8 @@ public class PlayerPickup : MonoBehaviour
         Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
         if (rb) rb.isKinematic = true;
 
-        currentBalloon.GetComponent<BalloonController>()?.StartDurabilityReduction();
+        equippedBalloon = currentBalloon.GetComponent<BalloonController>(); // 현재 장착된 풍선 저장
+        equippedBalloon?.StartDurabilityReduction();
 
         isHasBalloon = true;
 
@@ -85,7 +88,8 @@ public class PlayerPickup : MonoBehaviour
 
         currentBalloon.transform.position += Vector3.down * 0.5f;
 
-        currentBalloon.GetComponent<BalloonController>()?.StopDurabilityReduction();
+        equippedBalloon?.StopDurabilityReduction();
+        equippedBalloon = null;
 
         isHasBalloon = false;
 

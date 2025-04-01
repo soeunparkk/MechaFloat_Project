@@ -17,7 +17,10 @@ MonoBehaviour:
   nameEng: Reinforced Balloon
   description: "\uB0B4\uAD6C\uB3C4\uAC00 \uB192\uC740 \uD48D\uC120 \uC785\uB2C8\uB2E4"
   itemType: 0
-  HP: 200
+  maxHP: 200
   isBuoyancy: 0
   isReinforced: 1
   icon: {fileID: 0}
+  buoyancyForce: 0
+  degradationRate: 1
+  durabilityMultiplier: 0.5

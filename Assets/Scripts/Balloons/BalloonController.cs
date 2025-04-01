@@ -13,11 +13,22 @@ public class BalloonController : MonoBehaviour
     {
         if (balloonData != null)
         {
-            currentHP = balloonData.HP;
+            currentHP = balloonData.maxHP;
         }
         else
         {
             Debug.LogError("BalloonController: 풍선 데이터가 설정되지 않았습니다!");
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHP -= damage;
+        Debug.Log($"공격을 받았습니다! 풍선 내구도 감소: {currentHP} (감소량: {damage})");
+
+        if (currentHP <= 0)
+        {
+            DestroyBalloon();
         }
     }
 
@@ -42,19 +53,14 @@ public class BalloonController : MonoBehaviour
 
     private IEnumerator ReduceDurabilityOverTime()
     {
-        float damage = balloonData.isReinforced ? 0.5f : 1.0f;
+        float durability = balloonData.degradationRate * (balloonData.isReinforced ? balloonData.durabilityMultiplier : 1.0f);
 
         while (currentHP > 0)
         {
             yield return new WaitForSeconds(2f);
-            currentHP -= damage;
+            currentHP -= durability;
 
-            Debug.Log($"풍선 내구도 감소: {currentHP} (감소량: {damage})");
-
-            if (currentHP <= 0)
-            {
-                DestroyBalloon();
-            }
+            Debug.Log($"풍선 내구도 감소: {currentHP} (감소량: {durability})");
         }
     }
 

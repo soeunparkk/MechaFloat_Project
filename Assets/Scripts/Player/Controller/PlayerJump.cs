@@ -8,9 +8,6 @@ public class PlayerJump : MonoBehaviour
     public float jumpForce = 5.0f;
     public float fallingThreshold = -0.1f;
 
-    [Header("Physics")]
-    public float liftForce = 2.0f;
-
     private Rigidbody rb;
     private PlayerPickup playerPickup;
 
@@ -113,7 +110,7 @@ public class PlayerJump : MonoBehaviour
 
         if (balloonData != null && balloonData.isBuoyancy)
         {
-            rb.AddForce(Vector3.up * liftForce, ForceMode.Acceleration);
+            rb.AddForce(Vector3.up * balloonData.buoyancyForce, ForceMode.Acceleration);
         }
     }
 

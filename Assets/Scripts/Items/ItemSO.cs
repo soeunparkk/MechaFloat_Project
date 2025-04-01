@@ -5,16 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class ItemSO : ScriptableObject
 {
-    // 기존 GameDB Excel 에서 선언한 변수를 나열한다.
-    public int id;
-    public string itemName;
-    public string nameEng;
-    public string description;
-    public ItemType itemType;
-    public int HP;
-    public bool isBuoyancy;
-    public bool isReinforced;
-    public Sprite icon;                         // 실제 사용할 스프라이트 선언
+    public int id;                                          // 고유 ID값  
+    public string itemName;                                 // 이름
+    public string nameEng;                                  // 영어 이름
+    public string description;                              // 설명
+    public ItemType itemType;                               // 아이템 타입
+    public int maxHP;                                       // 최대 내구도
+    public bool isBuoyancy;                                 // 부력 여부 bool 값
+    public bool isReinforced;                               // 강화 풍선 여부 bool 값
+    public Sprite icon;                                     // 이미지 아이콘
+    public float buoyancyForce;                             // 부력시 중력 증가량
+    public int degradationRate;                             // 초당 내구도 닳는 양
+    public float durabilityMultiplier;                      // 강화 풍선의 내구도 효율
 
     public override string ToString()
     {

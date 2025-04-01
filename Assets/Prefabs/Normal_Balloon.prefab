@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6071469835120982947}
   - component: {fileID: 3609089173262092501}
   - component: {fileID: 8319301584928148184}
-  - component: {fileID: -482511625671231313}
+  - component: {fileID: -6610329509715469296}
   m_Layer: 0
   m_Name: Normal_Balloon
   m_TagString: Balloon
@@ -147,9 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753038f7936507d4f9ad84f29ec6792d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balloonData: {fileID: 11400000, guid: 9b79518c8c55f644894f6de55ef8ecec, type: 2}
+  balloonData: {fileID: 11400000, guid: 6050c38a4aed6ae4caf85d99079c7641, type: 2}
   currentHP: 0
---- !u!114 &-482511625671231313
+--- !u!114 &-6610329509715469296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

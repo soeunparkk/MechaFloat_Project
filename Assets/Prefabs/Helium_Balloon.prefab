@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753038f7936507d4f9ad84f29ec6792d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balloonData: {fileID: 11400000, guid: d1d96d92fcbb9da459eebb21a84566a0, type: 2}
+  balloonData: {fileID: 11400000, guid: af776020413864f4c8b78cc5d677551a, type: 2}
   currentHP: 0
 --- !u!114 &-6683263261148253780
 MonoBehaviour:

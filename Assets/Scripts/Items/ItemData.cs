@@ -13,10 +13,13 @@ public class ItemData
     public string itemTypeString;
     [NonSerialized]
     public ItemType itemType;
-    public int HP;
+    public int maxHP;
     public bool isBuoyancy;
     public bool isReinforced;
     public string iconPath;
+    public float buoyancyForce;                             
+    public int degradationRate;                             
+    public float durabilityMultiplier;                      
 
     // 문자열을 열거형으로 변환하는 메서드
     public void InitalizeEnums()
