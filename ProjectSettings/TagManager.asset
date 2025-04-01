@@ -9,6 +9,7 @@ TagManager:
   - SpaceGround
   - Balloon
   - Obstacle
+  - Enemy
   layers:
   - Default
   - TransparentFX

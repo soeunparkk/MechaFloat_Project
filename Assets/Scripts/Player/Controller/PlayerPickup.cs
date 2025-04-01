@@ -74,8 +74,6 @@ public class PlayerPickup : MonoBehaviour
         nearbyBalloon = null;
     }
 
-
-    // 드랍을 할때 원래 스폰했던 풍선 위치로 드랍되는건지 아니면 자기 앞에 그냥 떨어지는건지 알면 수정 예정
     private void DropBalloon()
     {
         if (currentBalloon == null) return;
