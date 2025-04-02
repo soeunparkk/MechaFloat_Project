@@ -955,7 +955,7 @@ Transform:
   m_GameObject: {fileID: 943970615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.02, y: 0.71, z: 33.41}
+  m_LocalPosition: {x: 5.02, y: -0.03, z: 35.39}
   m_LocalScale: {x: 1.99475, y: 1.99475, z: 1.99475}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1271,11 +1271,11 @@ MonoBehaviour:
   fallingThreshold: -0.1
   groundCheckDistance: 0.3
   slopedLimit: 45
-  spaceGravity: -1.5
+  spaceGravity: -0.1
   slowDownFactor: 1
   maxRiseSpeed: 10
   maxFallSpeed: -2
-  zeroGravityJumpForce: 10
+  zeroGravityJumpForce: 3
 --- !u!114 &1166490462
 MonoBehaviour:
   m_ObjectHideFlags: 0

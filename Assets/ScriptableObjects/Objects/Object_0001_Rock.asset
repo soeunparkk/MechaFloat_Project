@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e59fca82d7dcbf4b925d4be581f2f37, type: 3}
+  m_Name: Object_0001+Rock
+  m_EditorClassIdentifier: 
+  id: 1
+  objectName: "\uBC14\uC704"
+  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uC774\uB3D9\uC744 \uBC29\uD574\uD558\uB294
+    \uC7A5\uC560\uBB3C"
+  objectNameEng: Rock
+  stageAppearanceeffect: "\uC9C0\uC0C1, \uACE0\uBAA9\uB098\uBB34"
+  StatusEffect: "\uC774\uB3D9 \uCC28\uB2E8"
+  objectType: 0
