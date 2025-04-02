@@ -21,7 +21,6 @@ public class StageData
     public string stageTypeString;
     public string stageDifficultyTypeString;
 
-    // 문자열을 열거형으로 변환하는 메서드
     public void InitalizeEnums()
     {
         if (Enum.TryParse(stageTypeString, out StageType parsedType))
@@ -31,7 +30,6 @@ public class StageData
         else
         {
             Debug.Log($"아이템 : '{stageName}'에 유효하지 않은 아이템 타입 : {stageTypeString}");
-            // 기본값 설정
             stageType = StageType.Ground;
         }
 

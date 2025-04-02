@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 238584052}
   m_Layer: 0
   m_Name: Ground (1)
-  m_TagString: SpaceGround
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 943970616}
   m_Layer: 0
   m_Name: Ground (5)
-  m_TagString: SpaceGround
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1271,11 +1271,10 @@ MonoBehaviour:
   fallingThreshold: -0.1
   groundCheckDistance: 0.3
   slopedLimit: 45
-  spaceGravity: -0.1
-  slowDownFactor: 1
+  slowDownFactor: 0.5
   maxRiseSpeed: 10
   maxFallSpeed: -2
-  zeroGravityJumpForce: 3
+  zeroGravityJumpForce: 5
 --- !u!114 &1166490462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,6 +1303,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460805d5fe9ed704d83499fad4f01b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1459859985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459859986}
+  - component: {fileID: 1459859987}
+  m_Layer: 0
+  m_Name: MapCheckingManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1459859986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459859985}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1459859987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459859985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb32790784a400e44b142ffa60eb7476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageDatabase: {fileID: 11400000, guid: 2a5c82e79d269794aa5b56b727ef61ac, type: 2}
 --- !u!1 &1536118040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,59 +1385,6 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 861893597}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1836266289
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1836266291}
-  - component: {fileID: 1836266290}
-  m_Layer: 0
-  m_Name: SpaceZone
-  m_TagString: SpaceZone
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &1836266290
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836266289}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1836266291
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836266289}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.74716, y: 124, z: 57}
-  m_LocalScale: {x: 115.13505, y: 262.82825, z: 72.271645}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2029047055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,7 +1401,7 @@ GameObject:
   - component: {fileID: 2029047061}
   m_Layer: 0
   m_Name: Ground (2)
-  m_TagString: SpaceGround
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1554,7 +1545,7 @@ GameObject:
   - component: {fileID: 2071246912}
   m_Layer: 0
   m_Name: Ground (4)
-  m_TagString: SpaceGround
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1661,7 +1652,7 @@ GameObject:
   - component: {fileID: 2089000848}
   m_Layer: 0
   m_Name: Ground (3)
-  m_TagString: SpaceGround
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2016,6 +2007,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 501736172}
+  - {fileID: 1459859986}
   - {fileID: 1166490458}
   - {fileID: 216901136}
   - {fileID: 238584055}
@@ -2023,7 +2015,6 @@ SceneRoots:
   - {fileID: 2029047059}
   - {fileID: 2071246915}
   - {fileID: 943970619}
-  - {fileID: 1836266291}
   - {fileID: 4745775805118145856}
   - {fileID: 5895234213808857327}
   - {fileID: 7023587342258334892}

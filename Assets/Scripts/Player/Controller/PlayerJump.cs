@@ -20,7 +20,6 @@ public class PlayerJump : MonoBehaviour
     public const int groundCheckPoints = 5;             // 지면 체크 포인트 수
 
     [Header("Gravity Settings")]
-    public float spaceGravity = -0.1f;                  // 우주 공간에서의 가짜 중력
     public float slowDownFactor = 0.5f;                 // 점프 후 감속 비율
     public float maxRiseSpeed = 5.0f;                   // 최대 상승 속도
     public float maxFallSpeed = -2.0f;                  // 최대 하강 속도
@@ -37,14 +36,18 @@ public class PlayerJump : MonoBehaviour
         playerPickup = GetComponent<PlayerPickup>();
 
         defaultGravity = Physics.gravity;
+
+        SetGravityState(true);
     }
 
     void FixedUpdate()
     {
         if (isZeroGravity)
         {
+            StageSO currentStage = MapCheckingManager.instance.currentStageSO;
+
             // 우주 구역: 가짜 중력 적용
-            rb.velocity += Vector3.up * spaceGravity * Time.fixedDeltaTime;
+            rb.velocity += Vector3.up * currentStage.gravity * Time.fixedDeltaTime;
 
             // 점프 후 감속 및 속도 제한
             if (rb.velocity.y > 0)
@@ -95,14 +98,18 @@ public class PlayerJump : MonoBehaviour
 
         if (balloonData != null && balloonData.isBuoyancy)
         {
-            // 부력이 적용되면 중력을 줄임
+            // 중력 감소
             Physics.gravity = new Vector3(0, normalGravity * buoyancyGravityFactor, 0);
+
+            // 부력 적용
+            rb.AddForce(Vector3.up * balloonData.buoyancyForce, ForceMode.Acceleration);
         }
         else
         {
             Physics.gravity = defaultGravity;
         }
     }
+
 
     public void ApplyBuoyancy()
     {
@@ -128,7 +135,7 @@ public class PlayerJump : MonoBehaviour
         if (grounded)
         {
             // 우주 공간 내의 발판을 밟았는지 확인
-            if (isZeroGravity && hit.collider.CompareTag("SpaceGround"))
+            if (isZeroGravity && hit.collider.CompareTag("Ground"))
             {
                 canJump = true;
                 return true;
@@ -163,21 +170,5 @@ public class PlayerJump : MonoBehaviour
     public float GetVerticalVelocity()
     {
         return rb.velocity.y;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("SpaceZone"))
-        {
-            SetGravityState(true);              // 우주에 들어가면 무중력
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("SpaceZone"))
-        {
-            SetGravityState(false);             // 우주에서 나오면 중력 다시 적용
-        }
     }
 }
