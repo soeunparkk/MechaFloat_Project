@@ -70,4 +70,19 @@ public class BalloonController : MonoBehaviour
         // 풍선 터지는 애니메이션 받으면 추가 예정 일단은 0이되면 파괴만
         Destroy(gameObject);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("WindZone"))
+        {
+            Rigidbody balloonRb = GetComponent<Rigidbody>();
+            if (balloonRb != null)
+            {
+                Vector3 windDirection = other.transform.forward; 
+                float windStrength =5f; // 풍선이 가볍게 밀려나는 정도 (값 조절 가능)
+
+                balloonRb.AddForce(windDirection * windStrength, ForceMode.Force);
+            }
+        }
+    }
 }

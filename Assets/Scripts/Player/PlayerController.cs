@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     [NonSerialized]
     public PlayerPickup playerPickup;
 
+    public BalloonController balloon;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -111,5 +113,10 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+    }
+
+    public bool BalloonController
+    {
+        get { return balloon != null; } 
     }
 }

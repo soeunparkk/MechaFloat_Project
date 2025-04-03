@@ -10,6 +10,7 @@ TagManager:
   - Balloon
   - Obstacle
   - Enemy
+  - WindZone
   layers:
   - Default
   - TransparentFX

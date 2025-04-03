@@ -1,37 +1,50 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WindZone : MonoBehaviour
 {
-    public Vector3 windDirection = new Vector3(1f, 0f, 0f); // ¹Ù¶÷ ¹æÇâ
-    public float windStrength = 1f; // ¹Ù¶÷ÀÇ Èû
-    public float playerPushStrength = 10f; // Ç³¼± ¾øÀ» ¶§ ¹Ğ·Á³ª´Â Èû
-    public float balloonDrag = 2f; // Ç³¼±ÀÌ ÀÖÀ» ¶§ °ø±â ÀúÇ× È¿°ú
-    public float normalDrag = 0.5f; // ±âº» °ø±â ÀúÇ× °ª
+    public Vector3 windDirection = new Vector3(1f, 0f, 0f); 
+    public float windStrength = 10f; // ë°”ëŒì˜ í˜
+    public float playerPushStrength = 15f; // í”Œë ˆì´ì–´ ë°€ë ¤ë‚˜ëŠ” í˜
+    public float balloonPushStrength = 0.5f; // í’ì„ ì´ ë°€ë ¤ë‚˜ëŠ” í˜
+    public float balloonDrag = 0.9f; // í’ì„  ìˆì„ ë•Œ ê³µê¸° ì €í•­
+    public float normalDrag = 0.3f; // ê¸°ë³¸ ê³µê¸° ì €í•­ ê°’
 
     private void OnTriggerStay(Collider other)
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb == null) return;
 
+        
         PlayerController player = other.GetComponent<PlayerController>();
         if (player != null)
         {
+            bool hasBalloon = player.BalloonController;
+            Debug.Log($" WindZone ì ìš© - HasBalloon: {hasBalloon}");
+
             Vector3 force = windDirection.normalized * windStrength;
 
-            if (player.playerPickup.isHasBalloon)
+            if (hasBalloon)
             {
-                // Ç³¼±ÀÌ ÀÖÀ» °æ¿ì ÃµÃµÈ÷ ¹Ğ¸®´Â È¿°ú + °ø±â ÀúÇ× Áõ°¡
                 rb.drag = balloonDrag;
-                rb.AddForce(force * 0.5f, ForceMode.Acceleration);
+                rb.AddForce(force * 0.1f, ForceMode.Force);
             }
             else
             {
-                // Ç³¼±ÀÌ ¾øÀ» °æ¿ì °­ÇÑ ¹Ù¶÷À¸·Î ºü¸£°Ô ¹Ğ·Á³²
                 rb.drag = normalDrag;
-                rb.AddForce(force * playerPushStrength, ForceMode.VelocityChange);
+                rb.AddForce(force * playerPushStrength, ForceMode.Force);
             }
+            return; 
+        }
+
+        
+        BalloonController balloon = other.GetComponent<BalloonController>();
+        if (balloon != null)
+        {
+            Debug.Log(" í’ì„ ì´ ë°”ëŒì— ë°€ë¦¼!");
+            rb.drag = balloonDrag;
+            rb.AddForce(windDirection.normalized * balloonPushStrength, ForceMode.Force);
         }
     }
 }
