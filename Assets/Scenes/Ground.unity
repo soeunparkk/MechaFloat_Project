@@ -1315,8 +1315,9 @@ MonoBehaviour:
   slopedLimit: 45
   slowDownFactor: 0.5
   maxRiseSpeed: 10
-  maxFallSpeed: -2
+  maxFallSpeed: -40
   zeroGravityJumpForce: 5
+  jumpForceMultiplier: 1.5
 --- !u!114 &1166490462
 MonoBehaviour:
   m_ObjectHideFlags: 0
