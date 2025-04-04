@@ -24,10 +24,8 @@ public class PlayerJump : MonoBehaviour
     public float maxRiseSpeed = 5.0f;                   // 최대 상승 속도
     public float maxFallSpeed = -2.0f;                  // 최대 하강 속도
     public float zeroGravityJumpForce = 3.0f;           // 우주에서의 점프력
-
-    private float normalGravity = -9.81f;
-    private float buoyancyGravityFactor = 0.5f;
-
+    public float ballonFallSpeed = -2f;                 // 헬륨 풍선 장착시 중력값
+    
     private Vector3 defaultGravity;                     // 기본 중력 값 저장
 
     void Start()
@@ -99,10 +97,7 @@ public class PlayerJump : MonoBehaviour
         if (balloonData != null && balloonData.isBuoyancy)
         {
             // 중력 감소
-            Physics.gravity = new Vector3(0, normalGravity * buoyancyGravityFactor, 0);
-
-            // 부력 적용
-            rb.AddForce(Vector3.up * balloonData.buoyancyForce, ForceMode.Acceleration);
+            rb.velocity = new Vector3(rb.velocity.x, ballonFallSpeed, rb.velocity.z);
         }
         else
         {
