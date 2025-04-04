@@ -37,7 +37,7 @@ public class PlayerJump : MonoBehaviour
 
         defaultGravity = Physics.gravity;
 
-        SetGravityState(true);
+        //SetGravityState(true);
     }
 
     void FixedUpdate()
