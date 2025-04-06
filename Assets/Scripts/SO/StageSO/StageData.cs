@@ -20,6 +20,7 @@ public class StageData
     public StageDifficultyType stageDifficultyType;
     public string stageTypeString;
     public string stageDifficultyTypeString;
+    public bool isZeroGravityMap;
 
     public void InitalizeEnums()
     {

@@ -17,6 +17,9 @@ public class ItemSO : ScriptableObject
     public float buoyancyForce;                             // 부력시 중력 증가량
     public int degradationRate;                             // 초당 내구도 닳는 양
     public float durabilityMultiplier;                      // 강화 풍선의 내구도 효율
+    public float gravityScale;                              // 부력 적용시 사용할 중력 스케일
+    public float maxRiseSpeed;                              // 최대 상승 속도
+    public float maxFallSpeed;                              // 최대 하강 속도
 
     public override string ToString()
     {

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62858b92ae09ae445b46868bbc2a3918, type: 3}
-  m_Name: Stage_0002_Ancient Tree
+  m_Name: Stage_0002+Ancient Tree
   m_EditorClassIdentifier: 
   id: 2
   stageName: "\uACE0\uBAA9\uB098\uBB34"
@@ -23,3 +23,4 @@ MonoBehaviour:
     \uD45C\uBA74"
   stageType: 1
   stageDifficultyType: 1
+  isZeroGravityMap: 0
