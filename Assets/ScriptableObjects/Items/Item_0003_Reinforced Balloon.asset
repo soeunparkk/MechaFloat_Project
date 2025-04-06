@@ -24,3 +24,6 @@ MonoBehaviour:
   buoyancyForce: 0
   degradationRate: 1
   durabilityMultiplier: 0.5
+  gravityScale: 0
+  maxRiseSpeed: 10
+  maxFallSpeed: -40

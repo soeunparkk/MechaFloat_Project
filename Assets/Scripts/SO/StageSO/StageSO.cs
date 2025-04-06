@@ -16,6 +16,7 @@ public class StageSO : ScriptableObject
     public string specialFeatures;
     public StageType stageType;
     public StageDifficultyType stageDifficultyType;
+    public bool isZeroGravityMap;
 
     public string DisplayName
     {

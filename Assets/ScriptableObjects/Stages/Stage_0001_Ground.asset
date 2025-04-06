@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62858b92ae09ae445b46868bbc2a3918, type: 3}
-  m_Name: Stage_0001_Ground
+  m_Name: Stage_0001+Ground
   m_EditorClassIdentifier: 
   id: 1
   stageName: "\uC9C0\uC0C1"
@@ -22,3 +22,4 @@ MonoBehaviour:
   specialFeatures: "\uC5B8\uB355, \uC791\uC740 \uC7A5\uC560\uBB3C"
   stageType: 0
   stageDifficultyType: 0
+  isZeroGravityMap: 0
