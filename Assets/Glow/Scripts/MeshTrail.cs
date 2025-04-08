@@ -88,7 +88,7 @@ public class MeshTrail : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isTrailActive)  //스페이스바를 누르고 현재 잔상 효과가 비활성화일 때
+        if (Input.GetMouseButtonDown(0) && !isTrailActive)  //스페이스바를 누르고 현재 잔상 효과가 비활성화일 때
         {
             isTrailActive = true;
             StartCoroutine(ActivateTrail(activeTime));              //잔상 효과 코루틴 시작 
