@@ -129,6 +129,10 @@ public class JsonToScriptableConverter : EditorWindow
                 itemSO.buoyancyForce = itemData.buoyancyForce;
                 itemSO.degradationRate = itemData.degradationRate;
                 itemSO.durabilityMultiplier = itemData.durabilityMultiplier;
+                itemSO.gravityScale = itemData.gravityScale;
+                itemSO.maxRiseSpeed = itemData.maxRiseSpeed;
+                itemSO.maxFallSpeed = itemData.maxFallSpeed;
+                
 
                 // 아이콘 로드 (경로가 있는 경우)
                 if (!string.IsNullOrEmpty(itemData.iconPath))
@@ -215,6 +219,7 @@ public class JsonToScriptableConverter : EditorWindow
                 stageSO.wind = stageData.wind;
                 stageSO.difficulty = stageData.difficulty;
                 stageSO.specialFeatures = stageData.specialFeatures;
+                stageSO.isZeroGravityMap = stageData.isZeroGravityMap;
 
                 // 스크립터블 오브젝트 저장 - ID를 4자리 수자로 포맷팅
                 string assetPath = $"{outputFolder}/Stage_{stageData.id.ToString("D4")}_{stageData.stageNameEng}.asset";

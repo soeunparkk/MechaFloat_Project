@@ -12,18 +12,20 @@ public class PlayerJump : MonoBehaviour
     private PlayerPickup playerPickup;
 
     private bool canJump = true;
-    private bool isZeroGravity = false;                 // 무중력 상태 여부
+    public bool isZeroGravity = false;                 // 무중력 상태 여부
 
     [Header("Ground Check Setting")]
     public float groundCheckDistance = 0.3f;
     public float slopedLimit = 45f;                     // 등반 가능한 최대 경사 각도
     public const int groundCheckPoints = 5;             // 지면 체크 포인트 수
 
-    [Header("Gravity Settings")]
+    [Header("Gravity Setting")]
+    [Header("Space Gravity")]
     public float slowDownFactor = 0.5f;                 // 점프 후 감속 비율
-    public float maxRiseSpeed = 5.0f;                   // 최대 상승 속도
-    public float maxFallSpeed = -2.0f;                  // 최대 하강 속도
     public float zeroGravityJumpForce = 3.0f;           // 우주에서의 점프력
+    [Header("All Gravity")]
+    public float maxRiseSpeed;                          // 최대 상승 속도
+    public float maxFallSpeed;                          // 최대 하강 속도
 
     private float normalGravity = -9.81f;
     private float buoyancyGravityFactor = 0.5f;
@@ -36,12 +38,12 @@ public class PlayerJump : MonoBehaviour
         playerPickup = GetComponent<PlayerPickup>();
 
         defaultGravity = Physics.gravity;
-
-        SetGravityState(true);
     }
 
     void FixedUpdate()
     {
+        ItemSO balloonData = playerPickup.GetCurrentBalloonData();
+
         if (isZeroGravity)
         {
             StageSO currentStage = MapCheckingManager.instance.currentStageSO;
@@ -49,32 +51,30 @@ public class PlayerJump : MonoBehaviour
             // 우주 구역: 가짜 중력 적용
             rb.velocity += Vector3.up * currentStage.gravity * Time.fixedDeltaTime;
 
-            // 점프 후 감속 및 속도 제한
+            // 점프 후 감속
             if (rb.velocity.y > 0)
             {
                 rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.fixedDeltaTime * slowDownFactor);
             }
 
-            // 최대 상승 속도 제한
-            if (rb.velocity.y > maxRiseSpeed)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, maxRiseSpeed, rb.velocity.z);
-            }
+            // 풍선이 있다면 SO 기준 속도 제한, 없으면 기본값
+            float riseLimit = (balloonData != null && balloonData.isBuoyancy) ? balloonData.maxRiseSpeed : maxRiseSpeed;
+            float fallLimit = (balloonData != null && balloonData.isBuoyancy) ? balloonData.maxFallSpeed : maxFallSpeed;
 
-            // 최대 하강 속도 제한
-            if (rb.velocity.y < maxFallSpeed)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, maxFallSpeed, rb.velocity.z);
-            }
+            rb.velocity = new Vector3(
+                rb.velocity.x,
+                Mathf.Clamp(rb.velocity.y, fallLimit, riseLimit),
+                rb.velocity.z
+            );
         }
         else
         {
-            // 일반 구역: 기본 중력 사용
             Physics.gravity = defaultGravity;
         }
 
         ApplyBuoyancyEffect();
     }
+
 
     public void HandleJump()
     {
@@ -98,17 +98,26 @@ public class PlayerJump : MonoBehaviour
 
         if (balloonData != null && balloonData.isBuoyancy)
         {
-            // 중력 감소
-            Physics.gravity = new Vector3(0, normalGravity * buoyancyGravityFactor, 0);
+            // 중력 조절
+            Physics.gravity = new Vector3(0, normalGravity * balloonData.gravityScale, 0);
 
             // 부력 적용
             rb.AddForce(Vector3.up * balloonData.buoyancyForce, ForceMode.Acceleration);
+
+            // 상승/하강 속도 제한 적용
+            float clampedY = Mathf.Clamp(rb.velocity.y, balloonData.maxFallSpeed, balloonData.maxRiseSpeed);
+            rb.velocity = new Vector3(rb.velocity.x, clampedY, rb.velocity.z);
         }
         else
         {
             Physics.gravity = defaultGravity;
+
+            // 기본 속도 제한
+            float clampedY = Mathf.Clamp(rb.velocity.y, maxFallSpeed, maxRiseSpeed);
+            rb.velocity = new Vector3(rb.velocity.x, clampedY, rb.velocity.z);
         }
     }
+
 
 
     public void ApplyBuoyancy()

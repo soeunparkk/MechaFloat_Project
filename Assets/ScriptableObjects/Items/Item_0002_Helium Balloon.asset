@@ -22,6 +22,9 @@ MonoBehaviour:
   isBuoyancy: 1
   isReinforced: 0
   icon: {fileID: 0}
-  buoyancyForce: 2
+  buoyancyForce: -1
   degradationRate: 1
   durabilityMultiplier: 1
+  gravityScale: -0.1
+  maxRiseSpeed: 10
+  maxFallSpeed: -0.3

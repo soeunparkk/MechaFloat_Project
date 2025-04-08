@@ -19,7 +19,10 @@ public class ItemData
     public string iconPath;
     public float buoyancyForce;                             
     public int degradationRate;                             
-    public float durabilityMultiplier;                      
+    public float durabilityMultiplier;
+    public float gravityScale;
+    public float maxRiseSpeed;
+    public float maxFallSpeed;
 
     // 문자열을 열거형으로 변환하는 메서드
     public void InitalizeEnums()
