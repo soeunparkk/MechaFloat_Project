@@ -64,6 +64,13 @@ public class BalloonController : MonoBehaviour
         }
     }
 
+    public void SetCurrentDurability(int hp)
+    {
+        currentHP = Mathf.Clamp(hp, 0, balloonData.maxHP);
+
+        // 필요한 경우 내구도 UI도 갱신
+    }
+
     private void DestroyBalloon()
     {
         Debug.Log("풍선이 터졌습니다!");
