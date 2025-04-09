@@ -37,7 +37,10 @@ public class PlayerJump : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerPickup = GetComponent<PlayerPickup>();
 
-        defaultGravity = Physics.gravity;
+        if (!isZeroGravity)
+        {
+            defaultGravity = Physics.gravity;
+        }
     }
 
     void FixedUpdate()
@@ -66,10 +69,6 @@ public class PlayerJump : MonoBehaviour
                 Mathf.Clamp(rb.velocity.y, fallLimit, riseLimit),
                 rb.velocity.z
             );
-        }
-        else
-        {
-            Physics.gravity = defaultGravity;
         }
 
         ApplyBuoyancyEffect();
@@ -163,16 +162,23 @@ public class PlayerJump : MonoBehaviour
     public void SetGravityState(bool zeroGravity)
     {
         isZeroGravity = zeroGravity;
-        rb.useGravity = !zeroGravity;           // 무중력 상태면 중력 OFF
+        rb.useGravity = !zeroGravity;
 
         if (zeroGravity)
         {
-            rb.velocity = Vector3.zero;         // 무중력 상태에서 바로 속도를 리셋
-            Physics.gravity = Vector3.zero;     // 중력 제거
+            rb.velocity = Vector3.zero;
+            Physics.gravity = Vector3.zero;
         }
         else
         {
-            Physics.gravity = defaultGravity;   // 기본 중력 복원
+            StageSO currentStage = MapCheckingManager.instance.currentStageSO;
+
+            // StageSO의 gravity를 Physics.gravity에 반영
+            float gravityValue = currentStage != null ? currentStage.gravity : -9.81f;
+            Vector3 newGravity = new Vector3(0, gravityValue, 0);
+
+            Physics.gravity = newGravity;
+            defaultGravity = newGravity; // 기본 중력값도 갱신
         }
     }
 
