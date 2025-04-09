@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e59fca82d7dcbf4b925d4be581f2f37, type: 3}
-  m_Name: Object_0001_Rock
+  m_Name: Object_0006+Bird
   m_EditorClassIdentifier: 
-  id: 1
-  objectName: "\uBC14\uC704"
-  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uC774\uB3D9\uC744 \uBC29\uD574\uD558\uB294
-    \uC7A5\uC560\uBB3C"
-  objectNameEng: Rock
-  stageAppearanceeffect: "\uC9C0\uC0C1, \uACE0\uBAA9\uB098\uBB34"
-  StatusEffect: "\uC774\uB3D9 \uCC28\uB2E8"
-  objectType: 0
+  id: 6
+  objectName: "\uC0C8"
+  description: "\uAD6C\uB984 \uC2A4\uD14C\uC774\uC9C0\uC5D0\uC11C \uB0A0\uC544\uB2E4\uB2C8\uBA70
+    \uBD80\uB52A\uD788\uBA74 \uD53C\uACA9"
+  objectNameEng: Bird
+  stageAppearanceeffect: "\uD558\uB298"
+  StatusEffect: "HP \uAC10\uC18C"
+  objectType: 5

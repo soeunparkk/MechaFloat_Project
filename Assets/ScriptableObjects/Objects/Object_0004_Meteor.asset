@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e59fca82d7dcbf4b925d4be581f2f37, type: 3}
-  m_Name: Object_0004+Meteor
+  m_Name: Object_0004_Meteor
   m_EditorClassIdentifier: 
   id: 4
   objectName: "\uC720\uC131"

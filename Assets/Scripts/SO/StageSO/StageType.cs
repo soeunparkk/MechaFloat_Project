@@ -3,5 +3,6 @@ public enum StageType
     Ground,
     AncientTree,
     Sky,
-    Space
+    Space,
+    Cloud
 }

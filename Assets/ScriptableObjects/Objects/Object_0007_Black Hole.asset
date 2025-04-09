@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e59fca82d7dcbf4b925d4be581f2f37, type: 3}
-  m_Name: Object_0001_Rock
+  m_Name: Object_0007+Black Hole
   m_EditorClassIdentifier: 
-  id: 1
-  objectName: "\uBC14\uC704"
-  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uC774\uB3D9\uC744 \uBC29\uD574\uD558\uB294
-    \uC7A5\uC560\uBB3C"
-  objectNameEng: Rock
-  stageAppearanceeffect: "\uC9C0\uC0C1, \uACE0\uBAA9\uB098\uBB34"
-  StatusEffect: "\uC774\uB3D9 \uCC28\uB2E8"
-  objectType: 0
+  id: 7
+  objectName: "\uBE14\uB799\uD640"
+  description: "\uB2FF\uC73C\uBA74 \uC2A4\uD14C\uC774\uC9C01\uB85C \uAC15\uC81C \uC774\uB3D9\uB428"
+  objectNameEng: Black Hole
+  stageAppearanceeffect: "\uC6B0\uC8FC"
+  StatusEffect: "\uC2A4\uD14C\uC774\uC9C01 \uC774\uB3D9"
+  objectType: 6

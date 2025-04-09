@@ -4,5 +4,7 @@ public enum ObjectType
     CloudPlatform,
     WindTunnel,
     Meteor,
-    SpaceDebris
+    SpaceDebris,
+    Bird,
+    BlackHole
 }

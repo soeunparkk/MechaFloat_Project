@@ -17,7 +17,7 @@ MonoBehaviour:
   description: "\uBB34\uC911\uB825 \uC0C1\uD0DC\uC5D0\uC11C \uBC29\uD5A5\uC744 \uC870\uC808\uD558\uBA70
     \uC9C4\uD589"
   stageNameEng: Space
-  gravity: 0.1
+  gravity: -0.1
   wind: None
   difficulty: Very Hard
   specialFeatures: "\uBB34\uC911\uB825 \uC774\uB3D9, \uC6B0\uC8FC \uC7A5\uC560\uBB3C"

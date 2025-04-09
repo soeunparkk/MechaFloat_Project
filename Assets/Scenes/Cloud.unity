@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb32790784a400e44b142ffa60eb7476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageDatabase: {fileID: 11400000, guid: 2a5c82e79d269794aa5b56b727ef61ac, type: 2}
+  stageDatabase: {fileID: 11400000, guid: 92f4eeff7a7b6954b8b09af2fabec75d, type: 2}
 --- !u!1 &1536118040
 GameObject:
   m_ObjectHideFlags: 0
