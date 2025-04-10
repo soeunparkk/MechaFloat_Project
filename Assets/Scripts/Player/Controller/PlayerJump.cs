@@ -55,9 +55,10 @@ public class PlayerJump : MonoBehaviour
             rb.velocity += Vector3.up * currentStage.gravity * Time.fixedDeltaTime;
 
             // 점프 후 감속
-            if (rb.velocity.y > 0)
+            if (isZeroGravity && rb.velocity.y > 0)
             {
-                rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.fixedDeltaTime * slowDownFactor);
+                float slowDownRate = 0.2f;
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * (1 - slowDownRate * Time.fixedDeltaTime), rb.velocity.z);
             }
 
             // 풍선이 있다면 SO 기준 속도 제한, 없으면 기본값
@@ -85,7 +86,7 @@ public class PlayerJump : MonoBehaviour
             }
             else
             {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             }
             canJump = false;
         }
