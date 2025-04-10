@@ -22,36 +22,22 @@ public class MapCheckingManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void SetCurrentStage(StageSO newStageSO)
     {
-        UpdateCurrentStage();
-    }
+        if (newStageSO == null) return;
 
-    public void UpdateCurrentStage()
-    {
-        if (stageDatabase == null)
+        currentStageSO = newStageSO;
+        Debug.Log($"스테이지 변경됨: {currentStageSO.stageName}");
+
+        PlayerJump playerJump = FindObjectOfType<PlayerJump>();
+        if (playerJump != null)
         {
-            Debug.LogError("StageDatabaseSO가 할당되지 않았습니다!");
-            return;
+            playerJump.SetGravityState(currentStageSO.isZeroGravityMap);
         }
-
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        currentStageSO = stageDatabase.GetItemByName(currentSceneName);
-
-        if (currentStageSO != null)
+        else
         {
-            Debug.Log($"현재 스테이지: {currentStageSO.stageName} (씬: {currentSceneName})");
-
-            // 무중력 설정 적용
-            PlayerJump playerJump = FindObjectOfType<PlayerJump>();
-            if (playerJump != null)
-            {
-                playerJump.SetGravityState(currentStageSO.isZeroGravityMap);
-            }
-            else
-            {
-                Debug.LogWarning("PlayerJump를 찾을 수 없습니다!");
-            }
+            Debug.LogWarning("PlayerJump를 찾을 수 없습니다!");
         }
     }
+
 }

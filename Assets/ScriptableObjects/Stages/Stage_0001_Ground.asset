@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   stageName: "\uC9C0\uC0C1"
   description: "\uD3C9\uBC94\uD558\uACE0 \uD29C\uD1A0\uB9AC\uC5BC \uAE30\uBCF8 \uC2A4\uD14C\uC774\uC9C0"
-  stageNameEng: Test_Scene1
+  stageNameEng: Ground
   gravity: -9.81
   wind: "None\t"
   difficulty: Easy
