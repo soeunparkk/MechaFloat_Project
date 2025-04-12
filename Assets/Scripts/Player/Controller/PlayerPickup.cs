@@ -1,104 +1,81 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour
 {
-    [Header("Pickup Settings")]
-    public Transform balloonPivot;
-    public float pickupRange = 1.0f;
-    public bool isHasBalloon = false;
+    [Header("References")]
+    [SerializeField] private Transform balloonPivot;
+    [SerializeField] private float pickupRange = 2f;
 
-    private GameObject currentBalloon = null;
-    private GameObject nearbyBalloon = null;
-
-    public BalloonController equippedBalloon = null;
-
-    void Update()
+    private void Update()
     {
-        FindNearbyBalloon();
+        AutoPickupBalloon();
     }
 
-    public void HandlePickup()
+    private void AutoPickupBalloon()
     {
-        if (currentBalloon == null && nearbyBalloon != null)
+        Collider[] hits = Physics.OverlapSphere(transform.position, pickupRange);
+        foreach (Collider hit in hits)
         {
-            PickupBalloon();
-        }
-        else if (currentBalloon != null)
-        {
-            DropBalloon();
-        }
-    }
-
-    private void FindNearbyBalloon()
-    {
-        Collider[] balloonCol = Physics.OverlapSphere(transform.position, pickupRange);
-        nearbyBalloon = null;
-
-        foreach (Collider colliders in balloonCol)
-        {
-            if (colliders.CompareTag("Balloon"))
+            if (hit.CompareTag("Balloon") &&
+                hit.TryGetComponent(out BalloonController balloon) &&
+                balloon.assignedSlot == -1) // 이미 인벤토리에 있는 풍선 제외
             {
-                nearbyBalloon = colliders.gameObject;
-                break;
+                AttemptAddToInventory(balloon);
             }
         }
     }
 
-    public ItemSO GetCurrentBalloonData()
+    private void AttemptAddToInventory(BalloonController balloon)
     {
-        if (currentBalloon != null)
+        bool success = InventoryManager.Instance.AddToInventory(balloon);
+        if (success)
         {
-            BalloonController balloon = currentBalloon.GetComponent<BalloonController>();
-            return balloon != null ? balloon.balloonData : null;
+            StoreBalloon(balloon);
         }
-        return null;
     }
 
-    public void PickupBalloon()
+    private void StoreBalloon(BalloonController balloon)
     {
-        if (nearbyBalloon == null) return;
-
-        currentBalloon = nearbyBalloon;
-        currentBalloon.transform.SetParent(balloonPivot);
-        currentBalloon.transform.localPosition = Vector3.zero;
-        currentBalloon.transform.localRotation = Quaternion.identity;
-
-        Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
-        if (rb) rb.isKinematic = true;
-
-        equippedBalloon = currentBalloon.GetComponent<BalloonController>(); // 현재 장착된 풍선 저장
-        equippedBalloon?.StartDurabilityReduction();
-
-        isHasBalloon = true;
-
-        nearbyBalloon = null;
+        balloon.transform.SetParent(transform);
+        balloon.transform.localPosition = Vector3.zero;
+        balloon.gameObject.SetActive(false);
     }
 
-    public void DropBalloon()
+    public void HandleEquipmentToggle()
     {
-        if (currentBalloon == null) return;
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            BalloonController selected = InventoryManager.Instance.GetSelectedBalloon();
+            if (selected == null) return;
 
-        currentBalloon.transform.SetParent(null);
-
-        Rigidbody rb = currentBalloon.GetComponent<Rigidbody>();
-        if (rb) rb.isKinematic = false;
-
-        currentBalloon.transform.position += Vector3.down * 0.5f;
-
-        equippedBalloon?.StopDurabilityReduction();
-        equippedBalloon = null;
-
-        isHasBalloon = false;
-
-        currentBalloon = null;
+            if (InventoryManager.Instance.IsBalloonEquipped(selected.assignedSlot))
+            {
+                UnequipBalloon(selected);
+            }
+            else
+            {
+                EquipBalloon(selected);
+            }
+        }
     }
 
-    private void OnDrawGizmos()
+    private void EquipBalloon(BalloonController balloon)
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
+        InventoryManager.Instance.UnequipCurrentBalloon();
+
+        balloon.transform.SetParent(balloonPivot);
+        balloon.transform.localPosition = Vector3.zero;
+        balloon.gameObject.SetActive(true);
+        balloon.StartDurabilityReduction();
+        InventoryManager.Instance.UpdateHotbarUI(balloon.assignedSlot);
+    }
+
+    private void UnequipBalloon(BalloonController balloon)
+    {
+        balloon.transform.SetParent(transform);
+        balloon.transform.localPosition = Vector3.zero;
+        balloon.gameObject.SetActive(false);
+        balloon.StopDurabilityReduction();
+        InventoryManager.Instance.UpdateHotbarUI(balloon.assignedSlot);
     }
 }

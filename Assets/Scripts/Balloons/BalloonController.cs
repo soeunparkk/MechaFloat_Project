@@ -9,6 +9,10 @@ public class BalloonController : MonoBehaviour
 
     private Coroutine durabilityCoroutine;
 
+    public System.Action OnDurabilityChanged;
+
+    [HideInInspector] public int assignedSlot = -1;
+
     private void Start()
     {
         if (balloonData != null)
@@ -59,22 +63,24 @@ public class BalloonController : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
             currentHP -= durability;
-
-            Debug.Log($"풍선 내구도 감소: {currentHP} (감소량: {durability})");
+            OnDurabilityChanged?.Invoke();
         }
+
+        DestroyBalloon();
     }
 
     public void SetCurrentDurability(int hp)
     {
         currentHP = Mathf.Clamp(hp, 0, balloonData.maxHP);
-
-        // 필요한 경우 내구도 UI도 갱신
     }
 
     private void DestroyBalloon()
     {
-        Debug.Log("풍선이 터졌습니다!");
-        // 풍선 터지는 애니메이션 받으면 추가 예정 일단은 0이되면 파괴만
+        if (assignedSlot != -1)
+        {
+            InventoryManager.Instance.RemoveFromInventory(assignedSlot);
+        }
+
         Destroy(gameObject);
     }
 

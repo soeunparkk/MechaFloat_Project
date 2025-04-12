@@ -45,7 +45,8 @@ public class PlayerJump : MonoBehaviour
 
     void FixedUpdate()
     {
-        ItemSO balloonData = playerPickup.GetCurrentBalloonData();
+        BalloonController equippedBalloon = InventoryManager.Instance.GetSelectedBalloon();
+        ItemSO balloonData = equippedBalloon != null ? equippedBalloon.balloonData : null;
 
         if (isZeroGravity)
         {
@@ -94,17 +95,14 @@ public class PlayerJump : MonoBehaviour
 
     private void ApplyBuoyancyEffect()
     {
-        ItemSO balloonData = playerPickup.GetCurrentBalloonData();
+        BalloonController equippedBalloon = InventoryManager.Instance.GetEquippedBalloon(); // ← 변경됨!
+        ItemSO balloonData = equippedBalloon != null ? equippedBalloon.balloonData : null;
 
         if (balloonData != null && balloonData.isBuoyancy)
         {
-            // 중력 조절
             Physics.gravity = new Vector3(0, normalGravity * balloonData.gravityScale, 0);
-
-            // 부력 적용
             rb.AddForce(Vector3.up * balloonData.buoyancyForce, ForceMode.Acceleration);
 
-            // 상승/하강 속도 제한 적용
             float clampedY = Mathf.Clamp(rb.velocity.y, balloonData.maxFallSpeed, balloonData.maxRiseSpeed);
             rb.velocity = new Vector3(rb.velocity.x, clampedY, rb.velocity.z);
         }
@@ -112,21 +110,18 @@ public class PlayerJump : MonoBehaviour
         {
             Physics.gravity = defaultGravity;
 
-            // 기본 속도 제한
             float clampedY = Mathf.Clamp(rb.velocity.y, maxFallSpeed, maxRiseSpeed);
             rb.velocity = new Vector3(rb.velocity.x, clampedY, rb.velocity.z);
         }
     }
 
-
-
     public void ApplyBuoyancy()
     {
-        ItemSO balloonData = playerPickup.GetCurrentBalloonData();
+        BalloonController equippedBalloon = InventoryManager.Instance.GetEquippedBalloon();
 
-        if (balloonData != null && balloonData.isBuoyancy)
+        if (equippedBalloon != null && equippedBalloon.balloonData.isBuoyancy)
         {
-            rb.AddForce(Vector3.up * balloonData.buoyancyForce, ForceMode.Acceleration);
+            rb.AddForce(Vector3.up * equippedBalloon.balloonData.buoyancyForce, ForceMode.Acceleration);
         }
     }
 

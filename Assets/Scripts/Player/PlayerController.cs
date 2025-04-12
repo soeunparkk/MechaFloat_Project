@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            playerPickup.HandlePickup();
+            playerPickup.HandleEquipmentToggle();
         }
     }
 

@@ -20,7 +20,7 @@ MonoBehaviour:
   maxHP: 200
   isBuoyancy: 0
   isReinforced: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c4fca841c5892a14ea34387319b6fdc0, type: 3}
   buoyancyForce: 0
   degradationRate: 1
   durabilityMultiplier: 0.5

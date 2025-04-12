@@ -23,10 +23,14 @@ public class PlayerRespawn : MonoBehaviour
 
     private void RestoreBalloonDurability()
     {
-        if (playerPickup.equippedBalloon != null)
+        for (int i = 0; i < 4; i++)
         {
-            ItemSO balloonData = playerPickup.equippedBalloon.balloonData;
-            playerPickup.equippedBalloon.SetCurrentDurability(balloonData.maxHP);
+            BalloonController balloon = InventoryManager.Instance.GetBalloonAtSlot(i);
+            if (balloon != null)
+            {
+                balloon.SetCurrentDurability(balloon.balloonData.maxHP);
+                InventoryManager.Instance.UpdateHotbarUI(i);
+            }
         }
     }
 }
