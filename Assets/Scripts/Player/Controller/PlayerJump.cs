@@ -117,11 +117,23 @@ public class PlayerJump : MonoBehaviour
 
     public void ApplyBuoyancy()
     {
-        BalloonController equippedBalloon = InventoryManager.Instance.GetEquippedBalloon();
-
-        if (equippedBalloon != null && equippedBalloon.balloonData.isBuoyancy)
+        // 예외 방지용으로 null 체크를 추가
+        if (InventoryManager.Instance != null)
         {
-            rb.AddForce(Vector3.up * equippedBalloon.balloonData.buoyancyForce, ForceMode.Acceleration);
+            BalloonController equippedBalloon = InventoryManager.Instance.GetEquippedBalloon();
+
+            if (equippedBalloon != null && equippedBalloon.balloonData != null && equippedBalloon.balloonData.isBuoyancy)
+            {
+                rb.AddForce(Vector3.up * equippedBalloon.balloonData.buoyancyForce, ForceMode.Acceleration);
+            }
+            else
+            {
+                Debug.LogWarning("No balloon equipped!");
+            }
+        }
+        else
+        {
+            Debug.LogError("InventoryManager.Instance is null!");
         }
     }
 
