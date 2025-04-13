@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     [NonSerialized]
     public PlayerPickup playerPickup;
-
+    public bool HasBalloon { get; private set; } = false;
     public BalloonController balloon;
 
     void Start()
@@ -118,5 +118,16 @@ public class PlayerController : MonoBehaviour
     public bool BalloonController
     {
         get { return balloon != null; } 
+    }
+    public void PickupBalloon()
+    {
+        HasBalloon = true;
+        Debug.Log("🎈 헬륨 풍선 장착됨 - HasBalloon = true");
+    }
+
+    public void DropBalloon()
+    {
+        HasBalloon = false;
+        Debug.Log("💥 풍선 해제됨 - HasBalloon = false");
     }
 }
