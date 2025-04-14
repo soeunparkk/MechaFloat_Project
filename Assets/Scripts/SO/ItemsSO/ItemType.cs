@@ -1,4 +1,9 @@
 public enum ItemType
 {
-    Balloon
+    NormalBalloon,
+    HeliumBalloon,
+    ReinforcedBalloon,
+    NormalPiece,
+    HeliumPiece,
+    ReinforcedPiece
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 025d4b899ac6da942a9b7160484ac843, type: 3}
-  m_Name: Item_0001+Normal Balloon
+  m_Name: Item_0001_Normal Balloon
   m_EditorClassIdentifier: 
   id: 1
   itemName: "\uC77C\uBC18 \uD48D\uC120"

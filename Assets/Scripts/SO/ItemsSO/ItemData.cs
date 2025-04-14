@@ -35,7 +35,7 @@ public class ItemData
         {
             Debug.Log($"아이템 : '{itemName}'에 유효하지 않은 아이템 타입 : {itemTypeString}");
             // 기본값 설정
-            itemType = ItemType.Balloon;
+            itemType = ItemType.NormalBalloon;
         }
     }
 }

@@ -131,7 +131,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   balloonData: {fileID: 11400000, guid: 6050c38a4aed6ae4caf85d99079c7641, type: 2}
   currentHP: 0
+  assignedSlot: -1
 --- !u!114 &-6610329509715469296
 MonoBehaviour:
   m_ObjectHideFlags: 0

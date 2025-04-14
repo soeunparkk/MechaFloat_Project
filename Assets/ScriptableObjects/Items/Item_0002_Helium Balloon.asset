@@ -17,7 +17,7 @@ MonoBehaviour:
   nameEng: Helium Balloon
   description: "\uBD80\uC720\uB825(\uBD80\uB825) \uC99D\uAC00\uD558\uB294 \uD48D\uC120
     \uC785\uB2C8\uB2E4"
-  itemType: 0
+  itemType: 1
   maxHP: 100
   isBuoyancy: 1
   isReinforced: 0

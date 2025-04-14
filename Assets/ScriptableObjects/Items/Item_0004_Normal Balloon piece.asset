@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025d4b899ac6da942a9b7160484ac843, type: 3}
+  m_Name: Item_0004+Normal Balloon piece
+  m_EditorClassIdentifier: 
+  id: 4
+  itemName: "\uC77C\uBC18 \uD48D\uC120 \uC870\uAC01"
+  nameEng: Normal Balloon piece
+  description: "\uAE30\uBCF8 \uD48D\uC120 \uC870\uAC01\uC785\uB2C8\uB2E4"
+  itemType: 3
+  maxHP: 0
+  isBuoyancy: 0
+  isReinforced: 0
+  icon: {fileID: 0}
+  buoyancyForce: 0
+  degradationRate: 0
+  durabilityMultiplier: 0
+  gravityScale: 0
+  maxRiseSpeed: 0
+  maxFallSpeed: 0
