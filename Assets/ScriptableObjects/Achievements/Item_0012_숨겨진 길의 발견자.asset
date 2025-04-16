@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc4d7e02cf4b0949a3ed3223ad4df98, type: 3}
+  m_Name: "Item_0012+\uC228\uACA8\uC9C4 \uAE38\uC758 \uBC1C\uACAC\uC790"
+  m_EditorClassIdentifier: 
+  id: 12
+  achievementName: "\uC228\uACA8\uC9C4 \uAE38\uC758 \uBC1C\uACAC\uC790"
+  description: "\uC228\uACA8\uC9C4 \uACBD\uB85C\uB97C \uBC1C\uACAC"
+  isAchievement: 0
+  compensationSkin: 1012
+  compensationTitle: 10012

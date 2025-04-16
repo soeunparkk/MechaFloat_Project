@@ -10,7 +10,10 @@ public enum ConversionType
 {
     Items,
     Stages,
-    Objects
+    Objects,
+    Achievement,
+    Skin,
+    Title
 }
 
 public class JsonToScriptableConverter : EditorWindow
@@ -56,6 +59,18 @@ public class JsonToScriptableConverter : EditorWindow
         {
             outputFolder = "Assets/ScriptableObjects/Objects";
         }
+        else if (conversionType == ConversionType.Achievement)
+        {
+            outputFolder = "Assets/ScriptableObjects/Achievements";
+        }
+        else if (conversionType == ConversionType.Skin)
+        {
+            outputFolder = "Assets/ScriptableObjects/Skins";
+        }
+        else if (conversionType == ConversionType.Title)
+        {
+            outputFolder = "Assets/ScriptableObjects/Titles";
+        }
 
         outputFolder = EditorGUILayout.TextField("Output Folder :", outputFolder);
         creatDatabase = EditorGUILayout.Toggle("Create Database Asset", creatDatabase);
@@ -79,6 +94,15 @@ public class JsonToScriptableConverter : EditorWindow
                     break;
                 case ConversionType.Objects:
                     ConverterJsonToObjectScriptableObjects();
+                    break;
+                case ConversionType.Achievement:
+                    ConverterJsonToAchievementScriptableObjects();
+                    break;
+                case ConversionType.Skin:
+                    ConverterJsonToSkinScriptableObjects();
+                    break;
+                case ConversionType.Title:
+                    ConverterJsonToTitleScriptableObjects();
                     break;
             }
         }
@@ -317,6 +341,189 @@ public class JsonToScriptableConverter : EditorWindow
             AssetDatabase.Refresh();
 
             EditorUtility.DisplayDialog("Sucess", $"Created {createdobjects.Count} scriptable objects!", "OK");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.DisplayDialog("Error", $"Failed to Convert JSON : {e.Message}", "OK");
+            Debug.LogError($"JSON 변환 오류: . {e}");
+        }
+    }
+
+    private void ConverterJsonToAchievementScriptableObjects()
+    {
+        if (!Directory.Exists(outputFolder))                                     
+        {
+            Directory.CreateDirectory(outputFolder);
+        }
+
+        // JSON 파일 읽기
+        string jsonText = File.ReadAllText(jsonFilePath);                          
+
+        try
+        {
+            List<AchievementData> achievementDataList = JsonConvert.DeserializeObject<List<AchievementData>>(jsonText);
+
+            List<AchievementSO> createdAchievements = new List<AchievementSO>();             
+
+            foreach (var achievementData in achievementDataList)
+            {
+                AchievementSO achievementSO = ScriptableObject.CreateInstance<AchievementSO>();
+
+                // 데이터 복사
+                achievementSO.id = achievementData.id;
+                achievementSO.achievementName = achievementData.achievementName;
+                achievementSO.description = achievementData.description;
+                achievementSO.isAchievement = achievementData.isAchievement;
+                achievementSO.compensationSkin = achievementData.compensationSkin;
+                achievementSO.compensationTitle = achievementData.compensationTitle;
+
+                string assetPath = $"{outputFolder}/Item_{achievementData.id.ToString("D4")}_{achievementData.achievementName}.asset";
+                AssetDatabase.CreateAsset(achievementSO, assetPath);
+
+                achievementSO.name = $"Item_{achievementData.id.ToString("D4")}+{achievementData.achievementName}";
+                createdAchievements.Add(achievementSO);
+
+                EditorUtility.SetDirty(achievementSO);
+            }
+
+            // 데이터베이스 생성
+            if (creatDatabase && createdAchievements.Count > 0)
+            {
+                AchievementDatabaseSO database = ScriptableObject.CreateInstance<AchievementDatabaseSO>();
+                database.achievements = createdAchievements;
+
+                AssetDatabase.CreateAsset(database, $"{outputFolder}/AchievementDatabase.asset");
+                EditorUtility.SetDirty(database);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            EditorUtility.DisplayDialog("Sucess", $"Created {createdAchievements.Count} scriptable objects!", "OK");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.DisplayDialog("Error", $"Failed to Convert JSON : {e.Message}", "OK");
+            Debug.LogError($"JSON 변환 오류: . {e}");
+        }
+    }
+
+    private void ConverterJsonToSkinScriptableObjects()
+    {
+        if (!Directory.Exists(outputFolder))                                    
+        {
+            Directory.CreateDirectory(outputFolder);
+        }
+
+        string jsonText = File.ReadAllText(jsonFilePath);                       
+
+        try
+        {
+            List<SkinData> skinDataList = JsonConvert.DeserializeObject<List<SkinData>>(jsonText);
+
+            List<SkinSO> createdSkins = new List<SkinSO>();                         
+
+            foreach (var skinData in skinDataList)
+            {
+                SkinSO skinSO = ScriptableObject.CreateInstance<SkinSO>();
+
+                skinSO.id = skinData.id;
+                skinSO.skinName = skinData.skinName;
+
+                if (!string.IsNullOrEmpty(skinData.skinPath))
+                {
+                    skinSO.skin = AssetDatabase.LoadAssetAtPath<Mesh>($"Assests/Resources/{skinData.skinPath}.png");
+
+                    if (skinSO.skin == null)
+                    {
+                        Debug.LogWarning($"아이템 '{skinData.skinName}'의 아이콘을 찾을 수 없습니다. : {skinData.skinPath}");
+                    }
+                }
+
+                string assetPath = $"{outputFolder}/Item_{skinData.id.ToString("D4")}_{skinData.skinName}.asset";
+                AssetDatabase.CreateAsset(skinSO, assetPath);
+
+                skinSO.name = $"Item_{skinData.id.ToString("D4")}+{skinData.skinName}";
+                createdSkins.Add(skinSO);
+
+                EditorUtility.SetDirty(skinSO);
+            }
+
+            if (creatDatabase && createdSkins.Count > 0)
+            {
+                SkinDatabaseSO database = ScriptableObject.CreateInstance<SkinDatabaseSO>();      
+                database.skins = createdSkins;
+
+                AssetDatabase.CreateAsset(database, $"{outputFolder}/SkinDatabase.asset");
+                EditorUtility.SetDirty(database);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            EditorUtility.DisplayDialog("Sucess", $"Created {createdSkins.Count} scriptable objects!", "OK");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.DisplayDialog("Error", $"Failed to Convert JSON : {e.Message}", "OK");
+            Debug.LogError($"JSON 변환 오류: . {e}");
+        }
+    }
+
+    private void ConverterJsonToTitleScriptableObjects()
+    {
+        if (!Directory.Exists(outputFolder))
+        {
+            Directory.CreateDirectory(outputFolder);
+        }
+
+        string jsonText = File.ReadAllText(jsonFilePath);
+
+        try
+        {
+            List<TitleData> titleDataList = JsonConvert.DeserializeObject<List<TitleData>>(jsonText);
+
+            List<TitleSO> createdTitles = new List<TitleSO>();
+
+            foreach (var titleData in titleDataList)
+            {
+                TitleSO titleSO = ScriptableObject.CreateInstance<TitleSO>();
+
+                titleSO.id = titleData.id;
+                titleSO.titleName = titleData.titleName;
+
+                if (!string.IsNullOrEmpty(titleData.titlePath))
+                {
+                    titleSO.title = AssetDatabase.LoadAssetAtPath<Sprite>($"Assests/Resources/{titleData.titlePath}.png");
+
+                    if (titleSO.title == null)
+                    {
+                        Debug.LogWarning($"아이템 '{titleData.titleName}'의 아이콘을 찾을 수 없습니다. : {titleData.titlePath}");
+                    }
+                }
+
+                string assetPath = $"{outputFolder}/Item_{titleData.id.ToString("D4")}_{titleData.titleName}.asset";
+                AssetDatabase.CreateAsset(titleSO, assetPath);
+
+                titleSO.name = $"Item_{titleData.id.ToString("D4")}+{titleData.titleName}";
+                createdTitles.Add(titleSO);
+
+                EditorUtility.SetDirty(titleSO);
+            }
+
+            if (creatDatabase && createdTitles.Count > 0)
+            {
+                TitleDatabaseSO database = ScriptableObject.CreateInstance<TitleDatabaseSO>();
+                database.titles = createdTitles;
+
+                AssetDatabase.CreateAsset(database, $"{outputFolder}/TitleDatabase.asset");
+                EditorUtility.SetDirty(database);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            EditorUtility.DisplayDialog("Sucess", $"Created {createdTitles.Count} scriptable objects!", "OK");
         }
         catch (System.Exception e)
         {
