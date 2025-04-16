@@ -23,8 +23,8 @@ public class PieceUI : MonoBehaviour
 
     private void UpdateUI()
     {
-        normalText.text = $"Normal_Piece : {PieceManager.Instance.GetPieceCount(ItemType.NormalPiece).ToString()}";
-        heliumText.text = $"Helium_Piece : {PieceManager.Instance.GetPieceCount(ItemType.HeliumPiece).ToString()}";
-        reinforcedText.text = $"Reinforced_Piece : {PieceManager.Instance.GetPieceCount(ItemType.ReinforcedPiece).ToString()}";
+        normalText.text = $"기본 조각 : {PieceManager.Instance.GetPieceCount(ItemType.NormalPiece).ToString()}";
+        heliumText.text = $"헬륨 조각 : {PieceManager.Instance.GetPieceCount(ItemType.HeliumPiece).ToString()}";
+        reinforcedText.text = $"강화 조각 : {PieceManager.Instance.GetPieceCount(ItemType.ReinforcedPiece).ToString()}";
     }
 }

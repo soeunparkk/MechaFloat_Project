@@ -16,6 +16,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake() => Instance = this;
 
+
     private void Update()
     {
         HandleSlotSelection();

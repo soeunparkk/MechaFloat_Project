@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [Header("Component")]
     private Rigidbody rb;
     private PlayerJump playerJump;
+    private AchievementConditionChecker checker;
 
     [NonSerialized]
     public PlayerPickup playerPickup;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerJump = GetComponent<PlayerJump>();
         playerPickup = GetComponent<PlayerPickup>();
+        checker = GetComponent<AchievementConditionChecker>();
 
         Cursor.lockState = CursorLockMode.Locked;
         thirdPersonCamera.gameObject.SetActive(true);
@@ -45,9 +47,13 @@ public class PlayerController : MonoBehaviour
     {
         HandleRotation();
 
+        checker.CheckHeightAchievement();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerJump.HandleJump();
+            checker.OnJumpPerformed();
+            
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -122,12 +128,12 @@ public class PlayerController : MonoBehaviour
     public void PickupBalloon()
     {
         HasBalloon = true;
-        Debug.Log("🎈 헬륨 풍선 장착됨 - HasBalloon = true");
+        Debug.Log("헬륨 풍선 장착됨 - HasBalloon = true");
     }
 
     public void DropBalloon()
     {
         HasBalloon = false;
-        Debug.Log("💥 풍선 해제됨 - HasBalloon = false");
+        Debug.Log("풍선 해제됨 - HasBalloon = false");
     }
 }

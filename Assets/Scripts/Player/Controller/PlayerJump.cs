@@ -7,6 +7,8 @@ public class PlayerJump : MonoBehaviour
     [Header("Player Jump")]
     public float jumpForce = 5.0f;
     public float fallingThreshold = -0.1f;
+    public int jumpCount = 0;
+    //public int fallCount = 0;       // 낙하는 추후에 할 예정 미리 선안만 해둔 상태
 
     private Rigidbody rb;
     private PlayerPickup playerPickup;
@@ -90,6 +92,8 @@ public class PlayerJump : MonoBehaviour
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             }
             canJump = false;
+
+            jumpCount++;
         }
     }
 
