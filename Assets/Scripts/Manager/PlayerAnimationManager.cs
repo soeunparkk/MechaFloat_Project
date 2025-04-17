@@ -9,6 +9,7 @@ public class PlayerAnimationManager : MonoBehaviour
 
     // 애니메이션 파라미터 이름들을 상수로 정의
     private const string PARAM_IS_MOVING = "IsMoving";
+    private const string PARAM_IS_RUNNING = "IsRunning";
     private const string PARAM_IS_JUMPING = "IsJumping";
     private const string PARAM_IS_FALLING = "IsFalling";
     private const string PARAM_IS_PICKING = "IsPicking";
@@ -30,6 +31,12 @@ public class PlayerAnimationManager : MonoBehaviour
                     break;
                 case MovingState:
                     animator.SetBool(PARAM_IS_MOVING, true);
+
+                    float speed = stateMachine.PlayerController.moveSpeed;
+                    if (speed > 3.0f)
+                    {
+                        animator.SetBool(PARAM_IS_RUNNING, true);
+                    }
                     break;
                 case JumpingState:
                     animator.SetBool(PARAM_IS_JUMPING, true);
@@ -48,6 +55,7 @@ public class PlayerAnimationManager : MonoBehaviour
     private void ResetAllBoolParameters()
     {
         animator.SetBool(PARAM_IS_MOVING, false);
+        animator.SetBool(PARAM_IS_RUNNING, false);
         animator.SetBool(PARAM_IS_JUMPING, false);
         animator.SetBool(PARAM_IS_FALLING, false);
         animator.SetBool(PARAM_IS_PICKING, false);

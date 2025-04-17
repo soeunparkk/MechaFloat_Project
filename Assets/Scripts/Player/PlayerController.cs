@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private const float Y_ANGLE_MAX = 80.0f;
 
     [Header("Component")]
-    private Rigidbody rb;
+    public Rigidbody rb;
     private PlayerJump playerJump;
     private AchievementConditionChecker checker;
 
