@@ -74,17 +74,10 @@ public class IdleState : PlayerState
 
 public class MovingState : PlayerState
 {
-    private bool isRunnig;
     public MovingState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Update()
     {
-        // 현재 속도 크기 가져오기
-        float speed = playerController.rb.velocity.magnitude;
-
-        // 속도가 일정 값 이상이면 달리기 상태
-        isRunnig = speed > 3.0f;
-
         CheckTransitions();
     }
 

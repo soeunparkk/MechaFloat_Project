@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     public float moveSpeed = 5.0f;
     public float rotationSpeed = 10f;
+    public float CurrentMoveSpeed { get; private set; }
 
     [Header("Camera Settings")]
     public Camera thirdPersonCamera;
@@ -96,7 +97,6 @@ public class PlayerController : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        // 카메라 기준 이동 벡터 계산
         Vector3 cameraForward = thirdPersonCamera.transform.forward;
         cameraForward.y = 0f;
         cameraForward.Normalize();
@@ -119,7 +119,14 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+
+        if (movement.magnitude < 0.3f)
+            CurrentMoveSpeed = 0f;
+        else
+            CurrentMoveSpeed = movement.magnitude * moveSpeed;
     }
+
+
 
     public bool BalloonController
     {
