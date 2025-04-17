@@ -377,10 +377,10 @@ public class JsonToScriptableConverter : EditorWindow
                 achievementSO.compensationSkin = achievementData.compensationSkin;
                 achievementSO.compensationTitle = achievementData.compensationTitle;
 
-                string assetPath = $"{outputFolder}/Item_{achievementData.id.ToString("D4")}_{achievementData.achievementName}.asset";
+                string assetPath = $"{outputFolder}/Achievement_{achievementData.id.ToString("D4")}_{achievementData.achievementName}.asset";
                 AssetDatabase.CreateAsset(achievementSO, assetPath);
 
-                achievementSO.name = $"Item_{achievementData.id.ToString("D4")}+{achievementData.achievementName}";
+                achievementSO.name = $"Achievement_{achievementData.id.ToString("D4")}+{achievementData.achievementName}";
                 createdAchievements.Add(achievementSO);
 
                 EditorUtility.SetDirty(achievementSO);
@@ -432,7 +432,7 @@ public class JsonToScriptableConverter : EditorWindow
 
                 if (!string.IsNullOrEmpty(skinData.skinPath))
                 {
-                    skinSO.skin = AssetDatabase.LoadAssetAtPath<Mesh>($"Assests/Resources/{skinData.skinPath}.png");
+                    skinSO.skin = AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/Resources/{skinData.skinPath}.png");
 
                     if (skinSO.skin == null)
                     {
@@ -440,10 +440,10 @@ public class JsonToScriptableConverter : EditorWindow
                     }
                 }
 
-                string assetPath = $"{outputFolder}/Item_{skinData.id.ToString("D4")}_{skinData.skinName}.asset";
+                string assetPath = $"{outputFolder}/Skin_{skinData.id.ToString("D4")}_{skinData.skinName}.asset";
                 AssetDatabase.CreateAsset(skinSO, assetPath);
 
-                skinSO.name = $"Item_{skinData.id.ToString("D4")}+{skinData.skinName}";
+                skinSO.name = $"Skin_{skinData.id.ToString("D4")}+{skinData.skinName}";
                 createdSkins.Add(skinSO);
 
                 EditorUtility.SetDirty(skinSO);
@@ -494,7 +494,7 @@ public class JsonToScriptableConverter : EditorWindow
 
                 if (!string.IsNullOrEmpty(titleData.titlePath))
                 {
-                    titleSO.title = AssetDatabase.LoadAssetAtPath<Sprite>($"Assests/Resources/{titleData.titlePath}.png");
+                    titleSO.title = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Resources/{titleData.titlePath}.png");
 
                     if (titleSO.title == null)
                     {
@@ -502,10 +502,10 @@ public class JsonToScriptableConverter : EditorWindow
                     }
                 }
 
-                string assetPath = $"{outputFolder}/Item_{titleData.id.ToString("D4")}_{titleData.titleName}.asset";
+                string assetPath = $"{outputFolder}/Title_{titleData.id.ToString("D4")}_{titleData.titleName}.asset";
                 AssetDatabase.CreateAsset(titleSO, assetPath);
 
-                titleSO.name = $"Item_{titleData.id.ToString("D4")}+{titleData.titleName}";
+                titleSO.name = $"Title_{titleData.id.ToString("D4")}+{titleData.titleName}";
                 createdTitles.Add(titleSO);
 
                 EditorUtility.SetDirty(titleSO);
