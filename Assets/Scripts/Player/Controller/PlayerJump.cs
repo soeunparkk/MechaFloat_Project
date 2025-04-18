@@ -75,6 +75,14 @@ public class PlayerJump : MonoBehaviour
             );
         }
 
+        float currentHeight = transform.position.y;
+
+        AchievementConditionChecker checker = GetComponent<AchievementConditionChecker>();
+        if (checker != null)
+        {
+            checker.CheckHeightAchievement(currentHeight);
+        }
+
         ApplyBuoyancyEffect();
     }
 
@@ -94,6 +102,13 @@ public class PlayerJump : MonoBehaviour
             canJump = false;
 
             jumpCount++;
+
+            // 업적 체크
+            AchievementConditionChecker checker = GetComponent<AchievementConditionChecker>();
+            if (checker != null)
+            {
+                checker.OnJumpPerformed(jumpCount);
+            }
         }
     }
 

@@ -5,6 +5,7 @@ public class AchievementConditionChecker : MonoBehaviour
     private PlayerController player;
     private PlayerJump playerJump;
 
+    private float maxHeightReached = 0f;
     private int hammerHitCount = 0;
 
     private void Start()
@@ -14,22 +15,27 @@ public class AchievementConditionChecker : MonoBehaviour
     }
 
     // 300m 도달 업적
-    public void CheckHeightAchievement()
+    public void CheckHeightAchievement(float currentHeight)
     {
-        if (player.transform.position.y >= -7f)
+        if (currentHeight > maxHeightReached)
         {
-            AchievementManager.Instance.TryUnlockAchievement(8); // 진격의 로봇
+            maxHeightReached = currentHeight;
+
+            if (maxHeightReached >= 300f)
+            { 
+                AchievementManager.Instance.TryUnlockAchievement(8);
+            }
         }
     }
 
     // 점프 업적
-    public void OnJumpPerformed()
+    public void OnJumpPerformed(int jumpCount)
     {
-        if (playerJump.jumpCount >= 30)
-            AchievementManager.Instance.TryUnlockAchievement(4); // 초보 점퍼
+        if (jumpCount >= 30)
+            AchievementManager.Instance.TryUnlockAchievement(4);
 
-        if (playerJump.jumpCount >= 50)
-            AchievementManager.Instance.TryUnlockAchievement(14); // 끝없는 점프
+        if (jumpCount >= 50)
+            AchievementManager.Instance.TryUnlockAchievement(14);
     }
 
     // =============================================================================================

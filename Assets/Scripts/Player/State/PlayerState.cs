@@ -74,10 +74,13 @@ public class IdleState : PlayerState
 
 public class MovingState : PlayerState
 {
+    private bool isRunnig;
     public MovingState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Update()
     {
+        isRunnig = Input.GetKey(KeyCode.LeftShift);
+
         CheckTransitions();
     }
 

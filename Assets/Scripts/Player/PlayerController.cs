@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     public float moveSpeed = 5.0f;
     public float rotationSpeed = 10f;
-    public float CurrentMoveSpeed { get; private set; }
 
     [Header("Camera Settings")]
     public Camera thirdPersonCamera;
@@ -24,9 +23,8 @@ public class PlayerController : MonoBehaviour
     private const float Y_ANGLE_MAX = 80.0f;
 
     [Header("Component")]
-    public Rigidbody rb;
+    private Rigidbody rb;
     private PlayerJump playerJump;
-    private AchievementConditionChecker checker;
 
     [NonSerialized]
     public PlayerPickup playerPickup;
@@ -38,7 +36,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerJump = GetComponent<PlayerJump>();
         playerPickup = GetComponent<PlayerPickup>();
-        checker = GetComponent<AchievementConditionChecker>();
 
         Cursor.lockState = CursorLockMode.Locked;
         thirdPersonCamera.gameObject.SetActive(true);
@@ -48,15 +45,10 @@ public class PlayerController : MonoBehaviour
     {
         HandleRotation();
 
-        checker.CheckHeightAchievement();
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerJump.HandleJump();
-            checker.OnJumpPerformed();
-            
         }
-
         if (Input.GetKeyDown(KeyCode.E))
         {
             playerPickup.HandleEquipmentToggle();
@@ -119,11 +111,6 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
-
-        if (movement.magnitude < 0.3f)
-            CurrentMoveSpeed = 0f;
-        else
-            CurrentMoveSpeed = movement.magnitude * moveSpeed;
     }
 
 
