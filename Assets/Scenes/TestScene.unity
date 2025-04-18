@@ -3365,6 +3365,7 @@ GameObject:
   - component: {fileID: 1166490456}
   - component: {fileID: 1166490455}
   - component: {fileID: 1166490454}
+  - component: {fileID: 1166490466}
   - component: {fileID: 1166490460}
   - component: {fileID: 1166490459}
   - component: {fileID: 1166490453}
@@ -3373,7 +3374,6 @@ GameObject:
   - component: {fileID: 1166490463}
   - component: {fileID: 1166490464}
   - component: {fileID: 1166490465}
-  - component: {fileID: 1166490466}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3561,7 +3561,6 @@ MonoBehaviour:
   jumpForce: 5
   fallingThreshold: -0.1
   jumpCount: 0
-  checker: {fileID: 0}
   isZeroGravity: 0
   groundCheckDistance: 0.3
   slopedLimit: 45
