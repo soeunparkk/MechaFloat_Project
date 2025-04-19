@@ -25,9 +25,15 @@ public class PlayerController : MonoBehaviour
     [Header("Component")]
     private Rigidbody rb;
     private PlayerJump playerJump;
-
     [NonSerialized]
     public PlayerPickup playerPickup;
+
+    [Header("Wind")]
+    private float originalMass;
+    public float balloonMass = 0.5f;
+    public float gravityLightDuration = 10f;
+    private float balloonTimer = 0f;
+    private bool isBalloonEffectActive = false;
     public bool HasBalloon { get; private set; } = false;
     public BalloonController balloon;
 
@@ -39,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         thirdPersonCamera.gameObject.SetActive(true);
+        originalMass = rb.mass; 
     }
 
     void Update()
@@ -49,9 +56,22 @@ public class PlayerController : MonoBehaviour
         {
             playerJump.HandleJump();
         }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             playerPickup.HandleEquipmentToggle();
+        }
+
+        if (isBalloonEffectActive)
+        {
+            balloonTimer += Time.deltaTime;
+
+            if (balloonTimer >= gravityLightDuration)
+            {
+                rb.mass = originalMass;
+                isBalloonEffectActive = false;
+                Debug.Log("풍선 효과 종료 - 중력 원래대로 복구");
+            }
         }
     }
 
@@ -113,21 +133,20 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
 
-
-
     public bool BalloonController
     {
         get { return balloon != null; } 
     }
+
     public void PickupBalloon()
     {
-        HasBalloon = true;
+        HasBalloon = true;  // 풍선 장착 시
         Debug.Log("헬륨 풍선 장착됨 - HasBalloon = true");
     }
 
     public void DropBalloon()
     {
-        HasBalloon = false;
+        HasBalloon = false;  // 풍선 해제 시
         Debug.Log("풍선 해제됨 - HasBalloon = false");
     }
 }

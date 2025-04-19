@@ -722,7 +722,7 @@ Transform:
   m_GameObject: {fileID: 238584051}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.16, y: -0.29999995, z: 34.4}
+  m_LocalPosition: {x: 7.1, y: -0.29999995, z: 34.4}
   m_LocalScale: {x: 1.99475, y: 1.99475, z: 1.99475}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -740,12 +740,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4989620cef5f65d45b25485fc1334055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windDirection: {x: 1, y: 0, z: 0}
-  windStrength: 10
   playerPushStrength: 15
-  balloonPushStrength: 0.5
-  balloonDrag: 0.9
+  balloonPushStrength: 5
+  balloonDrag: 1.2
   normalDrag: 0.3
+  normalMass: 1
+  balloonMass: 0.5
+  windDirection: {x: 1, y: 0, z: 0}
 --- !u!65 &238584057
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2558,12 +2559,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4989620cef5f65d45b25485fc1334055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windDirection: {x: 1, y: 0, z: 0}
-  windStrength: 6
-  playerPushStrength: 20
+  playerPushStrength: 15
   balloonPushStrength: 6
   balloonDrag: 5
   normalDrag: 1
+  normalMass: 1
+  balloonMass: 0.5
+  windDirection: {x: 1, y: 0, z: 0}
 --- !u!1 &959325578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2804,6 +2806,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b669d34a4f5757d4d9a87705b6c5fd29,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3273,6 +3280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b6425c75db686489e351862be429e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  balloonMass: 0.5
+  gravityLightDuration: 10
   moveSpeed: 5
   rotationSpeed: 10
   thirdPersonCamera: {fileID: 330585545}
@@ -5076,12 +5085,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4989620cef5f65d45b25485fc1334055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windDirection: {x: 1, y: 0, z: 0}
-  windStrength: 0.05
-  playerPushStrength: 10
+  playerPushStrength: 15
   balloonPushStrength: 5
   balloonDrag: 2
   normalDrag: 0.5
+  normalMass: 1
+  balloonMass: 0.5
+  windDirection: {x: 1, y: 0, z: 0}
 --- !u!65 &2029047061
 BoxCollider:
   m_ObjectHideFlags: 0
