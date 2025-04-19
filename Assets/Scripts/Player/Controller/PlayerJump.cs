@@ -86,7 +86,6 @@ public class PlayerJump : MonoBehaviour
         ApplyBuoyancyEffect();
     }
 
-
     public void HandleJump()
     {
         if (isGrounded())

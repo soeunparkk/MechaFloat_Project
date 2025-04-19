@@ -85,12 +85,6 @@ public class PieceManager : MonoBehaviour
         balloonObj.SetActive(false);
         balloonObj.transform.SetParent(null);
 
-        // 자동 줍기 방지를 위해 콜라이더 비활성화
-        foreach (var col in balloonObj.GetComponentsInChildren<Collider>())
-        {
-            col.enabled = false;
-        }
-
         // BalloonController 설정
         var balloon = balloonObj.GetComponent<BalloonController>();
         if (balloon == null)

@@ -5,14 +5,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float originalMass;
-    public float balloonMass = 0.5f;           
-    public float gravityLightDuration = 10f;
-    private float balloonTimer = 0f;
-    private bool isBalloonEffectActive = false;
-
-
-
     [Header("Player Movement")]
     public float moveSpeed = 5.0f;
     public float rotationSpeed = 10f;
@@ -33,9 +25,15 @@ public class PlayerController : MonoBehaviour
     [Header("Component")]
     private Rigidbody rb;
     private PlayerJump playerJump;
-
     [NonSerialized]
     public PlayerPickup playerPickup;
+
+    [Header("Wind")]
+    private float originalMass;
+    public float balloonMass = 0.5f;
+    public float gravityLightDuration = 10f;
+    private float balloonTimer = 0f;
+    private bool isBalloonEffectActive = false;
     public bool HasBalloon { get; private set; } = false;
     public BalloonController balloon;
 
@@ -64,7 +62,6 @@ public class PlayerController : MonoBehaviour
             playerPickup.HandleEquipmentToggle();
         }
 
-        
         if (isBalloonEffectActive)
         {
             balloonTimer += Time.deltaTime;
@@ -135,8 +132,6 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
-
-
 
     public bool BalloonController
     {
