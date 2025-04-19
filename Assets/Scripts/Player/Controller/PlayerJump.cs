@@ -162,28 +162,44 @@ public class PlayerJump : MonoBehaviour
 
     public bool isGrounded()
     {
-        // 지면 체크 로직 (우주 공간에서도 동일하게 적용)
-        RaycastHit hit;
-        bool grounded = Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f);
+        Vector3[] checkPoints = new Vector3[groundCheckPoints];
+        Vector3 center = transform.position + Vector3.down * 0.1f; // pivot 기준 아래로
 
-        if (grounded)
+        checkPoints[0] = center;
+        checkPoints[1] = center + transform.forward * 0.3f;
+        checkPoints[2] = center - transform.forward * 0.3f;
+        checkPoints[3] = center + transform.right * 0.3f;
+        checkPoints[4] = center - transform.right * 0.3f;
+
+        for (int i = 0; i < groundCheckPoints; i++)
         {
-            // 우주 공간 내의 발판을 밟았는지 확인
-            if (isZeroGravity && hit.collider.CompareTag("Ground"))
+            if (Physics.Raycast(checkPoints[i], Vector3.down, out RaycastHit hit, 1.1f))
             {
-                canJump = true;
-                return true;
-            }
-            // 일반 지면을 밟았는지 확인
-            else if (!isZeroGravity)
-            {
-                canJump = true;
-                return true;
+                float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+
+                if (slopeAngle <= slopedLimit)
+                {
+                    if (isZeroGravity)
+                    {
+                        if (hit.collider.CompareTag("Ground"))
+                        {
+                            canJump = true;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        canJump = true;
+                        return true;
+                    }
+                }
             }
         }
 
         return false;
     }
+
+
 
     public void SetGravityState(bool zeroGravity)
     {
