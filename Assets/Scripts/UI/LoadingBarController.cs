@@ -9,41 +9,33 @@ public class LoadingBarController : MonoBehaviour
 {
 
 
-    public static string Test_Scene1;      
-    public Slider loadingBar;
-   // public Image fillImage;
 
-    // 씬 전환을 시작하는 정적 함수 (외부에서 호출)
-    public static void LoadScene(string sceneName)
-    {
-        Test_Scene1 = sceneName;
-        SceneManager.LoadScene("Test_Scene1"); // 로딩 씬으로 전환
-    }
+    public Image loadingFillImage;
+    private float currentFill = 0f; // 실제 보이는 fillAmount
 
-    // 로딩씬에서 호출될 코루틴
     void Start()
     {
-        // 로딩씬에서만 실행되도록 체크
-        if (SceneManager.GetActiveScene().name == "Test_Scene1")
-        {
-            StartCoroutine(LoadAsyncScene());
-        }
+        StartCoroutine(LoadAsyncScene());
     }
 
     IEnumerator LoadAsyncScene()
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync(Test_Scene1);
+        string nextSceneName = "Test_Scene1";
+        AsyncOperation op = SceneManager.LoadSceneAsync(nextSceneName);
         op.allowSceneActivation = false;
 
         while (!op.isDone)
         {
-            float progress = Mathf.Clamp01(op.progress / 0.9f);
-            if (loadingBar != null)
-                loadingBar.value = progress;
+            float targetProgress = Mathf.Clamp01(op.progress / 0.9f);
 
-            if (op.progress >= 0.9f)
+            // 부드럽게 이동 (Lerp)
+            currentFill = Mathf.Lerp(currentFill, targetProgress, Time.deltaTime * 5f);
+            loadingFillImage.fillAmount = currentFill;
+
+            
+            if (op.progress >= 0.9f && currentFill >= 0.995f)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f); // 살짝 멈춤
                 op.allowSceneActivation = true;
             }
 
