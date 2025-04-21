@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BalloonController : MonoBehaviour
 {
@@ -8,16 +9,19 @@ public class BalloonController : MonoBehaviour
     public float currentHP;
 
     private Coroutine durabilityCoroutine;
-
     public System.Action OnDurabilityChanged;
 
     [HideInInspector] public int assignedSlot = -1;
+
+    [Header("UI")]
+    public Image hpBarImage; // 체력바 이미지 참조
 
     private void Start()
     {
         if (balloonData != null)
         {
             currentHP = balloonData.maxHP;
+            UpdateHPUI();
         }
         else
         {
@@ -30,22 +34,22 @@ public class BalloonController : MonoBehaviour
         currentHP -= damage;
         Debug.Log($"공격을 받았습니다! 풍선 내구도 감소: {currentHP} (감소량: {damage})");
 
+        UpdateHPUI();
+
         if (currentHP <= 0)
         {
             DestroyBalloon();
         }
     }
 
-    // 픽업 시 내구도 감소 시작
     public void StartDurabilityReduction()
     {
-        if (durabilityCoroutine == null) // 중복 실행 방지
+        if (durabilityCoroutine == null)
         {
             durabilityCoroutine = StartCoroutine(ReduceDurabilityOverTime());
         }
     }
 
-    // 해제 시 내구도 감소 멈춤
     public void StopDurabilityReduction()
     {
         if (durabilityCoroutine != null)
@@ -63,6 +67,7 @@ public class BalloonController : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
             currentHP -= durability;
+            UpdateHPUI();
             OnDurabilityChanged?.Invoke();
         }
 
@@ -72,6 +77,15 @@ public class BalloonController : MonoBehaviour
     public void SetCurrentDurability(int hp)
     {
         currentHP = Mathf.Clamp(hp, 0, balloonData.maxHP);
+        UpdateHPUI();
+    }
+
+    private void UpdateHPUI()
+    {
+        if (hpBarImage != null)
+        {
+            hpBarImage.fillAmount = currentHP / balloonData.maxHP;
+        }
     }
 
     private void DestroyBalloon()
@@ -91,11 +105,13 @@ public class BalloonController : MonoBehaviour
             Rigidbody balloonRb = GetComponent<Rigidbody>();
             if (balloonRb != null)
             {
-                Vector3 windDirection = other.transform.forward; 
-                float windStrength =5f; // 풍선이 가볍게 밀려나는 정도 (값 조절 가능)
+                Vector3 windDirection = other.transform.forward;
+                float windStrength = 5f;
 
                 balloonRb.AddForce(windDirection * windStrength, ForceMode.Force);
             }
         }
     }
+
+
 }

@@ -150,6 +150,8 @@ MonoBehaviour:
   balloonData: {fileID: 11400000, guid: 6050c38a4aed6ae4caf85d99079c7641, type: 2}
   currentHP: 0
   assignedSlot: -1
+  hpBarImage: {fileID: 2786326110111023788, guid: bc95bcc7953bcc748b4e4abfe0cf6c36,
+    type: 3}
 --- !u!114 &-6610329509715469296
 MonoBehaviour:
   m_ObjectHideFlags: 0

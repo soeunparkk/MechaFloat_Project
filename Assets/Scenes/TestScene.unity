@@ -2431,7 +2431,6 @@ GameObject:
   - component: {fileID: 943970617}
   - component: {fileID: 943970616}
   - component: {fileID: 943970620}
-  - component: {fileID: 943970621}
   m_Layer: 0
   m_Name: Ground (5)
   m_TagString: WindZone
@@ -2547,25 +2546,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &943970621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 943970615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4989620cef5f65d45b25485fc1334055, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPushStrength: 15
-  balloonPushStrength: 6
-  balloonDrag: 5
-  normalDrag: 1
-  normalMass: 1
-  balloonMass: 0.5
-  windDirection: {x: 1, y: 0, z: 0}
 --- !u!1 &959325578
 GameObject:
   m_ObjectHideFlags: 0
