@@ -2,6 +2,9 @@
 
 public class PlayerPickup : MonoBehaviour
 {
+
+    private PlayerController playerController;
+
     [Header("References")]
     [SerializeField] private Transform balloonPivot;
     [SerializeField] private float pickupRange = 2f;
@@ -68,6 +71,9 @@ public class PlayerPickup : MonoBehaviour
         balloon.gameObject.SetActive(true);
         balloon.StartDurabilityReduction();
         InventoryManager.Instance.UpdateHotbarUI(balloon.assignedSlot);
+
+       
+        playerController.PickupBalloon();
     }
 
     private void UnequipBalloon(BalloonController balloon)
@@ -77,5 +83,14 @@ public class PlayerPickup : MonoBehaviour
         balloon.gameObject.SetActive(false);
         balloon.StopDurabilityReduction();
         InventoryManager.Instance.UpdateHotbarUI(balloon.assignedSlot);
+
+        
+        playerController.DropBalloon();
+    }
+
+
+    private void Awake()
+    {
+        playerController = GetComponent<PlayerController>();
     }
 }
