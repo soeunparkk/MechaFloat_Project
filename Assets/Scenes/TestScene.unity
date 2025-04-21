@@ -4111,7 +4111,7 @@ MonoBehaviour:
   fallingThreshold: -0.1
   jumpCount: 0
   isZeroGravity: 0
-  groundCheckDistance: 0.3
+  groundCheckDistance: 1.1
   slopedLimit: 45
   slowDownFactor: 0.5
   zeroGravityJumpForce: 5

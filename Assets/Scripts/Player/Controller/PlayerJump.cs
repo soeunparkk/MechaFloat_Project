@@ -30,7 +30,6 @@ public class PlayerJump : MonoBehaviour
     public float maxFallSpeed;                          // 최대 하강 속도
 
     private float normalGravity = -9.81f;
-    private float buoyancyGravityFactor = 0.5f;
 
     private Vector3 defaultGravity;                     // 기본 중력 값 저장
 
@@ -173,7 +172,7 @@ public class PlayerJump : MonoBehaviour
 
         for (int i = 0; i < groundCheckPoints; i++)
         {
-            if (Physics.Raycast(checkPoints[i], Vector3.down, out RaycastHit hit, 1.1f))
+            if (Physics.Raycast(checkPoints[i], Vector3.down, out RaycastHit hit, groundCheckDistance))
             {
                 float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
 
@@ -195,11 +194,8 @@ public class PlayerJump : MonoBehaviour
                 }
             }
         }
-
         return false;
     }
-
-
 
     public void SetGravityState(bool zeroGravity)
     {

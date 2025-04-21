@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
 
 public class LoadingBarController : MonoBehaviour
 {
-
-
-
     public Image loadingFillImage;
     private float currentFill = 0f; // 실제 보이는 fillAmount
 
@@ -38,7 +34,6 @@ public class LoadingBarController : MonoBehaviour
                 yield return new WaitForSeconds(0.5f); // 살짝 멈춤
                 op.allowSceneActivation = true;
             }
-
             yield return null;
         }
     }
