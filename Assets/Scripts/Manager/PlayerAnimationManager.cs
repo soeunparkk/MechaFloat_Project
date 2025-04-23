@@ -6,6 +6,7 @@ public class PlayerAnimationManager : MonoBehaviour
 {
     public Animator animator;
     public PlayerStateMachine stateMachine;
+    public PlayerController controller; 
     public PlayerJump playerJump;
 
     // 애니메이션 파라미터 이름들을 상수로 정의
@@ -27,22 +28,27 @@ public class PlayerAnimationManager : MonoBehaviour
         {
             ResetAllBoolParameters();
 
+            bool isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
+            bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
+
+            animator.SetBool(PARAM_IS_MOVING, isMoving);
+            animator.SetBool(PARAM_IS_RUNNING, isRunning);
+
             switch (stateMachine.currentState)
             {
                 case IdleState:
                     animator.SetBool(PARAM_IS_GROUND, true);
                     break;
+
                 case MovingState:
-                    animator.SetBool(PARAM_IS_MOVING, true);
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        animator.SetBool(PARAM_IS_RUNNING, true);
-                    }
+                    animator.SetBool(PARAM_IS_GROUND, true);
                     break;
+
                 case JumpingState:
                     animator.SetBool(PARAM_IS_JUMPING, true);
                     animator.SetBool(PARAM_IS_GROUND, false);
                     break;
+
                 case FallingState:
                     animator.SetBool(PARAM_IS_FALLING, true);
                     if (playerJump.GetVerticalVelocity() == 0)
@@ -50,6 +56,7 @@ public class PlayerAnimationManager : MonoBehaviour
                         animator.SetBool(PARAM_IS_GROUND, true);
                     }
                     break;
+
                 case PickupState:
                     animator.SetBool(PARAM_IS_PICKING, true);
                     break;
