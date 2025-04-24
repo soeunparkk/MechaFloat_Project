@@ -2,7 +2,6 @@
 
 public class PlayerPickup : MonoBehaviour
 {
-
     private PlayerController playerController;
 
     [Header("References")]
@@ -72,7 +71,13 @@ public class PlayerPickup : MonoBehaviour
         balloon.StartDurabilityReduction();
         InventoryManager.Instance.UpdateHotbarUI(balloon.assignedSlot);
 
-       
+        if (balloon.TryGetComponent(out BalloonStateMachine balloonSM))
+        {
+            var playerJump = GetComponent<PlayerJump>();
+            var playerController = GetComponent<PlayerController>();
+            balloonSM.Init(playerJump, playerController);
+        }   
+
         playerController.PickupBalloon();
     }
 

@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
         type: 3}
       propertyPath: m_Name
-      value: balloon
+      value: Helium_Balloon
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
         type: 3}
@@ -95,11 +95,23 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 521961596400556452}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5355403263763752235}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1492925908972596879}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1229285406469674359}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1622904384087778163}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c46ae64420ba2a4428424c74a8e228c2,
         type: 3}
       insertIndex: -1
@@ -115,6 +127,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7669601729225249160}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &521961596400556452
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7399009510770896089}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e16b6c345989c449856747be01b668f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!136 &5355403263763752235
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -165,6 +198,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1229285406469674359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7399009510770896089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 829c62101a8e614409e566eb685f93ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balloonController: {fileID: 0}
+  balloonAnimator: {fileID: 0}
+  playerJump: {fileID: 0}
+  playerController: {fileID: 0}
+--- !u!114 &-1622904384087778163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7399009510770896089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7eda0f655219634cb091fe88a8d6b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balloonAnimator: {fileID: 521961596400556452}
+  stateMachine: {fileID: 1229285406469674359}
 --- !u!114 &746962445409707954
 MonoBehaviour:
   m_ObjectHideFlags: 0
