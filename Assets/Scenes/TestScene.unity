@@ -4075,6 +4075,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1003330340}
   stateMachine: {fileID: 1166490459}
+  controller: {fileID: 0}
+  playerJump: {fileID: 0}
 --- !u!114 &1166490461
 MonoBehaviour:
   m_ObjectHideFlags: 0
