@@ -3454,7 +3454,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4865064391339405807, guid: b669d34a4f5757d4d9a87705b6c5fd29,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1536118041}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b669d34a4f5757d4d9a87705b6c5fd29,
         type: 3}
@@ -3483,7 +3487,7 @@ Animator:
   m_GameObject: {fileID: 1003330338}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a6d7d687788ba4e428f6c84966b8af87, type: 2}
+  m_Controller: {fileID: 9100000, guid: b07c91afcad02ab48bffe7976dca4e1b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3873,11 +3877,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 11400000, guid: 2f3eb842cbefd994aaa4f81f4c447881, type: 2}
-  normalBalloonPrefab: {fileID: 6969417201685487210, guid: e3a148a071e268941832367f6de6eedd,
+  normalBalloonPrefab: {fileID: 7399009510770896089, guid: 247dca2a45a16fc488451c5e338eb16c,
     type: 3}
-  heliumBalloonPrefab: {fileID: 2812370365581718965, guid: 3e248816dee1158418ce73877b1f866a,
+  heliumBalloonPrefab: {fileID: 7399009510770896089, guid: b9ea344073105a445a4e52d11c132cd6,
     type: 3}
-  reinforcedBalloonPrefab: {fileID: 5973418336988674338, guid: 591e0db79de881e40b769ee73e96cf15,
+  reinforcedBalloonPrefab: {fileID: 7399009510770896089, guid: c55882e231390334c8c6d8482fdd9283,
     type: 3}
 --- !u!1 &1166490452
 GameObject:
@@ -4043,7 +4047,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1536118041}
   - {fileID: 1003330339}
   - {fileID: 861893598}
   m_Father: {fileID: 0}
@@ -4075,8 +4078,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1003330340}
   stateMachine: {fileID: 1166490459}
-  controller: {fileID: 0}
-  playerJump: {fileID: 0}
 --- !u!114 &1166490461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4282,6 +4283,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373628569}
   m_CullTransparentMesh: 1
+--- !u!4 &1431195887 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4865064391339405807, guid: b669d34a4f5757d4d9a87705b6c5fd29,
+    type: 3}
+  m_PrefabInstance: {fileID: 1003330337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1459859985
 GameObject:
   m_ObjectHideFlags: 0
@@ -4466,12 +4473,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536118040}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.13, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00509, y: -0.01611, z: -0.0055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1166490458}
+  m_Father: {fileID: 1431195887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1615563947
 GameObject:

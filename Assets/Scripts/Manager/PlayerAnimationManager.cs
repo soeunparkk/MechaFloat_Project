@@ -6,8 +6,9 @@ public class PlayerAnimationManager : MonoBehaviour
 {
     public Animator animator;
     public PlayerStateMachine stateMachine;
-    public PlayerController controller; 
-    public PlayerJump playerJump;
+
+    private PlayerController controller; 
+    private PlayerJump playerJump;
 
     // 애니메이션 파라미터 이름들을 상수로 정의
     private const string PARAM_IS_MOVING = "IsMoving";
@@ -16,6 +17,12 @@ public class PlayerAnimationManager : MonoBehaviour
     private const string PARAM_IS_GROUND = "IsGround";
     private const string PARAM_IS_FALLING = "IsFalling";
     private const string PARAM_IS_PICKING = "IsPicking";
+
+    private void Start()
+    {
+        controller = GetComponent<PlayerController>();
+        playerJump = GetComponent<PlayerJump>();
+    }
 
     void Update()
     {
