@@ -77,11 +77,6 @@ public class B_MovingState : BalloonState
 
         CheckTransitions();
     }
-
-    public override void FixedUpdate()
-    {
-        playerController.HandleMovement();
-    }
 }
 
 public class B_JumpingState : BalloonState
@@ -92,11 +87,6 @@ public class B_JumpingState : BalloonState
     {
         CheckTransitions();
     }
-
-    public override void FixedUpdate()
-    {
-        playerController.HandleMovement();
-    }
 }
 
 public class B_FallingState : BalloonState
@@ -106,11 +96,6 @@ public class B_FallingState : BalloonState
     public override void Update()
     {
         CheckTransitions();
-    }
-
-    public override void FixedUpdate()
-    {
-        playerController.HandleMovement();
     }
 }
 
