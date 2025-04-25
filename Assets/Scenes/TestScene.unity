@@ -3815,7 +3815,7 @@ Animator:
   m_GameObject: {fileID: 1003330338}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b07c91afcad02ab48bffe7976dca4e1b, type: 2}
+  m_Controller: {fileID: 9100000, guid: a6d7d687788ba4e428f6c84966b8af87, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4439,6 +4439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7854988ef65ea8249a05c31eca1be529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1003330340}
   balloonPivot: {fileID: 1536118041}
   pickupRange: 2
 --- !u!114 &1166490463

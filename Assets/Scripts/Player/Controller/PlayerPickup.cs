@@ -4,6 +4,8 @@ public class PlayerPickup : MonoBehaviour
 {
     private PlayerController playerController;
 
+    public Animator animator;
+
     [Header("References")]
     [SerializeField] private Transform balloonPivot;
     [SerializeField] private float pickupRange = 2f;
@@ -79,6 +81,9 @@ public class PlayerPickup : MonoBehaviour
         }   
 
         playerController.PickupBalloon();
+
+        if (animator != null)
+            animator.SetBool("HasBallon", true);
     }
 
     private void UnequipBalloon(BalloonController balloon)
@@ -91,6 +96,9 @@ public class PlayerPickup : MonoBehaviour
 
         
         playerController.DropBalloon();
+
+        if (animator != null)
+            animator.SetBool("HasBallon", false);
     }
 
 

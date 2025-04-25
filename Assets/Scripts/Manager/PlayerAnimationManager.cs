@@ -31,43 +31,34 @@ public class PlayerAnimationManager : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        if (stateMachine.currentState != null)
+        if (stateMachine.currentState == null) return;
+
+        ResetAllBoolParameters();
+
+        bool isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
+        bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
+
+        animator.SetBool(PARAM_IS_MOVING, isMoving);
+        animator.SetBool(PARAM_IS_RUNNING, isRunning);
+
+        switch (stateMachine.currentState)
         {
-            ResetAllBoolParameters();
-
-            bool isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
-            bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
-
-            animator.SetBool(PARAM_IS_MOVING, isMoving);
-            animator.SetBool(PARAM_IS_RUNNING, isRunning);
-
-            switch (stateMachine.currentState)
-            {
-                case IdleState:
+            case IdleState:
+            case MovingState:
+                animator.SetBool(PARAM_IS_GROUND, true);
+                break;
+            case JumpingState:
+                animator.SetBool(PARAM_IS_JUMPING, true);
+                animator.SetBool(PARAM_IS_GROUND, false);
+                break;
+            case FallingState:
+                animator.SetBool(PARAM_IS_FALLING, true);
+                if (playerJump.GetVerticalVelocity() == 0f)
                     animator.SetBool(PARAM_IS_GROUND, true);
-                    break;
-
-                case MovingState:
-                    animator.SetBool(PARAM_IS_GROUND, true);
-                    break;
-
-                case JumpingState:
-                    animator.SetBool(PARAM_IS_JUMPING, true);
-                    animator.SetBool(PARAM_IS_GROUND, false);
-                    break;
-
-                case FallingState:
-                    animator.SetBool(PARAM_IS_FALLING, true);
-                    if (playerJump.GetVerticalVelocity() == 0)
-                    {
-                        animator.SetBool(PARAM_IS_GROUND, true);
-                    }
-                    break;
-
-                case PickupState:
-                    animator.SetBool(PARAM_IS_PICKING, true);
-                    break;
-            }
+                break;
+            case PickupState:
+                animator.SetBool(PARAM_IS_PICKING, true);
+                break;
         }
     }
 
