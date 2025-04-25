@@ -280,7 +280,7 @@ PrefabInstance:
     - target: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
         type: 3}
       propertyPath: m_Name
-      value: Test_Gimmick_tile_Moving
+      value: Test_Gimmick_tile_Moveing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -294,10 +294,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 115140774}
-    - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 115140773}
     - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
         type: 3}
       insertIndex: -1
@@ -324,27 +320,6 @@ MonoBehaviour:
   moveDirection: 0
   moveDistance: 5
   moveSpeed: 3
---- !u!65 &115140773
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115140770}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.11366401, y: 0.084194414, z: 0.12791325}
-  m_Center: {x: -0.006082604, y: -0.03720602, z: 0.012166364}
 --- !u!64 &115140774
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1640,6 +1615,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Test_Gimmick_tile_Vanish
       objectReference: {fileID: 0}
+    - target: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610944515211644943, guid: c9c63caad22dd95449824455bd1bea97,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1652,10 +1637,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 444726773}
-    - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 444726779}
     - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
         type: 3}
       insertIndex: -1
@@ -1711,27 +1692,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6788521596529134596, guid: 406f0bf989aba26439bb7e19b36d8cb0, type: 3}
---- !u!65 &444726779
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444726771}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.11366401, y: 0.084194414, z: 0.12791325}
-  m_Center: {x: -0.006082604, y: -0.03720602, z: 0.012166364}
 --- !u!114 &444726780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1744,8 +1704,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd0e23754d69b146ada33aa12ebd1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vanishDelay: 5
+  vanishDelay: 2
   reappearDelay: 5
+  gimmick_Colliders:
+  - {fileID: 444726781}
+  - {fileID: 444726774}
+  - {fileID: 444726773}
+--- !u!64 &444726781 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: -8200510019449643947, guid: c9c63caad22dd95449824455bd1bea97,
+    type: 3}
+  m_PrefabInstance: {fileID: 444726770}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &469777010
 GameObject:
   m_ObjectHideFlags: 0

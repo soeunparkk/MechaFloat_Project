@@ -10,12 +10,11 @@ public class VanishTileGimmick : MonoBehaviour
     private bool isTriggered = false;
 
     private Renderer gimmick_Rend;
-    private Collider gimmick_Col;
+    public Collider[] gimmick_Colliders;
 
-    void Awake()
+    private void Start()
     {
         gimmick_Rend = GetComponent<Renderer>();
-        gimmick_Col = GetComponent<Collider>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,13 +31,22 @@ public class VanishTileGimmick : MonoBehaviour
         yield return new WaitForSeconds(vanishDelay);
 
         gimmick_Rend.enabled = false;
-        gimmick_Col.enabled = false;
+
+        foreach (var collider in gimmick_Colliders)
+        {
+            collider.enabled = false;
+        }
 
         yield return new WaitForSeconds(reappearDelay);
 
         gimmick_Rend.enabled = true;
-        gimmick_Col.enabled = true;
+
+        foreach (var collider in gimmick_Colliders)
+        {
+            collider.enabled = true;
+        }
 
         isTriggered = false;
     }
 }
+
