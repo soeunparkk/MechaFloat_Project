@@ -149,4 +149,14 @@ public class PlayerController : MonoBehaviour
         HasBalloon = false;  // 풍선 해제 시
         Debug.Log("풍선 해제됨 - HasBalloon = false");
     }
+
+    public bool IsMoving
+    {
+        get
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+            return Mathf.Abs(moveHorizontal) > 0.1f || Mathf.Abs(moveVertical) > 0.1f;
+        }
+    }
 }
