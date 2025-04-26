@@ -13,7 +13,8 @@ public enum ConversionType
     Objects,
     Achievement,
     Skin,
-    Title
+    Title,
+    Tutorial
 }
 
 public class JsonToScriptableConverter : EditorWindow
@@ -71,6 +72,10 @@ public class JsonToScriptableConverter : EditorWindow
         {
             outputFolder = "Assets/ScriptableObjects/Titles";
         }
+        else if (conversionType == ConversionType.Tutorial)
+        {
+            outputFolder = "Assets/ScriptableObjects/Tutorials";
+        }
 
         outputFolder = EditorGUILayout.TextField("Output Folder :", outputFolder);
         creatDatabase = EditorGUILayout.Toggle("Create Database Asset", creatDatabase);
@@ -103,6 +108,9 @@ public class JsonToScriptableConverter : EditorWindow
                     break;
                 case ConversionType.Title:
                     ConverterJsonToTitleScriptableObjects();
+                    break;
+                case ConversionType.Tutorial:
+                    ConverterJsonToTutorialScriptableObjects();
                     break;
             }
         }
@@ -524,6 +532,69 @@ public class JsonToScriptableConverter : EditorWindow
             AssetDatabase.Refresh();
 
             EditorUtility.DisplayDialog("Sucess", $"Created {createdTitles.Count} scriptable objects!", "OK");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.DisplayDialog("Error", $"Failed to Convert JSON : {e.Message}", "OK");
+            Debug.LogError($"JSON 변환 오류: . {e}");
+        }
+    }
+
+    private void ConverterJsonToTutorialScriptableObjects()
+    {
+        if (!Directory.Exists(outputFolder))      
+        {
+            Directory.CreateDirectory(outputFolder);
+        }
+
+        string jsonText = File.ReadAllText(jsonFilePath);                       
+        try
+        {
+            List<TutorialData> tutorialDataList = JsonConvert.DeserializeObject<List<TutorialData>>(jsonText);
+
+            List<TutorialSO> createdTutorials = new List<TutorialSO>();                      
+
+            foreach (var tutorialData in tutorialDataList)
+            {
+                TutorialSO tutorialSO = ScriptableObject.CreateInstance<TutorialSO>();
+
+                tutorialSO.id = tutorialData.id;
+                tutorialSO.description = tutorialData.description;
+                tutorialSO.parameter = tutorialData.parameter;
+
+                if (System.Enum.TryParse(tutorialData.checkConditionTypeString, out CheckConditionType parsedType))
+                {
+                    tutorialSO.checkConditionType = parsedType;
+                }
+                else
+                {
+                    Debug.LogWarning($"튜토리얼 '{tutorialData.id}'의 유효하지 않은 타입 : {tutorialData.checkConditionTypeString}");
+                }
+
+                tutorialSO.isClear = tutorialData.isClear;
+
+                string assetPath = $"{outputFolder}/Tutorial_ID_{tutorialData.id.ToString("D4")}_{tutorialData.id}.asset";
+                AssetDatabase.CreateAsset(tutorialSO, assetPath);
+
+                tutorialSO.name = $"Tutorial_ID_{tutorialData.id.ToString("D4")}+{tutorialData.id}";
+                createdTutorials.Add(tutorialSO);
+
+                EditorUtility.SetDirty(tutorialSO);
+            }
+
+            if (creatDatabase && createdTutorials.Count > 0)
+            {
+                TutorialDatabaseSO database = ScriptableObject.CreateInstance<TutorialDatabaseSO>();       
+                database.tutorials = createdTutorials;
+
+                AssetDatabase.CreateAsset(database, $"{outputFolder}/TutorialDatabase.asset");
+                EditorUtility.SetDirty(database);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            EditorUtility.DisplayDialog("Sucess", $"Created {createdTutorials.Count} scriptable objects!", "OK");
         }
         catch (System.Exception e)
         {
