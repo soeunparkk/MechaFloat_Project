@@ -224,4 +224,11 @@ public class PlayerJump : MonoBehaviour
     {
         return rb.velocity.y;
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Vector3 center = transform.position + Vector3.up * 0.1f;
+        Gizmos.DrawWireSphere(center + Vector3.down * groundCheckDistance, 0.2f);
+    }
 }
