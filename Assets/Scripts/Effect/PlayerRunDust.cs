@@ -6,16 +6,13 @@ using UnityEngine.Playables;
 public class PlayerRunDust : MonoBehaviour
 {
     public ParticleSystem runDustEffect;
-    private PlayerState playerState;
-
-    void Start()
-    {
-        playerState = GetComponent<PlayerState>();
-    }
 
     void Update()
     {
-        if (playerState.isRunning)
+        bool isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
+        bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
+
+        if (isRunning)
         {
             if (!runDustEffect.isPlaying)
                 runDustEffect.Play();
