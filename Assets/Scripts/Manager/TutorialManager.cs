@@ -8,28 +8,54 @@ public class TutorialManager : MonoBehaviour
     public TutorialDatabaseSO tutorialDatabaseSO;
     public TextMeshProUGUI tutorialText;
 
-    private int currentIndex = 0;
-    private TutorialSO currentTutorial =>
-        (currentIndex < tutorialDatabaseSO.tutorials.Count) ? tutorialDatabaseSO.tutorials[currentIndex] : null;
+    public int currentId = -1;
+
+    private TutorialSO currentTutorial => tutorialDatabaseSO.GetItemById(currentId);
 
     [Header("Typing Effect Settings")]
     public float typingSpeed = 0.05f;  // 한 글자마다 나오는 속도
     private Coroutine typingCoroutine;
     private bool isTyping = false;
+    private bool justStartedTutorial = false;
 
-    private void Start()
+    [Header("TriggerEvent")]
+    private string lastTriggerEvent = "";
+
+    void Start()
     {
-        UpdateTutorialText();
+        tutorialText.text = "";
     }
 
-    private void Update()
+    void Update()
     {
         if (currentTutorial == null)
             return;
 
+        if (justStartedTutorial)
+        {
+            justStartedTutorial = false;
+            return; // 한 프레임 쉬었다가 체크 시작
+        }
+
         if (CheckCurrentStep())
         {
             CompleteStep();
+        }
+    }
+
+    public void GoToTutorialStep(int id)
+    {
+        var tutorial = tutorialDatabaseSO.GetItemById(id);
+
+        if (tutorial != null)
+        {
+            currentId = id;
+            UpdateTutorialText();
+            justStartedTutorial = true;
+        }
+        else
+        {
+            Debug.LogWarning($"튜토리얼 ID를 찾을 수 없음: {id}");
         }
     }
 
@@ -42,19 +68,10 @@ public class TutorialManager : MonoBehaviour
             currentTutorial.isClear = true;
         }
 
-        currentIndex++;
+        currentId = -1; 
 
-        if (currentTutorial != null)
-        {
-            UpdateTutorialText();
-        }
-        else
-        {
-            Debug.Log("튜토리얼 전부 완료!");
-            StartTypingEffect("튜토리얼 완료!");
-        }
+        SuccessEffect();
     }
-
 
     private void UpdateTutorialText()
     {
@@ -91,10 +108,6 @@ public class TutorialManager : MonoBehaviour
             foreach (var key in keys)
             {
                 var trimmed = key.Trim();
-                if (trimmed == "Horizontal" && Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
-                    return true;
-                if (trimmed == "Vertical" && Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f)
-                    return true;
                 if (EnumTryParseKeyCode(trimmed, out KeyCode parsedKey) && Input.GetKeyDown(parsedKey))
                     return true;
             }
@@ -102,11 +115,6 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
-            if (keyName == "Horizontal")
-                return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f;
-            if (keyName == "Vertical")
-                return Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f;
-
             if (EnumTryParseKeyCode(keyName, out KeyCode parsedKey))
                 return Input.GetKeyDown(parsedKey);
         }
@@ -115,8 +123,7 @@ public class TutorialManager : MonoBehaviour
 
     private bool CheckTriggerEvent(string eventName)
     {
-        // 트리거 이벤트 발동 체크
-        return false;
+        return lastTriggerEvent == eventName;
     }
 
     private bool CheckBalloonState(string stateName)
@@ -155,5 +162,29 @@ public class TutorialManager : MonoBehaviour
         isTyping = true;
         StopTypingEffect();
         typingCoroutine = StartCoroutine(TypeText(text));
+    }
+
+    private void SuccessEffect()
+    {
+        StopTypingEffect();
+        tutorialText.text = "튜토리얼 성공!"; 
+        StartCoroutine(ClearTextAfterDelay(2f)); 
+    }
+
+    private IEnumerator ClearTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        tutorialText.text = "";
+    }
+
+    public void TriggerEvent(string eventName)
+    {
+        Debug.Log($"트리거 이벤트 발생: {eventName}");
+        lastTriggerEvent = eventName;
+
+        if (eventName == "VanishEnd" && currentTutorial?.id == 3)
+        {
+            CompleteStep();
+        }
     }
 }

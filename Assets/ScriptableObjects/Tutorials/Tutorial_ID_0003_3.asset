@@ -16,5 +16,5 @@ MonoBehaviour:
   description: "\uD0C0\uC77C\uC774 \uBD80\uC11C\uC9C0\uAE30 \uC804\uC5D0 \uBE60\uB974\uAC8C
     \uC810\uD504\uD558\uC138\uC694."
   checkConditionType: 1
-  parameter: Vanish
+  parameter: VanishEnd
   isClear: 0

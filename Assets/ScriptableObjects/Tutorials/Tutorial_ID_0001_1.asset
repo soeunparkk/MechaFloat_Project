@@ -16,5 +16,5 @@ MonoBehaviour:
   description: "A, D\uB85C \uC774\uB3D9,\n\uC7A5\uC560\uBB3C\uC744 \uB9CC\uB098\uBA74
     W, S \uD0A4\uB97C \uC0AC\uC6A9\uD558\uC138\uC694."
   checkConditionType: 0
-  parameter: Horizontal, Vertical
+  parameter: A, D, W, S
   isClear: 0
