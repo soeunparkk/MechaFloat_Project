@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SaveManager : MonoBehaviour
 {
@@ -8,6 +11,10 @@ public class SaveManager : MonoBehaviour
     private bool hasSavedPosition = false;
 
     private Vector3 startPosition;
+
+    public TextMeshProUGUI SaveZoneText;
+
+    public float textTime;
 
     private void Awake()
     {
@@ -32,10 +39,19 @@ public class SaveManager : MonoBehaviour
     {
         savedPosition = position;
         hasSavedPosition = true;
+        StartCoroutine(TextTime());
     }
 
     public Vector3 GetRespawnPosition()
     {
         return hasSavedPosition ? savedPosition : startPosition;
+    }
+
+    public IEnumerator TextTime()
+    {
+        SaveZoneText.text = "Save Completed!";
+        SaveZoneText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(textTime);
+        SaveZoneText.gameObject.SetActive(false);
     }
 }
