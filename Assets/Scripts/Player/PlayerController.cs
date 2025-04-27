@@ -37,6 +37,16 @@ public class PlayerController : MonoBehaviour
     public bool HasBalloon { get; private set; } = false;
     public BalloonController balloon;
 
+    [Header("Footstep Sound")]
+    public AudioSource footstepAudioSource;
+    public AudioClip walkClip;
+    public AudioClip runClip;
+    public float walkSpeedThreshold = 2.0f;
+    public float runSpeedThreshold = 5.0f;
+    private float footstepTimer = 0f;
+    private float walkInterval = 0.6f;
+    private float runInterval = 0.3f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         thirdPersonCamera.gameObject.SetActive(true);
-        originalMass = rb.mass; 
+        originalMass = rb.mass;
     }
 
     void Update()
@@ -73,6 +83,8 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("풍선 효과 종료 - 중력 원래대로 복구");
             }
         }
+
+        HandleFootstepSound();
     }
 
     private void FixedUpdate()
@@ -90,13 +102,11 @@ public class PlayerController : MonoBehaviour
         CurrentY -= mouseY;
         CurrentY = Mathf.Clamp(CurrentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 
-        // 카메라 위치 계산
         Vector3 dir = new Vector3(0, 0, -cameraDistance);
         Quaternion rotation = Quaternion.Euler(CurrentY, CurrentX, 0);
         thirdPersonCamera.transform.position = transform.position + rotation * dir;
         thirdPersonCamera.transform.LookAt(transform.position);
 
-        // 마우스 휠 줌 처리
         cameraDistance = Mathf.Clamp(
             cameraDistance - Input.GetAxis("Mouse ScrollWheel") * 5,
             minDistance,
@@ -119,7 +129,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = cameraForward * moveVertical + cameraRight * moveHorizontal;
 
-        // 캐릭터 회전 처리
         if (movement.magnitude > 0.1f)
         {
             Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
@@ -135,18 +144,18 @@ public class PlayerController : MonoBehaviour
 
     public bool BalloonController
     {
-        get { return balloon != null; } 
+        get { return balloon != null; }
     }
 
     public void PickupBalloon()
     {
-        HasBalloon = true;  // 풍선 장착 시
+        HasBalloon = true;
         Debug.Log("헬륨 풍선 장착됨 - HasBalloon = true");
     }
 
     public void DropBalloon()
     {
-        HasBalloon = false;  // 풍선 해제 시
+        HasBalloon = false;
         Debug.Log("풍선 해제됨 - HasBalloon = false");
     }
 
@@ -157,6 +166,34 @@ public class PlayerController : MonoBehaviour
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
             return Mathf.Abs(moveHorizontal) > 0.1f || Mathf.Abs(moveVertical) > 0.1f;
+        }
+    }
+
+    private void HandleFootstepSound()
+    {
+        if (!IsMoving || !thirdPersonCamera.gameObject.activeSelf)
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        footstepTimer -= Time.deltaTime;
+        if (footstepTimer <= 0f)
+        {
+            float speed = rb.velocity.magnitude;
+
+            if (speed < walkSpeedThreshold)
+            {
+                footstepAudioSource.clip = walkClip;
+                footstepTimer = walkInterval;
+            }
+            else
+            {
+                footstepAudioSource.clip = runClip;
+                footstepTimer = runInterval;
+            }
+
+            footstepAudioSource.Play();
         }
     }
 }
