@@ -4,9 +4,9 @@ public class StageTrigger : MonoBehaviour
 {
     [SerializeField] private StageSO stageData;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!collision.gameObject.CompareTag("Player")) return;
 
         if (stageData == null)
         {
