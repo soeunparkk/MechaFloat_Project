@@ -4405,6 +4405,12 @@ MonoBehaviour:
   zeroGravityJumpForce: 5
   maxRiseSpeed: 10
   maxFallSpeed: -40
+  coyoteTime: 0.15
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1166490462
 MonoBehaviour:
   m_ObjectHideFlags: 0
