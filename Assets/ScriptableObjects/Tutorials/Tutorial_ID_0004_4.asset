@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491f0a2f2ec22ff4f860d12b570ac374, type: 3}
-  m_Name: Tutorial_ID_0004+4
+  m_Name: Tutorial_ID_0004_4
   m_EditorClassIdentifier: 
   id: 4
-  description: "\uBC94\uC704 \uC548\uC5D0 \uC788\uB294 \uD48D\uC120\uC774 \uC790\uB3D9\uC73C\uB85C
-    \uC800\uC7A5\uB429\uB2C8\uB2E4. \n\uC22B\uC790\uD0A4\uB97C \uB20C\uB7EC \uC2AC\uB86F\uC744
-    \uC120\uD0DD\uD558\uC138\uC694. \nE\uD0A4\uB97C \uB20C\uB7EC \uD48D\uC120\uC744
-    \uC7A5\uCC29\uD558\uC138\uC694."
-  checkConditionType: 2
-  parameter: Equipped
+  description: "\uC774 \uC9C0\uC5ED\uC740 \uBC14\uB78C\uC774 \uAC15\uD558\uAC8C \uBD88\uC5B4\uC694.\n\uD48D\uC120\uC744
+    \uD65C\uC6A9\uD574\uC11C \uBC14\uB78C\uC744 \uD0C0\uACE0 \uC704\uB85C \uB0A0\uC544\uBCF4\uC138\uC694."
+  checkConditionType: 1
+  parameter: WindZoneArea
   isClear: 0

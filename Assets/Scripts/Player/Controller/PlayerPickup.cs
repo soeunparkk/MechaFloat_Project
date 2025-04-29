@@ -65,6 +65,8 @@ public class PlayerPickup : MonoBehaviour
 
     private void EquipBalloon(BalloonController balloon)
     {
+        balloon.owner = this;
+
         InventoryManager.Instance.UnequipCurrentBalloon();
 
         balloon.transform.SetParent(balloonPivot);

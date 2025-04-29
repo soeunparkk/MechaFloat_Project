@@ -12,6 +12,7 @@ public class BalloonController : MonoBehaviour
     public System.Action OnDurabilityChanged;
 
     [HideInInspector] public int assignedSlot = -1;
+    [HideInInspector] public PlayerPickup owner;
 
     [Header("UI")]
     public Image hpBarImage; // 체력바 이미지 참조
@@ -93,6 +94,12 @@ public class BalloonController : MonoBehaviour
         if (assignedSlot != -1)
         {
             InventoryManager.Instance.RemoveFromInventory(assignedSlot);
+        }
+
+        // 애니메이션 상태 초기화
+        if (owner != null && owner.animator != null)
+        {
+            owner.animator.SetBool("HasBallon", false);
         }
 
         Destroy(gameObject);

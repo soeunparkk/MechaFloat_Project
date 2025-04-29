@@ -12,7 +12,9 @@ public class PlayerRunDust : MonoBehaviour
         bool isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
         bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
 
-        if (isRunning)
+        PlayerJump playerJump = GetComponent<PlayerJump>();
+
+        if (isRunning && playerJump.isGrounded())
         {
             if (!runDustEffect.isPlaying)
                 runDustEffect.Play();

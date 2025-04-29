@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Tutorial_ID_0007+7
   m_EditorClassIdentifier: 
   id: 7
-  description: "\uB9DD\uCE58\uB97C \uD53C\uD574 \uC548\uC804\uD55C \uD0C0\uC77C\uB85C
-    \uC774\uB3D9\uD558\uC138\uC694"
-  checkConditionType: 1
-  parameter: Hammer
+  description: "\uC138\uC774\uBE0C\uC874\uC5D0 \uB3C4\uCC29\uD588\uC5B4\uC694!\n\uC5EC\uAE30\uAE4C\uC9C0\uC758
+    \uC9C4\uD589 \uC0C1\uD669\uC774 \uC800\uC7A5\uB418\uC5C8\uC73C\uB2C8, \uACC4\uC18D
+    \uB098\uC544\uAC00\uBCFC\uAE4C\uC694?"
+  checkConditionType: 2
+  parameter: 
   isClear: 0

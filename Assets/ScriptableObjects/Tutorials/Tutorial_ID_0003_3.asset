@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491f0a2f2ec22ff4f860d12b570ac374, type: 3}
-  m_Name: Tutorial_ID_0003+3
+  m_Name: Tutorial_ID_0003_3
   m_EditorClassIdentifier: 
   id: 3
-  description: "\uD0C0\uC77C\uC774 \uBD80\uC11C\uC9C0\uAE30 \uC804\uC5D0 \uBE60\uB974\uAC8C
-    \uC810\uD504\uD558\uC138\uC694."
-  checkConditionType: 1
-  parameter: VanishEnd
+  description: "\uC800\uAE30 \uBCF4\uC774\uB294 \uD48D\uC120\uC744 \uD68D\uB4DD\uD558\uBA74,
+    \uC7A0\uAE50 \uB3D9\uC548 \uACF5\uC911\uC5D0 \uB730 \uC218 \uC788\uC5B4\uC694.\n\uD48D\uC120\uC744
+    \uC90D\uACE0 \uC778\uBCA4\uD1A0\uB9AC\uC5D0\uC11C \"E\"\uD0A4\uB97C \uB20C\uB7EC
+    \uC7A5\uCC29\uD574\uBCFC\uAE4C\uC694?"
+  checkConditionType: 0
+  parameter: E
   isClear: 0

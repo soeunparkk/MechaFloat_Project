@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491f0a2f2ec22ff4f860d12b570ac374, type: 3}
-  m_Name: Tutorial_ID_0009+9
+  m_Name: Tutorial_ID_0006+6
   m_EditorClassIdentifier: 
-  id: 9
-  description: "\uCCB4\uD06C\uD3EC\uC778\uD2B8 \uC9C0\uC810 \uC785\uB2C8\uB2E4."
+  id: 6
+  description: "\uC774 \uAD6C\uAC04\uC740 \uC870\uAE08 \uC704\uD5D8\uD574\uC694.
+    \uB9DD\uCE58\uAC00 \uC77C\uC815\uD55C \uC18D\uB3C4\uB85C \uD68C\uC804\uD558\uACE0
+    \uC788\uAC70\uB4E0\uC694.\n\uD0C0\uC774\uBC0D\uC744 \uC798 \uBD10\uC11C \uD53C\uD574\uAC00\uC138\uC694.
+    \uCE68\uCC29\uD558\uAC8C!"
   checkConditionType: 1
-  parameter: SaveZoneArea
+  parameter: HammerEnd
   isClear: 0

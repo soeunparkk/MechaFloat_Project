@@ -34,8 +34,12 @@ public class TutorialManager : MonoBehaviour
         if (justStartedTutorial)
         {
             justStartedTutorial = false;
-            return; // 한 프레임 쉬었다가 체크 시작
+            return; // 한 프레임 쉼
         }
+
+        // 타이핑이 아직 끝나지 않았다면 조건 체크하지 않음
+        if (isTyping)
+            return;
 
         if (CheckCurrentStep())
         {
@@ -90,10 +94,8 @@ public class TutorialManager : MonoBehaviour
 
             case CheckConditionType.TriggerEvent:
                 return CheckTriggerEvent(currentTutorial.parameter);
-
-            case CheckConditionType.BalloonState:
-                return CheckBalloonState(currentTutorial.parameter);
-
+            case CheckConditionType.AnyKey:
+                return Input.anyKeyDown;
             default:
                 return false;
         }
@@ -124,12 +126,6 @@ public class TutorialManager : MonoBehaviour
     private bool CheckTriggerEvent(string eventName)
     {
         return lastTriggerEvent == eventName;
-    }
-
-    private bool CheckBalloonState(string stateName)
-    {
-        // 풍선 장착 상태 체크
-        return false;
     }
 
     private bool EnumTryParseKeyCode(string keyName, out KeyCode keyCode)
@@ -182,7 +178,17 @@ public class TutorialManager : MonoBehaviour
         Debug.Log($"트리거 이벤트 발생: {eventName}");
         lastTriggerEvent = eventName;
 
-        if (eventName == "VanishEnd" && currentTutorial?.id == 3)
+        if (eventName == "WindZoneArea" && currentTutorial?.id == 4)
+        {
+            CompleteStep();
+        }
+
+        if (eventName == "MovingEnd" && currentTutorial?.id == 5)
+        {
+            CompleteStep();
+        }
+
+        if (eventName == "HammerEnd" && currentTutorial?.id == 6)
         {
             CompleteStep();
         }

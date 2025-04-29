@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491f0a2f2ec22ff4f860d12b570ac374, type: 3}
-  m_Name: Tutorial_ID_0002+2
+  m_Name: Tutorial_ID_0002_2
   m_EditorClassIdentifier: 
   id: 2
-  description: "Space \uD0A4\uB85C \uC810\uD504. \uBAA9\uD45C \uC9C0\uC810\uC5D0
-    \uB3C4\uB2EC\uD558\uC138\uC694."
+  description: "\uC774\uC81C \uC810\uD504\uD558\uB294 \uBC29\uBC95\uC744 \uC54C\uB824\uB4DC\uB9B4\uAC8C\uC694!\n\uC2A4\uD398\uC774\uC2A4\uBC14\uB97C
+    \uC9E7\uAC8C \uB204\uB974\uBA74 \uB0AE\uAC8C, \uAE38\uAC8C \uB204\uB974\uBA74
+    \uBA40\uB9AC \uB6F8 \uC218 \uC788\uC5B4\uC694.\n\uC55E\uC5D0 \uC788\uB294 \uBC1C\uD310\uC744
+    \uC774\uC6A9\uD574\uC11C \uB2E4\uC591\uD55C \uC810\uD504\uB97C \uC9C1\uC811 \uD574\uBCF4\uC138\uC694."
   checkConditionType: 0
   parameter: Space
   isClear: 0

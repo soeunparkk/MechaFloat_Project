@@ -60,6 +60,7 @@ public class PlayerJump : MonoBehaviour
 
         BalloonController equippedBalloon = InventoryManager.Instance.GetSelectedBalloon();
         ItemSO balloonData = equippedBalloon != null ? equippedBalloon.balloonData : null;
+        bool hasBuoyantBalloon = balloonData != null && balloonData.isBuoyancy;
 
         if (isZeroGravity)
         {
@@ -72,8 +73,8 @@ public class PlayerJump : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * (1 - slowDownRate * Time.fixedDeltaTime), rb.velocity.z);
             }
 
-            float riseLimit = (balloonData != null && balloonData.isBuoyancy) ? balloonData.maxRiseSpeed : maxRiseSpeed;
-            float fallLimit = (balloonData != null && balloonData.isBuoyancy) ? balloonData.maxFallSpeed : maxFallSpeed;
+            float riseLimit = hasBuoyantBalloon ? balloonData.maxRiseSpeed : maxRiseSpeed;
+            float fallLimit = hasBuoyantBalloon ? balloonData.maxFallSpeed : maxFallSpeed;
 
             rb.velocity = new Vector3(
                 rb.velocity.x,
@@ -82,6 +83,20 @@ public class PlayerJump : MonoBehaviour
             );
         }
 
+        // 점프 높이 조절 (풍선 없을 때만)
+        if (!isZeroGravity && !hasBuoyantBalloon)
+        {
+            if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
+            }
+            else if (rb.velocity.y < 0)
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1f) * Time.fixedDeltaTime;
+            }
+        }
+
+        // 높이 업적 체크
         float currentHeight = transform.position.y;
         AchievementConditionChecker checker = GetComponent<AchievementConditionChecker>();
         if (checker != null)
@@ -89,18 +104,9 @@ public class PlayerJump : MonoBehaviour
             checker.CheckHeightAchievement(currentHeight);
         }
 
-        // 짧게 점프
-        if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
-        }
-        else if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
-        }
-
         ApplyBuoyancyEffect();
     }
+
 
     private void OnDrawGizmosSelected()
     {
@@ -217,16 +223,25 @@ public class PlayerJump : MonoBehaviour
 
         if (balloonData != null && balloonData.isBuoyancy)
         {
+            // 풍선용 중력 설정
             Physics.gravity = new Vector3(0, normalGravity * balloonData.gravityScale, 0);
+
+            // 부력 적용
             rb.AddForce(Vector3.up * balloonData.buoyancyForce, ForceMode.Acceleration);
 
-            float clampedY = Mathf.Clamp(rb.velocity.y, balloonData.maxFallSpeed, balloonData.maxRiseSpeed);
-            rb.velocity = new Vector3(rb.velocity.x, clampedY, rb.velocity.z);
+            // 하강 속도만 제한 (너무 빠르게 떨어지지 않도록)
+            if (rb.velocity.y < 0)
+            {
+                float clampedFall = Mathf.Max(rb.velocity.y, balloonData.maxFallSpeed);
+                rb.velocity = new Vector3(rb.velocity.x, clampedFall, rb.velocity.z);
+            }
         }
         else
         {
+            // 일반 중력 복구
             Physics.gravity = defaultGravity;
 
+            // 일반 상태에서 전체 속도 제한
             float clampedY = Mathf.Clamp(rb.velocity.y, maxFallSpeed, maxRiseSpeed);
             rb.velocity = new Vector3(rb.velocity.x, clampedY, rb.velocity.z);
         }
