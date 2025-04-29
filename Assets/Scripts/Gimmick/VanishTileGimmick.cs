@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class VanishTileGimmick : MonoBehaviour
 {
-    public float vanishDelay = 5.0f;      // 밟고 나서 사라지는 시간
-    public float reappearDelay = 3.0f;    // 다시 나타나는 시간
+    public float vanishDelay = 5.0f;
+    public float reappearDelay = 3.0f;
 
     private bool isTriggered = false;
 
@@ -30,7 +30,11 @@ public class VanishTileGimmick : MonoBehaviour
     {
         yield return new WaitForSeconds(vanishDelay);
 
+        // 1. 먼저 비주얼만 없애줍니다.
         gimmick_Rend.enabled = false;
+
+        // 2. 충돌 처리를 약간 늦춰서 플레이어가 점프할 수 있는 여유를 줍니다.
+        yield return new WaitForSeconds(0.2f); // 0.2초 정도 지연
 
         foreach (var collider in gimmick_Colliders)
         {
