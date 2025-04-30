@@ -8,6 +8,9 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Hotbar Settings")]
     [SerializeField] private Transform[] hotbarSlots = new Transform[4];
+    [SerializeField] private Image[] slotIcons = new Image[4];
+    [SerializeField] private Slider durabilitySlider;
+    [SerializeField] private Image balloonIcon;
 
     private int selectedSlotIndex = 0;
     private BalloonController[] slotItems = new BalloonController[4];
@@ -26,29 +29,23 @@ public class InventoryManager : MonoBehaviour
     {
         if (slotIndex < 0 || slotIndex >= hotbarSlots.Length) return;
 
-        Transform slot = hotbarSlots[slotIndex];
         BalloonController balloon = slotItems[slotIndex];
 
-        // 아이콘 및 내구도 업데이트
-        slot.Find("Icon").GetComponent<Image>().sprite = balloon?.balloonData.icon;
-        Slider durabilitySlider = slot.Find("DurabilityBar").GetComponent<Slider>();
-
-        if (balloon != null)
+        // 상단 UI는 장착된 경우만
+        if (balloon != null && IsBalloonEquipped(slotIndex))
         {
             durabilitySlider.gameObject.SetActive(true);
+            balloonIcon.gameObject.SetActive(true);
+
             durabilitySlider.maxValue = balloon.balloonData.maxHP;
             durabilitySlider.value = balloon.currentHP;
+            balloonIcon.sprite = balloon.balloonData.icon;
         }
         else
         {
             durabilitySlider.gameObject.SetActive(false);
+            balloonIcon.gameObject.SetActive(false);
         }
-    }
-
-    public void UpdateAllSlots()
-    {
-        for (int i = 0; i < hotbarSlots.Length; i++)
-            UpdateHotbarUI(i);
     }
 
     public void RemoveFromInventory(int slotIndex)
@@ -71,7 +68,6 @@ public class InventoryManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
                 selectedSlotIndex = i;
-                UpdateAllSlots();
             }
         }
     }
@@ -88,6 +84,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void UpdateEquippedBalloonUI()
+    {
+        BalloonController equipped = GetEquippedBalloon();
+        if (equipped != null)
+        {
+            durabilitySlider.gameObject.SetActive(true);
+            balloonIcon.gameObject.SetActive(true);
+            durabilitySlider.maxValue = equipped.balloonData.maxHP;
+            durabilitySlider.value = equipped.currentHP;
+            balloonIcon.sprite = equipped.balloonData.icon;
+        }
+        else
+        {
+            durabilitySlider.gameObject.SetActive(false);
+            balloonIcon.gameObject.SetActive(false);
+        }
+    }
+
     public bool AddToInventory(BalloonController newBalloon)
     {
         for (int i = 0; i < slotItems.Length; i++)
@@ -95,15 +109,24 @@ public class InventoryManager : MonoBehaviour
             if (slotItems[i] == null)
             {
                 slotItems[i] = newBalloon;
-                newBalloon.assignedSlot = i; // 신규 추가: 슬롯 인덱스 저장
-                newBalloon.OnDurabilityChanged += () => UpdateHotbarUI(i);
-                UpdateHotbarUI(i);
+                newBalloon.assignedSlot = i;
+                newBalloon.OnDurabilityChanged += () => UpdateEquippedBalloonUI();
+
+                if (slotIcons[i] != null)
+                {
+                    slotIcons[i].sprite = newBalloon.balloonData.icon;
+                    slotIcons[i].enabled = true;
+                    slotIcons[i].gameObject.SetActive(true);
+                }
+
                 return true;
             }
         }
+
         Debug.LogWarning("인벤토리가 가득 찼습니다!");
         return false;
     }
+
 
     public bool IsBalloonEquipped(int slotIndex)
     {
