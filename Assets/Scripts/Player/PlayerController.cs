@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Movement")]
     public float moveSpeed = 5.0f;
+    public float runSpeed = 7.0f;
     public float rotationSpeed = 10f;
 
     [Header("Camera Settings")]
@@ -139,7 +140,8 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+        float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
 
     public bool BalloonController
