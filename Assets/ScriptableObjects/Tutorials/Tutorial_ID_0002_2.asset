@@ -19,4 +19,4 @@ MonoBehaviour:
     \uC774\uC6A9\uD574\uC11C \uB2E4\uC591\uD55C \uC810\uD504\uB97C \uC9C1\uC811 \uD574\uBCF4\uC138\uC694."
   checkConditionType: 0
   parameter: Space
-  isClear: 0
+  isClear: 1

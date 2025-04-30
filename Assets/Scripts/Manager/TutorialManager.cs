@@ -6,8 +6,7 @@ using TMPro;
 public class TutorialManager : MonoBehaviour
 {
     public TutorialDatabaseSO tutorialDatabaseSO;
-    public TextMeshProUGUI tutorialText;
-
+    
     public int currentId = -1;
 
     private TutorialSO currentTutorial => tutorialDatabaseSO.GetItemById(currentId);
@@ -20,6 +19,12 @@ public class TutorialManager : MonoBehaviour
 
     [Header("TriggerEvent")]
     private string lastTriggerEvent = "";
+
+    [Header("UI")]
+    [SerializeField] private GameObject TutorialPopupUI;
+    [SerializeField] private TextMeshProUGUI tutorialText;
+    [SerializeField] private GameObject spaceIcon;
+    [SerializeField] private GameObject eIcon;
 
     void Start()
     {
@@ -54,7 +59,9 @@ public class TutorialManager : MonoBehaviour
         if (tutorial != null)
         {
             currentId = id;
-            UpdateTutorialText();
+            TutorialPopupUI.SetActive(true);
+            UpdateTutorialText();          
+            UpdateTutorialIcons();         
             justStartedTutorial = true;
         }
         else
@@ -82,6 +89,7 @@ public class TutorialManager : MonoBehaviour
         if (currentTutorial != null)
         {
             StartTypingEffect(currentTutorial.description);
+            UpdateTutorialIcons();
         }
     }
 
@@ -136,11 +144,48 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator TypeText(string text)
     {
         tutorialText.text = "";
-        foreach (char c in text)
+        isTyping = true;
+
+        string[] lines = text.Split('\n');
+
+        for (int i = 0; i < lines.Length; i++)
         {
-            tutorialText.text += c;
-            yield return new WaitForSeconds(typingSpeed);
+            string currentLine = lines[i];
+            string displayed = "";
+
+            for (int j = 0; j < currentLine.Length; j++)
+            {
+                // 현재 줄 중간 타이핑
+                displayed += currentLine[j];
+                tutorialText.text = displayed;
+
+                float timer = 0f;
+                while (timer < typingSpeed)
+                {
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        // 현재 줄을 즉시 완성
+                        tutorialText.text = currentLine;
+                        yield return null;
+                        j = currentLine.Length; // 탈출 조건
+                        break;
+                    }
+                    timer += Time.deltaTime;
+                    yield return null;
+                }
+            }
+
+            // 다음 줄로 넘어가기 전 대기 or Enter 대기
+            float delay = 0.7f;
+            float waitTimer = 0f;
+            while (waitTimer < delay)
+            {
+                if (Input.GetKeyDown(KeyCode.Return)) break;
+                waitTimer += Time.deltaTime;
+                yield return null;
+            }
         }
+
         isTyping = false;
     }
 
@@ -171,6 +216,7 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         tutorialText.text = "";
+        TutorialPopupUI.SetActive(false);
     }
 
     public void TriggerEvent(string eventName)
@@ -196,6 +242,25 @@ public class TutorialManager : MonoBehaviour
         if (eventName == "VanishEnd" && currentTutorial?.id == 8)
         {
             CompleteStep();
+        }
+    }
+
+    private void UpdateTutorialIcons()
+    {
+        if (currentTutorial == null) return;
+
+        spaceIcon.SetActive(false);
+        eIcon.SetActive(false);
+
+        switch (currentTutorial.parameter)
+        {
+            case "Space":
+                spaceIcon.SetActive(true);
+                break;
+
+            case "E":
+                eIcon.SetActive(true);
+                break;
         }
     }
 }
