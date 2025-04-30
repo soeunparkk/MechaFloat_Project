@@ -38,8 +38,16 @@ public class AchievementConditionChecker : MonoBehaviour
             AchievementManager.Instance.TryUnlockAchievement(14);
     }
 
-    // =============================================================================================
-    // 점차 추가 예정
+    public void CheckFirstStageClear()
+    {
+        
+    }
+
+    public void CheckEquipBalloon(int equipBalloonCount)
+    {
+        if (equipBalloonCount >= 10)
+            AchievementManager.Instance.TryUnlockAchievement(3);
+    }
 
     // 추락했을 때 호출
     /*public void OnFall()

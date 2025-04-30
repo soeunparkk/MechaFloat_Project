@@ -10,6 +10,8 @@ public class PlayerPickup : MonoBehaviour
     [SerializeField] private Transform balloonPivot;
     [SerializeField] private float pickupRange = 2f;
 
+    public int equipBalloonCount = 0;
+
     private void Update()
     {
         AutoPickupBalloon();
@@ -80,9 +82,10 @@ public class PlayerPickup : MonoBehaviour
             var playerJump = GetComponent<PlayerJump>();
             var playerController = GetComponent<PlayerController>();
             balloonSM.Init(playerJump, playerController);
-        }   
+        }
 
-        playerController.PickupBalloon();
+        equipBalloonCount++;
+        GetComponent<AchievementConditionChecker>()?.CheckEquipBalloon(equipBalloonCount);
 
         if (animator != null)
             animator.SetBool("HasBallon", true);

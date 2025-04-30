@@ -192,5 +192,10 @@ public class TutorialManager : MonoBehaviour
         {
             CompleteStep();
         }
+
+        if (eventName == "VanishEnd" && currentTutorial?.id == 8)
+        {
+            CompleteStep();
+        }
     }
 }

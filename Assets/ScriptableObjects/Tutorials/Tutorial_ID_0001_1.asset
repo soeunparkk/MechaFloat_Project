@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491f0a2f2ec22ff4f860d12b570ac374, type: 3}
-  m_Name: Tutorial_ID_0001_1
+  m_Name: Tutorial_ID_0001+1
   m_EditorClassIdentifier: 
   id: 1
   description: "\uBA3C\uC800 \uB85C\uBD07\uC744 \uC6C0\uC9C1\uC5EC\uBCFC\uAE4C\uC694?
