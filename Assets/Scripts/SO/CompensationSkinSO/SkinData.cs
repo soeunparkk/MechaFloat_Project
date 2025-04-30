@@ -8,4 +8,5 @@ public class SkinData
     public int id;
     public string skinName;
     public string skinPath;
+    public string skinImagePath;
 }

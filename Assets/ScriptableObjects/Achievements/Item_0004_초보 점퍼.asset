@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   achievementName: "\uCD08\uBCF4 \uC810\uD37C"
-  description: "\uC2A4\uD14C\uC774\uC9C0\uC5D0\uC11C \uC810\uD504\uB97C \uCD1D 30\uBC88
-    \uC218\uD589"
+  description: "\uCD1D 30\uBC88 \uC810\uD504!"
   isAchievement: 0
   compensationSkin: 104
   compensationTitle: 1004

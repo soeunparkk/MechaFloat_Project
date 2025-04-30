@@ -448,6 +448,16 @@ public class JsonToScriptableConverter : EditorWindow
                     }
                 }
 
+                if (!string.IsNullOrEmpty(skinData.skinImagePath))
+                {
+                    skinSO.skinImage = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Resources/{skinData.skinImagePath}.png");
+
+                    if (skinSO.skinImage == null)
+                    {
+                        Debug.LogWarning($"아이템 '{skinData.skinName}'의 아이콘을 찾을 수 없습니다. : {skinData.skinImagePath}");
+                    }
+                }
+
                 string assetPath = $"{outputFolder}/Skin_{skinData.id.ToString("D4")}_{skinData.skinName}.asset";
                 AssetDatabase.CreateAsset(skinSO, assetPath);
 

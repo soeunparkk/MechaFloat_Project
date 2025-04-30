@@ -48,30 +48,28 @@ public class AchievementManager : MonoBehaviour
 
         Debug.Log($"업적 달성! : {achievement.achievementName}");
 
-        // 보상 지급
-        GrantReward(achievement);
+        // 보상 가져오기
+        SkinSO skin = skinDatabase.GetItemById(achievement.compensationSkin);
+        TitleSO title = titleDatabase.GetItemById(achievement.compensationTitle);
 
-        // 업적 달성 UI 호출
-        popupUI.ShowPopup(achievement);
+        // 보상 지급 처리
+        GrantReward(skin, title);
+
+        // 업적 팝업 UI 호출
+        popupUI.ShowPopup(achievement, skin, title);
     }
 
     // 보상 지급 처리
-    private void GrantReward(AchievementSO achievement)
+    private void GrantReward(SkinSO skin, TitleSO title)
     {
-        // 스킨
-        SkinSO skin = skinDatabase.GetItemById(achievement.compensationSkin);
         if (skin != null)
         {
             Debug.Log($"스킨 획득: {skin.skinName}");
-            // 인벤토리 등록 or 추가 가능
         }
 
-        // 칭호
-        TitleSO title = titleDatabase.GetItemById(achievement.compensationTitle);
         if (title != null)
         {
             Debug.Log($"칭호 획득: {title.titleName}");
-            // 칭호 시스템에 등록
         }
     }
 }
