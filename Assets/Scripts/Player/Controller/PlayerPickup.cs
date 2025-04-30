@@ -95,8 +95,8 @@ public class PlayerPickup : MonoBehaviour
         balloon.gameObject.SetActive(false);
         balloon.StopDurabilityReduction();
         InventoryManager.Instance.UpdateHotbarUI(balloon.assignedSlot);
+        InventoryManager.Instance.UpdateEquippedBalloonUI();
 
-        
         playerController.DropBalloon();
 
         if (animator != null)
