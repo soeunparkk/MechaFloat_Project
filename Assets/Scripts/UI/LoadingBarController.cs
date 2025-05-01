@@ -16,7 +16,7 @@ public class LoadingBarController : MonoBehaviour
 
     IEnumerator LoadAsyncScene()
     {
-        string nextSceneName = "Test_Scene1";
+        string nextSceneName = "GameScene_3";
         AsyncOperation op = SceneManager.LoadSceneAsync(nextSceneName);
         op.allowSceneActivation = false;
 
