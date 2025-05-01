@@ -4,37 +4,41 @@ using UnityEngine;
 
 public class WindZone : MonoBehaviour
 {
-     public float windStrength = 10f; 
-    public float playerPushStrength = 15f;  플레이어 밀려나는 힘
-    public float balloonPushStrength = 5f; /
-    public float balloonDrag = 0.8f; 
-    public float normalDrag = 0.3f; 
+    [Header("바람 설정")]
+    public Vector3 windDirection = Vector3.forward; // 에디터에서 직접 설정 가능
+    public float windStrength = 10f;
+
+    [Header("힘 조절")]
+    public float playerPushStrength = 15f;
+    public float balloonPushStrength = 5f;
+
+    [Header("Drag 설정")]
+    public float balloonDrag = 0.8f;
+    public float normalDrag = 0.3f;
 
     private void OnTriggerStay(Collider other)
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb == null) return;
 
-        Vector3 force = transform.forward.normalized * windStrength; 
+        Vector3 force = windDirection.normalized * windStrength;
 
-        
         PlayerController player = other.GetComponent<PlayerController>();
         if (player != null)
         {
             if (player.HasBalloon)
             {
                 rb.drag = balloonDrag;
-                rb.AddForce(force * 0.5f, ForceMode.Force); // 풍선 있을 때 천천히
+                rb.AddForce(force * 0.5f, ForceMode.Force);
             }
             else
             {
                 rb.drag = normalDrag;
-                rb.AddForce(force * playerPushStrength, ForceMode.Force); // 풍선 없을 때 강하게
+                rb.AddForce(force * playerPushStrength, ForceMode.Force);
             }
             return;
         }
 
-        // 풍선에도 바람 적용
         BalloonController balloon = other.GetComponent<BalloonController>();
         if (balloon != null)
         {
@@ -51,5 +55,4 @@ public class WindZone : MonoBehaviour
             rb.drag = normalDrag;
         }
     }
-
 }
