@@ -1,7 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DeadZone : MonoBehaviour, ICheckTrigger
 {
+    [SerializeField] private float delayBeforeDeath = 2f;
+
     public void OnTriggerEntered(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -9,8 +13,14 @@ public class DeadZone : MonoBehaviour, ICheckTrigger
             PlayerDie playerDie = other.GetComponent<PlayerDie>();
             if (playerDie != null)
             {
-                playerDie.Die();
+                StartCoroutine(DelayedDeath(playerDie));
             }
         }
+    }
+
+    private IEnumerator DelayedDeath(PlayerDie playerDie)
+    {
+        yield return new WaitForSeconds(delayBeforeDeath);
+        playerDie.Die();
     }
 }
