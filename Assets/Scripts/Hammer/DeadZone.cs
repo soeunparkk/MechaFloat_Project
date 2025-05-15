@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class DeadZone : MonoBehaviour
+public class DeadZone : MonoBehaviour, ICheckTrigger
 {
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEntered(Collider other)
     {
         if (other.CompareTag("Player"))
         {
