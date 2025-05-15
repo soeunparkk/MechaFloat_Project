@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hammer : MonoBehaviour
+public class Hammer : MonoBehaviour, ICheckTrigger
 {
     public float knockbackForce = 10f;
     public float downAngle = 90f;       // 내려칠 각도 (Z축 기준)
@@ -43,16 +43,16 @@ public class Hammer : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void OnTriggerEntered(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
 
             if (rb != null)
             {
                 // 플레이어 방향 계산해서 날리기
-                Vector3 direction = (collision.transform.position - transform.position).normalized;
+                Vector3 direction = (other.transform.position - transform.position).normalized;
                 rb.AddForce(direction * knockbackForce, ForceMode.Impulse);
             }
         }

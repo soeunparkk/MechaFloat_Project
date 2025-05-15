@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1474231763862024165}
   - component: {fileID: 5213373147352692445}
   - component: {fileID: 4172137839137935708}
+  - component: {fileID: 1789161213646750237}
   m_Layer: 0
   m_Name: DeadHammer (4)
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015586479720234716}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.99738777, z: -0, w: -0.072234444}
+  m_LocalRotation: {x: -0, y: -0.99738747, z: 0, w: -0.072237104}
   m_LocalPosition: {x: -286.8, y: 140.2, z: 553.7}
   m_LocalScale: {x: 64.52585, y: 64.52585, z: 64.52585}
   m_ConstrainProportionsScale: 0
@@ -163,5 +164,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08715a19bd6fd2b4abfe4625e82193d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1789161213646750237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015586479720234716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c840694e8d6864a84c2f5459c3740e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
