@@ -2,14 +2,7 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    private PlayerPickup playerPickup;
-
     [SerializeField] private Transform playerTransform;
-
-    void Start()
-    {
-        playerPickup = GetComponent<PlayerPickup>();
-    }
 
     public void RespawnPlayer()
     {

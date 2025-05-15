@@ -22,7 +22,6 @@ public class SaveManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            SetStartPosition(Vector3.zero); // 필요시 외부에서 설정 가능
         }
         else
         {

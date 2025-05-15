@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public Transform startPosition;
+
     private void Awake()
     {
         if (instance == null)
@@ -22,6 +24,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SaveManager.Instance.SetStartPosition(transform.position); // 현재 위치를 시작 위치로 설정
+        SaveManager.Instance.SetStartPosition(startPosition.transform.position); // 현재 위치를 시작 위치로 설정
     }
 }
