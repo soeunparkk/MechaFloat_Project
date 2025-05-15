@@ -7,7 +7,8 @@ public class MovingTileGimmick : MonoBehaviour
     public enum MoveDirection 
     { 
         XAxis,
-        ZAxis 
+        YAxis,
+        ZAxis
     }
 
     public MoveDirection moveDirection = MoveDirection.XAxis;
@@ -34,6 +35,8 @@ public class MovingTileGimmick : MonoBehaviour
             targetOffset = new Vector3(offset, 0, 0);
         else if (moveDirection == MoveDirection.ZAxis)
             targetOffset = new Vector3(0, 0, offset);
+        else if (moveDirection == MoveDirection.YAxis)
+            targetOffset = new Vector3(0, offset, 0);
 
         transform.position = startPos + targetOffset;
     }

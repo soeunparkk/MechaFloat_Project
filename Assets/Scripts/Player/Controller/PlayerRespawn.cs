@@ -9,9 +9,15 @@ public class PlayerRespawn : MonoBehaviour
         Vector3 respawnPos = SaveManager.Instance.GetRespawnPosition();
 
         playerTransform.position = respawnPos;
-        RestoreBalloonDurability();
 
-        Debug.Log("부활 완료: 위치 이동 + 풍선 내구도 복구");
+        Rigidbody rb = playerTransform.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        RestoreBalloonDurability();
     }
 
     private void RestoreBalloonDurability()

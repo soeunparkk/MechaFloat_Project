@@ -198,4 +198,10 @@ public class PlayerController : MonoBehaviour
             footstepAudioSource.Play();
         }
     }
+
+    public void Knockback(Vector3 forceDirection, float forceStrength)
+    {
+        rb.velocity = Vector3.zero; // 기존 속도 제거
+        rb.AddForce(forceDirection.normalized * forceStrength, ForceMode.Impulse);
+    }
 }

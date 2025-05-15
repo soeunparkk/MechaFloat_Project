@@ -10,7 +10,11 @@ public class ColorGate : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            FindObjectOfType<ColorGateGimmick>().OnGateEntered(GateColor);
+            var gimmick = FindObjectOfType<ColorGateGimmick>();
+            if (gimmick != null)
+            {
+                gimmick.OnGateEntered(GateColor, other.transform);
+            }
         }
     }
 }
