@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class DamageHandler : MonoBehaviour
+public class DamageHandler : MonoBehaviour, ICheckTrigger
 {
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEntered(Collider other)
     {
         if (other.CompareTag("Obstacle") || other.CompareTag("Enemy"))
         {
