@@ -1,85 +1,54 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class MovingTileGimmick : MonoBehaviour
 {
-    public enum MoveDirection 
-    { 
+    public enum MoveDirection
+    {
         XAxis,
         YAxis,
         ZAxis
     }
 
-    public MoveDirection moveDirection = MoveDirection.XAxis;
+    [Header("이동 설정")]
+    [SerializeField] private MoveDirection moveDirection = MoveDirection.XAxis;
+    [SerializeField, Range(0.1f, 10f)] private float moveDistance = 2f;
+    [SerializeField, Range(0.1f, 10f)] private float moveSpeed = 2f;
 
-    [Header("Movement Settings")]
-    public float moveDistance = 2f;
-    public float moveSpeed = 2f;
-
+    private Rigidbody rb;
     private Vector3 startPos;
-    private Vector3 lastPos;
 
-    void Start()
+    private void Awake()
     {
-        startPos = transform.position;
-        lastPos = startPos;
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true; // MovePosition 사용을 위한 설정
     }
 
-    void Update()
+    private void Start()
+    {
+        startPos = rb.position;
+    }
+
+    private void FixedUpdate()
     {
         float offset = Mathf.PingPong(Time.time * moveSpeed, moveDistance);
         Vector3 targetOffset = Vector3.zero;
 
-        if (moveDirection == MoveDirection.XAxis)
-            targetOffset = new Vector3(offset, 0, 0);
-        else if (moveDirection == MoveDirection.ZAxis)
-            targetOffset = new Vector3(0, 0, offset);
-        else if (moveDirection == MoveDirection.YAxis)
-            targetOffset = new Vector3(0, offset, 0);
-
-        transform.position = startPos + targetOffset;
-    }
-
-    private void LateUpdate()
-    {
-        lastPos = transform.position;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.CompareTag("Player"))
+        switch (moveDirection)
         {
-            collision.transform.SetParent(transform);
+            case MoveDirection.XAxis:
+                targetOffset = new Vector3(offset, 0f, 0f);
+                break;
+            case MoveDirection.YAxis:
+                targetOffset = new Vector3(0f, offset, 0f);
+                break;
+            case MoveDirection.ZAxis:
+                targetOffset = new Vector3(0f, 0f, offset);
+                break;
         }
-    }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.transform.CompareTag("Player"))
-        {
-            PlayerController controller = collision.transform.GetComponent<PlayerController>();
-            if (controller != null)
-            {
-                if (controller.IsMoving)
-                {
-                    if (collision.transform.parent == transform)
-                        collision.transform.SetParent(null);
-                }
-                else
-                {
-                    if (collision.transform.parent != transform)
-                        collision.transform.SetParent(transform);
-                }
-            }
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.transform.CompareTag("Player"))
-        {
-            collision.transform.SetParent(null);
-        }
+        Vector3 nextPosition = startPos + targetOffset;
+        rb.MovePosition(nextPosition);
     }
 }
