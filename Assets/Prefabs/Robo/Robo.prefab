@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2730953838828365866
+--- !u!1001 &8930504438876873003
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4550934
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.5698013
+      value: 2.3530998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
@@ -67,7 +67,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6c680bb95b043ab4d86463819b0bbb1c, type: 2}
+      objectReference: {fileID: 2100000, guid: 771c962d309d2094c97f956477f5750e, type: 2}
     - target: {fileID: -4396642182433536433, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -82,21 +82,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6c680bb95b043ab4d86463819b0bbb1c, type: 2}
+      objectReference: {fileID: 2100000, guid: 771c962d309d2094c97f956477f5750e, type: 2}
     - target: {fileID: -3722405182657794361, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 771c962d309d2094c97f956477f5750e, type: 2}
+    - target: {fileID: -1526964690268444965, guid: 596e48662f4ef4a48a17ba7868f28b73,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 236e7c65345ae114d87f842e90bda922, type: 2}
     - target: {fileID: -809828480950454423, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6c680bb95b043ab4d86463819b0bbb1c, type: 2}
+      objectReference: {fileID: 2100000, guid: 771c962d309d2094c97f956477f5750e, type: 2}
     - target: {fileID: 919132149155446097, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
       propertyPath: m_Name
-      value: Robo_Normal2
+      value: Robo
       objectReference: {fileID: 0}
     - target: {fileID: 1630794972795428178, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
@@ -117,7 +122,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6c680bb95b043ab4d86463819b0bbb1c, type: 2}
+      objectReference: {fileID: 2100000, guid: 771c962d309d2094c97f956477f5750e, type: 2}
     - target: {fileID: 8743813690021804245, guid: 596e48662f4ef4a48a17ba7868f28b73,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

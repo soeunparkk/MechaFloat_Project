@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Main
-    second: {fileID: 2100000, guid: 6c1ee024e1d4d1648b00abb700c16299, type: 2}
+    second: {fileID: 2100000, guid: 47d55cfe68f82da4483dcc337f1cbe68, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -23,7 +23,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Muffler
-    second: {fileID: 2100000, guid: 8282f9792df4cb14b977dcbb2870467f, type: 2}
+    second: {fileID: 2100000, guid: 236e7c65345ae114d87f842e90bda922, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
