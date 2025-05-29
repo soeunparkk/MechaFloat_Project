@@ -77,13 +77,6 @@ public class PlayerPickup : MonoBehaviour
         balloon.StartDurabilityReduction();
         InventoryManager.Instance.UpdateHotbarUI(balloon.assignedSlot);
 
-        if (balloon.TryGetComponent(out BalloonStateMachine balloonSM))
-        {
-            var playerJump = GetComponent<PlayerJump>();
-            var playerController = GetComponent<PlayerController>();
-            balloonSM.Init(playerJump, playerController);
-        }
-
         equipBalloonCount++;
         GetComponent<AchievementConditionChecker>()?.CheckEquipBalloon(equipBalloonCount);
 
