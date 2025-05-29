@@ -16,9 +16,9 @@ public class PieceManager : MonoBehaviour
     public ItemDatabaseSO itemDatabase;
 
     // 각 풍선 타입에 대응하는 프리팹
-    public GameObject normalBalloonPrefab;
-    public GameObject heliumBalloonPrefab;
-    public GameObject reinforcedBalloonPrefab;
+    public GameObject normalBalloonObject;
+    public GameObject heliumBalloonObject;
+    public GameObject reinforcedBalloonObject;
 
     // 각 풍선 조각 개수
     private int normalPieceCount = 0;
@@ -31,7 +31,10 @@ public class PieceManager : MonoBehaviour
     private void Awake()
     {
         // 싱글톤 설정
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     /// <summary>
@@ -72,32 +75,33 @@ public class PieceManager : MonoBehaviour
             return;
         }
 
-        // 풍선 프리팹 가져오기
-        GameObject prefab = GetBalloonPrefab(balloonType);
-        if (prefab == null)
+        // 미리 연결된 오브젝트에서 선택
+        GameObject balloonObj = balloonType switch
         {
-            Debug.LogError($"프리팹이 설정되지 않았습니다: {balloonType}");
+            ItemType.NormalBalloon => normalBalloonObject,
+            ItemType.HeliumBalloon => heliumBalloonObject,
+            ItemType.ReinforcedBalloon => reinforcedBalloonObject,
+            _ => null
+        };
+
+        if (balloonObj == null)
+        {
+            Debug.LogError("연결된 풍선 오브젝트가 없습니다.");
             return;
         }
 
-        // 프리팹 인스턴스 생성 (즉시 활성화 방지)
-        GameObject balloonObj = Instantiate(prefab);
-        balloonObj.SetActive(false);
-        balloonObj.transform.SetParent(null);
-
-        // BalloonController 설정
         var balloon = balloonObj.GetComponent<BalloonController>();
         if (balloon == null)
         {
-            Debug.LogError("BalloonController가 프리팹에 없습니다.");
+            Debug.LogError("BalloonController가 해당 오브젝트에 없습니다.");
             return;
         }
 
-        // 데이터 설정
+        // 비활성화된 상태로 세팅
+        balloonObj.SetActive(false);
         balloon.balloonData = balloonData;
         balloon.currentHP = balloonData.maxHP;
 
-        // 인벤토리에 추가
         bool added = InventoryManager.Instance.AddToInventory(balloon);
         Debug.Log($"인벤토리 추가 결과: {added}");
 
@@ -115,22 +119,8 @@ public class PieceManager : MonoBehaviour
                 break;
         }
 
-        // UI 등 외부에 알림
+        // 외부 UI 등 알림
         OnPieceCountChanged?.Invoke();
-    }
-
-    /// <summary>
-    /// 풍선 타입에 맞는 프리팹 반환.
-    /// </summary>
-    private GameObject GetBalloonPrefab(ItemType balloonType)
-    {
-        return balloonType switch
-        {
-            ItemType.NormalBalloon => normalBalloonPrefab,
-            ItemType.HeliumBalloon => heliumBalloonPrefab,
-            ItemType.ReinforcedBalloon => reinforcedBalloonPrefab,
-            _ => null
-        };
     }
 
     /// <summary>
