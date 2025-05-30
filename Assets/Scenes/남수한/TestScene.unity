@@ -353,7 +353,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 18b644ddfea9d5c4593f7905250efc8c,
         type: 3}
       propertyPath: m_Name
-      value: Running_Bolloon
+      value: Running
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18b644ddfea9d5c4593f7905250efc8c,
         type: 3}
@@ -483,7 +483,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 18b644ddfea9d5c4593f7905250efc8c,
         type: 3}
       propertyPath: m_Name
-      value: Running_Bolloon
+      value: Running
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18b644ddfea9d5c4593f7905250efc8c,
         type: 3}
@@ -1655,7 +1655,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 36da6ce11908c494882e80665ed4353c,
         type: 3}
       propertyPath: m_Name
-      value: Warking_Bolloon
+      value: Walking
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 36da6ce11908c494882e80665ed4353c,
         type: 3}
@@ -1759,7 +1759,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 18b644ddfea9d5c4593f7905250efc8c,
         type: 3}
       propertyPath: m_Name
-      value: Running_Bolloon
+      value: Running
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18b644ddfea9d5c4593f7905250efc8c,
         type: 3}
@@ -2523,7 +2523,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3a16cce21c611a64b925d84ce12db38b,
         type: 3}
       propertyPath: m_Name
-      value: Jump_Bolloon
+      value: Jump
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3a16cce21c611a64b925d84ce12db38b,
         type: 3}
@@ -3031,7 +3031,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 36da6ce11908c494882e80665ed4353c,
         type: 3}
       propertyPath: m_Name
-      value: Warking_Bolloon
+      value: Walking
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 36da6ce11908c494882e80665ed4353c,
         type: 3}
@@ -3770,7 +3770,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3a16cce21c611a64b925d84ce12db38b,
         type: 3}
       propertyPath: m_Name
-      value: Jump_Bolloon
+      value: Jump
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3a16cce21c611a64b925d84ce12db38b,
         type: 3}
@@ -6253,7 +6253,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 53e0f4ec5679f2d40aa3173e405f9dd3,
         type: 3}
       propertyPath: m_Name
-      value: Wait_Bolloon
+      value: Wait
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 53e0f4ec5679f2d40aa3173e405f9dd3,
         type: 3}
@@ -6639,6 +6639,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1003330340}
   stateMachine: {fileID: 1166490459}
+  normalBallonObj: {fileID: 1758974759}
+  heliumBalloonObj: {fileID: 1842857059}
+  reinforcedBalloonObj: {fileID: 988150603}
 --- !u!114 &1166490461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6917,7 +6920,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 36da6ce11908c494882e80665ed4353c,
         type: 3}
       propertyPath: m_Name
-      value: Warking_Bolloon
+      value: Walking
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 36da6ce11908c494882e80665ed4353c,
         type: 3}
@@ -7027,7 +7030,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 53e0f4ec5679f2d40aa3173e405f9dd3,
         type: 3}
       propertyPath: m_Name
-      value: Wait_Bolloon
+      value: Wait
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 53e0f4ec5679f2d40aa3173e405f9dd3,
         type: 3}
@@ -7179,7 +7182,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 53e0f4ec5679f2d40aa3173e405f9dd3,
         type: 3}
       propertyPath: m_Name
-      value: Wait_Bolloon
+      value: Wait
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 53e0f4ec5679f2d40aa3173e405f9dd3,
         type: 3}
@@ -7599,7 +7602,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3a16cce21c611a64b925d84ce12db38b,
         type: 3}
       propertyPath: m_Name
-      value: Jump_Bolloon
+      value: Jump
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3a16cce21c611a64b925d84ce12db38b,
         type: 3}
