@@ -10,10 +10,6 @@ public class PlayerAnimationManager : MonoBehaviour
     private PlayerController controller; 
     private PlayerJump playerJump;
 
-    [SerializeField] private GameObject normalBallonObj;
-    [SerializeField] private GameObject heliumBalloonObj;
-    [SerializeField] private GameObject reinforcedBalloonObj;
-
     // 애니메이션 파라미터 이름들을 상수로 정의
     private const string PARAM_IS_MOVING = "IsMoving";  
     private const string PARAM_IS_RUNNING = "IsRunning";    
