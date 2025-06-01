@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public Transform startPosition;
 
+    public PlayerSkinApplier playerSkinApplier;
+
     private void Awake()
     {
         if (instance == null)
@@ -25,5 +27,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SaveManager.Instance.SetStartPosition(startPosition.transform.position); // 현재 위치를 시작 위치로 설정
+
+        if (SkinSelectorData.selectedSkin != null)
+        {
+            playerSkinApplier.ApplySkin(SkinSelectorData.selectedSkin);
+        }
+        else
+        {
+            Debug.LogWarning("선택된 스킨이 없습니다.");
+        }
     }
 }

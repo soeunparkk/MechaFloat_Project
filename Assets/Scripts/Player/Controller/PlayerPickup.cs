@@ -12,9 +12,47 @@ public class PlayerPickup : MonoBehaviour
 
     public int equipBalloonCount = 0;
 
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
     private void Update()
     {
         AutoPickupBalloon();
+
+        TryFindAnimatorAndPivot();
+    }
+
+    public void TryFindAnimatorAndPivot()
+    {
+        animator = GetComponentInChildren<Animator>();
+
+        // 자동 연결이 안됐을 경우 찾기
+        if (balloonPivot == null)
+        {
+            foreach (Transform t in GetComponentsInChildren<Transform>())
+            {
+                if (t.name == "Ballon_Pivot")
+                {
+                    balloonPivot = t;
+                    break;
+                }
+            }
+
+            if (balloonPivot == null)
+                Debug.LogWarning("Ballon_Pivot not found in children.");
+        }
+    }
+
+    public void SetAnimator(Animator newAnimator)
+    {
+        animator = newAnimator;
+    }
+
+    public void SetBalloonPivot(Transform pivot)
+    {
+        balloonPivot = pivot;
     }
 
     private void AutoPickupBalloon()
