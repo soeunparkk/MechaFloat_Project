@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/\uC911\uAC04/GameScene_3.unity"
     guid: a440a6e5fd3b94e3889811a51a0b186c
+  - enabled: 1
+    path: "Assets/Scenes/\uB0A8\uC218\uD55C/SkinSelectionScene.unity"
+    guid: 4938f19af8327d945b49780160d09b05
   m_configObjects: {}

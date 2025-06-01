@@ -8,7 +8,7 @@ public class SkinSO : ScriptableObject
     public int id;
     public string skinName;
     public Sprite skinImage;
-    public Texture2D skin;
+    public GameObject skinPrefab;
 
     public AchievementSO unlockCondition;
 }

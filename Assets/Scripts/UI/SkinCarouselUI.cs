@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SkinCarouselUI : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class SkinCarouselUI : MonoBehaviour
     public TextMeshProUGUI skinNameText;
     public Button leftButton;
     public Button rightButton;
+    public Button equipButton;
+    public Button testBackInGameButton;
 
     [Header("Settings")]
     public List<SkinSO> skins;
@@ -22,6 +25,8 @@ public class SkinCarouselUI : MonoBehaviour
     {
         leftButton.onClick.AddListener(OnClickLeft);
         rightButton.onClick.AddListener(OnClickRight);
+        equipButton.onClick.AddListener(OnClickEquip);
+        testBackInGameButton.onClick.AddListener(OnClickBackInGame);
         RefreshUI();
     }
 
@@ -35,6 +40,17 @@ public class SkinCarouselUI : MonoBehaviour
     {
         currentIndex = (currentIndex + 1) % skins.Count;
         RefreshUI();
+    }
+
+    private void OnClickEquip()
+    {
+        SkinSelectorData.selectedSkin = skins[currentIndex];        // 선택된 스킨 저장
+        SceneManager.LoadScene("TestScene");                        // 또는 인게임 씬 이름
+    }
+
+    private void OnClickBackInGame()
+    {
+        SceneManager.LoadScene("TestScene");
     }
 
     private void RefreshUI()

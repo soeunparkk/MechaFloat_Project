@@ -21,6 +21,7 @@ MonoBehaviour:
   isBuoyancy: 0
   isReinforced: 0
   icon: {fileID: 0}
+  prefab: {fileID: 6520388969049822497, guid: 7fa1edd982f7af5419fc5fe9ad0bfd77, type: 3}
   buoyancyForce: 0
   degradationRate: 0
   durabilityMultiplier: 0

@@ -440,9 +440,9 @@ public class JsonToScriptableConverter : EditorWindow
 
                 if (!string.IsNullOrEmpty(skinData.skinPath))
                 {
-                    skinSO.skin = AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/Resources/{skinData.skinPath}.png");
+                    skinSO.skinPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/Resources/{skinData.skinPath}.png");
 
-                    if (skinSO.skin == null)
+                    if (skinSO.skinPrefab == null)
                     {
                         Debug.LogWarning($"아이템 '{skinData.skinName}'의 아이콘을 찾을 수 없습니다. : {skinData.skinPath}");
                     }

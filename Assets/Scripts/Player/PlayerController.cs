@@ -73,6 +73,11 @@ public class PlayerController : MonoBehaviour
             playerPickup.HandleEquipmentToggle();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         if (isBalloonEffectActive)
         {
             balloonTimer += Time.deltaTime;

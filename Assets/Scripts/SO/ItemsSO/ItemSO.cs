@@ -14,6 +14,7 @@ public class ItemSO : ScriptableObject
     public bool isBuoyancy;                                 // 부력 여부 bool 값
     public bool isReinforced;                               // 강화 풍선 여부 bool 값
     public Sprite icon;                                     // 이미지 아이콘
+    public GameObject prefab;
     public float buoyancyForce;                             // 부력시 중력 증가량
     public int degradationRate;                             // 초당 내구도 닳는 양
     public float durabilityMultiplier;                      // 강화 풍선의 내구도 효율

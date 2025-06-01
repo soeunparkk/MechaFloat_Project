@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerAnimationManager : MonoBehaviour
 {
-    public Animator animator;
     public PlayerStateMachine stateMachine;
 
+    public Animator animator;
     private PlayerJump playerJump;
 
     // 애니메이션 파라미터 이름들을 상수로 정의
@@ -24,7 +24,14 @@ public class PlayerAnimationManager : MonoBehaviour
 
     void Update()
     {
+        if (animator == null) return;
+
         UpdateAnimationState();
+    }
+
+    public void SetAnimator(Animator newAnimator)
+    {
+        animator = newAnimator;
     }
 
     private void UpdateAnimationState()

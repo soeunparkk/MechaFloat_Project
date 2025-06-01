@@ -15,5 +15,6 @@ MonoBehaviour:
   id: 102
   skinName: "\uCD08\uBCF4 \uC810\uD37C \uD2F0\uC154\uCE20"
   skinImage: {fileID: 21300000, guid: a45b04764d1d4ce488e768c14c330515, type: 3}
-  skin: {fileID: 0}
+  skinPrefab: {fileID: 737310389240197515, guid: 6eeaf2a4310c6224b82e39dd22627b11,
+    type: 3}
   unlockCondition: {fileID: 11400000, guid: 9d8297e0799de3c44b39ad1a41b00f4d, type: 2}

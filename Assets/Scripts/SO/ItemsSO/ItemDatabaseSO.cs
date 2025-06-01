@@ -10,16 +10,23 @@ public class ItemDatabaseSO : ScriptableObject
     // 캐싱을 위한 사전
     private Dictionary<int, ItemSO> itemsById;                  // ID로 아이템 찾기 위한 캐싱
     private Dictionary<string, ItemSO> itemsByName;             // 이름으로 아이템 찾기
+    private Dictionary<ItemType, GameObject> balloonPrefabMap;
 
     public void Initialize()
     {
         itemsById = new Dictionary<int, ItemSO>();              // 위에 선언만 했기 때문에 Dictionary 할당
         itemsByName = new Dictionary<string, ItemSO>();
+        balloonPrefabMap = new Dictionary<ItemType, GameObject>();
 
         foreach (var item in items)                             // Items 리스트에 선언 되어 있는것을 가지고 Dictionary에 입력한다.
         {
             itemsById[item.id] = item;
             itemsByName[item.itemName] = item;
+        }
+
+        foreach (var item in items)
+        {
+            balloonPrefabMap[item.itemType] = item.prefab;
         }
     }
 
@@ -55,5 +62,11 @@ public class ItemDatabaseSO : ScriptableObject
     public List<ItemSO> GetItemByType(ItemType type)
     {
         return items.FindAll(item => item.itemType == type);
+    }
+
+    public GameObject GetBalloonPrefab(ItemType balloonType)
+    {
+        if (balloonPrefabMap == null) Initialize();
+        return balloonPrefabMap.TryGetValue(balloonType, out var prefab) ? prefab : null;
     }
 }
