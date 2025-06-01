@@ -39,6 +39,9 @@ public class PlayerJump : MonoBehaviour
     public float fallMultiplier = 2.5f;                     // 하강 중 중력 강화 배율
     public float lowJumpMultiplier = 2.0f;                  // 짧은 점프 중 중력 강화 배율
 
+    private float defaultJumpForce = 7f;
+    private float currentJumpForce;
+
     #endregion
 
     #region Unity Methods
@@ -47,6 +50,8 @@ public class PlayerJump : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerPickup = GetComponent<PlayerPickup>();
+        currentJumpForce = defaultJumpForce;
+
 
         if (!isZeroGravity)
         {
@@ -130,7 +135,7 @@ public class PlayerJump : MonoBehaviour
             else
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
             }
 
             canJump = false;
@@ -271,6 +276,15 @@ public class PlayerJump : MonoBehaviour
     public float GetVerticalVelocity()
     {
         return rb.velocity.y;
+    }
+
+    public void SetJumpForce(float newForce)
+    {
+        currentJumpForce = newForce;
+    }
+    public void ResetJumpForce()
+    {
+        currentJumpForce = defaultJumpForce;
     }
 
     #endregion

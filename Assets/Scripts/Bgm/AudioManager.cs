@@ -19,30 +19,8 @@ public class AudioManager : MonoBehaviour
         audio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (player.position.y < stage2Tile.position.y)
-        {
-            if (currentClip != stage1bgm)
-            {
-                currentClip = stage1bgm;
-                audio.clip = currentClip;
-                audio.Play();
-            }
-        }
-        
-        else if (player.position.y > stage2Tile.position.y)
-        {
-            if (currentClip != stage2bgm)
-            {
-                currentClip = stage2bgm;
-                audio.clip = currentClip;
-                audio.Play();
-            }
-        }
-    }
-
+ 
+    
     void ChangeAudio()
     {
 
