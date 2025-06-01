@@ -9,32 +9,55 @@ public class RotatingTile : MonoBehaviour
     public float rotationSpeed = 45f;
 
     private Rigidbody rb;
+    private Quaternion previousRotation;
+
+    private HashSet<Transform> rotatingObjects = new HashSet<Transform>();
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
+        previousRotation = rb.rotation;
     }
 
     void FixedUpdate()
     {
-        Quaternion delta = Quaternion.Euler(rotationAxis * rotationSpeed * Time.fixedDeltaTime);
-        rb.MoveRotation(rb.rotation * delta);
-    }
+        // 회전 계산
+        Quaternion deltaRotation = Quaternion.Euler(rotationAxis * rotationSpeed * Time.fixedDeltaTime);
+        rb.MoveRotation(rb.rotation * deltaRotation);
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        // ▶ 플레이어도 회전 델타만큼 회전시킴
+        foreach (Transform obj in rotatingObjects)
         {
-            collision.transform.SetParent(this.transform);
+            obj.RotateAround(transform.position, rotationAxis, rotationSpeed * Time.fixedDeltaTime);
+        }
+
+        previousRotation = rb.rotation;
+
+        foreach (Transform obj in rotatingObjects)
+        {
+            // 1. 위치 회전
+            obj.RotateAround(transform.position, rotationAxis, rotationSpeed * Time.fixedDeltaTime);
+
+            // 2. 방향 회전 (몸도 돌게 만듦)
+            Quaternion rotationDelta = Quaternion.Euler(rotationAxis * rotationSpeed * Time.fixedDeltaTime);
+            obj.rotation = rotationDelta * obj.rotation;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.transform.SetParent(null);
+            rotatingObjects.Add(collision.transform);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            rotatingObjects.Remove(collision.transform);
         }
     }
 }
