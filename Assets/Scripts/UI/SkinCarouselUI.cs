@@ -9,6 +9,7 @@ public class SkinCarouselUI : MonoBehaviour
     public Image skinLeftImage;
     public Image skinCenterImage;
     public Image skinRightImage;
+    public GameObject lockIconLeft, lockIconCenter, lockIconRight;
     public TextMeshProUGUI skinNameText;
     public Button leftButton;
     public Button rightButton;
@@ -41,15 +42,20 @@ public class SkinCarouselUI : MonoBehaviour
         int leftIndex = (currentIndex - 1 + skins.Count) % skins.Count;
         int rightIndex = (currentIndex + 1) % skins.Count;
 
-        skinLeftImage.sprite = skins[leftIndex].skinImage;
-        skinCenterImage.sprite = skins[currentIndex].skinImage;
-        skinRightImage.sprite = skins[rightIndex].skinImage;
+        UpdateSkinSlot(skinLeftImage, lockIconLeft, skins[leftIndex]);
+        UpdateSkinSlot(skinCenterImage, lockIconCenter, skins[currentIndex]);
+        UpdateSkinSlot(skinRightImage, lockIconRight, skins[rightIndex]);
 
         skinNameText.text = skins[currentIndex].skinName;
+    }
 
-        // 크기 조절 (강조 효과)
-        skinLeftImage.rectTransform.localScale = Vector3.one * 0.7f;
-        skinCenterImage.rectTransform.localScale = Vector3.one;
-        skinRightImage.rectTransform.localScale = Vector3.one * 0.7f;
+    private void UpdateSkinSlot(Image image, GameObject lockIcon, SkinSO skin)
+    {
+        image.sprite = skin.skinImage;
+
+        bool isUnlocked = skin.unlockCondition == null || skin.unlockCondition.isAchievement;
+        lockIcon.SetActive(!isUnlocked);
+
+        image.color = isUnlocked ? Color.white : new Color(0.5f, 0.5f, 0.5f, 1f);
     }
 }

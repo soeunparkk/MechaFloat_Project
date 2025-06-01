@@ -9,4 +9,6 @@ public class SkinSO : ScriptableObject
     public string skinName;
     public Sprite skinImage;
     public Texture2D skin;
+
+    public AchievementSO unlockCondition;
 }

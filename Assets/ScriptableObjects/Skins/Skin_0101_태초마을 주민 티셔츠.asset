@@ -16,3 +16,4 @@ MonoBehaviour:
   skinName: "\uD0DC\uCD08\uB9C8\uC744 \uC8FC\uBBFC \uD2F0\uC154\uCE20"
   skinImage: {fileID: 0}
   skin: {fileID: 0}
+  unlockCondition: {fileID: 11400000, guid: 2a2b24f9b9d4c3f47a5c0e6dc4f491ff, type: 2}
