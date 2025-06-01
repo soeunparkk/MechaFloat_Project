@@ -7,7 +7,6 @@ public class PlayerAnimationManager : MonoBehaviour
     public Animator animator;
     public PlayerStateMachine stateMachine;
 
-    private PlayerController controller; 
     private PlayerJump playerJump;
 
     // 애니메이션 파라미터 이름들을 상수로 정의
@@ -20,7 +19,6 @@ public class PlayerAnimationManager : MonoBehaviour
 
     private void Start()
     {
-        controller = GetComponent<PlayerController>();
         playerJump = GetComponent<PlayerJump>();
     }
 
@@ -60,7 +58,7 @@ public class PlayerAnimationManager : MonoBehaviour
                 animator.SetBool(PARAM_IS_FALLING, true);
                 if (playerJump.GetVerticalVelocity() == 0f)
                     animator.SetBool(PARAM_IS_GROUND, true);
-                SetBalloonAnimationState("Jump"); // 혹은 "Fall"이 있다면 Fall로
+                SetBalloonAnimationState("Falling");
                 break;
             case PickupState:
                 animator.SetBool(PARAM_IS_PICKING, true);
