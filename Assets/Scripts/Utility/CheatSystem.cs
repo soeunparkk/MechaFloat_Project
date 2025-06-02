@@ -16,14 +16,21 @@ public class CheatSystem : MonoBehaviour
     [Header("세팅")]
     [SerializeField] private KeyCode toggleKey = KeyCode.F12;
 
+    [Header("갓모드")]
     private bool isGodMode = false;
-    private bool isFlyMode = false;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private PlayerController playerController;
 
+    [Header("자유모드")]
+    private bool isFlyMode = false;
     [SerializeField] private float flySpeed = 10f;
     [SerializeField] private float flyBoostMultiplier = 2.5f;
 
+    [Header("순간이동 모드")]
+    private bool isTeleportModeActive = false;
+    private int currentPointIndex = 0;
+    [SerializeField] private List<Transform> teleportPoints;
+    
     private Dictionary<string, System.Action<string[]>> commands;
     private List<string> outputLines = new List<string>();
     private bool isActive = false;
@@ -72,6 +79,15 @@ public class CheatSystem : MonoBehaviour
         if (isFlyMode)
         {
             HandleFlyMovement();
+        }
+        // 순간 이동 모드
+        if (isTeleportModeActive)
+        {
+            if (Input.GetKeyDown(KeyCode.F1)) TeleportToIndex(0);
+            if (Input.GetKeyDown(KeyCode.F2)) TeleportToIndex(1);
+            if (Input.GetKeyDown(KeyCode.F3)) TeleportToIndex(2);
+            if (Input.GetKeyDown(KeyCode.F4)) TeleportToIndex(3);
+            if (Input.GetKeyDown(KeyCode.F)) TeleportToNextPoint();
         }
     }
 
@@ -166,10 +182,31 @@ public class CheatSystem : MonoBehaviour
 
     private void Teleportation(string[] args)
     {
-        Log("위치 이동");
-        ShowToast("위치 이동", ToastMessage.MessageType.Success);
+        if (args.Length == 1)
+        {
+            isTeleportModeActive = !isTeleportModeActive;
+            Log($"순간이동 모드 {(isTeleportModeActive ? "활성화" : "비활성화")}");
+            ShowToast($"순간이동 모드 {(isTeleportModeActive ? "ON" : "OFF")}", ToastMessage.MessageType.info);
+        }
+    }
 
-        // TODO: 순간이동 구현 (미리 지정된 여러 위치에 이동 (예시 : F1 → 구간1, F2 → 구간2, F3 → 구간3) || F키 한 번 누를 때마다 다음 구간으로 넘어가는 식)
+    private void TeleportToIndex(int index)
+    {
+        if (teleportPoints == null || index >= teleportPoints.Count) return;
+
+        playerTransform.position = teleportPoints[index].position;
+        Log($"구간 {index + 1}로 순간이동");
+        ShowToast($"구간 {index + 1} 이동", ToastMessage.MessageType.Success);
+    }
+
+    private void TeleportToNextPoint()
+    {
+        if (teleportPoints == null || teleportPoints.Count == 0) return;
+
+        currentPointIndex = (currentPointIndex + 1) % teleportPoints.Count;
+        playerTransform.position = teleportPoints[currentPointIndex].position;
+        Log($"다음 구간({currentPointIndex + 1})로 순간이동");
+        ShowToast($"다음 구간({currentPointIndex + 1}) 이동", ToastMessage.MessageType.Success);
     }
 
     private void ClearConsole(string[] args)
