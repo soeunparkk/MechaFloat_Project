@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 
 public class PlayerRunDust : MonoBehaviour
 {
-    public ParticleSystem runDustEffect;
+    [SerializeField] private GameObject dustPos;
 
     void Update()
     {
@@ -16,13 +16,7 @@ public class PlayerRunDust : MonoBehaviour
 
         if (isRunning && playerJump.isGrounded())
         {
-            if (!runDustEffect.isPlaying)
-                runDustEffect.Play();
-        }
-        else
-        {
-            if (runDustEffect.isPlaying)
-                runDustEffect.Stop();
+            EffectManager.instance.PlayEffect("RunDust", dustPos.transform.position, Quaternion.identity);
         }
     }
 }
