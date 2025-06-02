@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
     private const float Y_ANGLE_MAX = 80.0f;
 
     [Header("Component")]
-    private Rigidbody rb;
     private PlayerJump playerJump;
+    public Rigidbody rb { get; private set; }
     [NonSerialized]
     public PlayerPickup playerPickup;
 

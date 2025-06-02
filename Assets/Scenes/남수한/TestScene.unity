@@ -1038,7 +1038,7 @@ MonoBehaviour:
   toastPrefab: {fileID: 9134452024080269970, guid: 52a3230051430c44298a0503f20e662b,
     type: 3}
   messageContainer: {fileID: 1126687773}
-  displayTime: 2.5
+  displayTime: 1
   fadeTime: 0.5
   maxMessage: 5
 --- !u!1 &226644058
@@ -1091,6 +1091,7 @@ MonoBehaviour:
   toggleKey: 293
   playerTransform: {fileID: 1809690412729804007}
   playerController: {fileID: 6383524970614781837}
+  flySpeed: 10
 --- !u!1 &238584051
 GameObject:
   m_ObjectHideFlags: 0

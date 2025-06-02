@@ -17,8 +17,11 @@ public class CheatSystem : MonoBehaviour
     [SerializeField] private KeyCode toggleKey = KeyCode.F12;
 
     private bool isGodMode = false;
+    private bool isFlyMode = false;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private PlayerController playerController;
+
+    [SerializeField] private float flySpeed = 10f;
 
     private Dictionary<string, System.Action<string[]>> commands;
     private List<string> outputLines = new List<string>();
@@ -59,10 +62,14 @@ public class CheatSystem : MonoBehaviour
         {
             ExecuteCommand();
         }
-        // 
+        // 무적 && 위치 이동
         if (isGodMode && Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonDown(0))
         {
             GodModToMousePosition();
+        }
+        if (isFlyMode)
+        {
+            HandleFlyMovement();
         }
     }
 
@@ -81,7 +88,6 @@ public class CheatSystem : MonoBehaviour
     #endregion
 
     #region 치트 모드
-
     private void ToggleGodMod(string[] args)
     {
         isGodMode = !isGodMode;
@@ -118,10 +124,38 @@ public class CheatSystem : MonoBehaviour
 
     private void ToggleFlyMod(string[] args)
     {
-        Log("자유 모드 토글됨");
-        ShowToast("자유 모드 ON/OFF", ToastMessage.MessageType.Success);
+        isFlyMode = !isFlyMode;
 
-        // TODO : 자유 모드 구현
+        if (playerController != null)
+        {
+            playerController.rb.useGravity = false;
+            playerController.rb.isKinematic = true;
+        }
+
+        Log($"자유 비행 모드 {(isFlyMode ? "활성화됨" : "비활성화됨")}");
+        ShowToast($"자유 비행 모드 {(isFlyMode ? "ON" : "OFF")}", ToastMessage.MessageType.Success);
+    }
+
+    private void HandleFlyMovement()
+    {
+        if (playerTransform == null) return;
+
+        float h = Input.GetAxis("Horizontal");      // A/D 또는 ←/→
+        float v = Input.GetAxis("Vertical");        // W/S 또는 ↑/↓
+
+        Vector3 move = new Vector3(h, 0, v);
+
+        if (Input.GetKey(KeyCode.Space))    // 상승
+            move.y += 1;
+        if (Input.GetKey(KeyCode.Q))        // 하강
+            move.y -= 1;
+
+        // 카메라 기준 방향으로 움직이기 (플레이어 방향 아님)
+        Transform cam = Camera.main.transform;
+        Vector3 direction = cam.TransformDirection(move);
+        direction.y = move.y; // 상하 이동은 월드 기준으로
+
+        playerTransform.position += direction * flySpeed * Time.deltaTime;
     }
 
     private void Teleportation(string[] args)
@@ -209,6 +243,37 @@ public class CheatSystem : MonoBehaviour
                 commandInput.Select();
                 commandInput.ActivateInputField();
             }
+            else
+            {
+                // 패널 비활성화될 때 모든 치트 모드 해제
+                DisableAllCheats();
+            }
+        }
+    }
+
+    private void DisableAllCheats()
+    {
+        // 무적 모드 비활성화
+        if (isGodMode)
+        {
+            isGodMode = false;
+            if (playerController != null)
+                playerController.SetInvincibility(false);
+            Log("무적 모드 OFF");
+            ShowToast("무적 모드 OFF", ToastMessage.MessageType.Warning);
+        }
+
+        // 비행 모드 비활성화
+        if (isFlyMode)
+        {
+            isFlyMode = false;
+            if (playerController != null)
+            {
+                playerController.rb.useGravity = true;
+                playerController.rb.isKinematic = false;
+            }
+            Log("비행 모드 OFF");
+            ShowToast("비행 모드 OFF", ToastMessage.MessageType.Warning);
         }
     }
 
