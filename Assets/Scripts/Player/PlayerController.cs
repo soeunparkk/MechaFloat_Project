@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
     private float walkInterval = 0.6f;
     private float runInterval = 0.3f;
 
+    [Header("God Mod")]
+    private bool isInvincible = false;
+    public bool IsInvincible => isInvincible;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -206,7 +210,15 @@ public class PlayerController : MonoBehaviour
 
     public void Knockback(Vector3 forceDirection, float forceStrength)
     {
+        if (isInvincible) return;
+
         rb.velocity = Vector3.zero; // 기존 속도 제거
         rb.AddForce(forceDirection.normalized * forceStrength, ForceMode.Impulse);
+    }
+
+    public void SetInvincibility(bool on)
+    {
+        isInvincible = on;
+        Debug.Log($"무적 모드: {(on ? "활성화" : "비활성화")}");
     }
 }
