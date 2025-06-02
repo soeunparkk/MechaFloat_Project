@@ -15,7 +15,6 @@ public class SkinCarouselUI : MonoBehaviour
     public Button leftButton;
     public Button rightButton;
     public Button equipButton;
-    public Button testBackInGameButton;
 
     [Header("Settings")]
     public List<SkinSO> skins;
@@ -26,7 +25,6 @@ public class SkinCarouselUI : MonoBehaviour
         leftButton.onClick.AddListener(OnClickLeft);
         rightButton.onClick.AddListener(OnClickRight);
         equipButton.onClick.AddListener(OnClickEquip);
-        testBackInGameButton.onClick.AddListener(OnClickBackInGame);
         RefreshUI();
     }
 
@@ -45,12 +43,7 @@ public class SkinCarouselUI : MonoBehaviour
     private void OnClickEquip()
     {
         SkinSelectorData.selectedSkin = skins[currentIndex];        // 선택된 스킨 저장
-        SceneManager.LoadScene("TestScene");                        // 또는 인게임 씬 이름
-    }
-
-    private void OnClickBackInGame()
-    {
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("GameScene_3_Test");                        // 또는 인게임 씬 이름
     }
 
     private void RefreshUI()
