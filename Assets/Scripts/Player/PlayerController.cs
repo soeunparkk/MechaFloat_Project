@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
     private const float Y_ANGLE_MAX = 80.0f;
 
     [Header("Component")]
-    private Rigidbody rb;
     private PlayerJump playerJump;
+    public Rigidbody rb { get; private set; }
     [NonSerialized]
     public PlayerPickup playerPickup;
 
@@ -47,6 +47,10 @@ public class PlayerController : MonoBehaviour
     private float footstepTimer = 0f;
     private float walkInterval = 0.6f;
     private float runInterval = 0.3f;
+
+    [Header("God Mod")]
+    private bool isInvincible = false;
+    public bool IsInvincible => isInvincible;
 
     void Start()
     {
@@ -75,7 +79,16 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.lockState = CursorLockMode.None;
+            if (Cursor.lockState == CursorLockMode.None)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
 
         if (isBalloonEffectActive)
@@ -206,7 +219,15 @@ public class PlayerController : MonoBehaviour
 
     public void Knockback(Vector3 forceDirection, float forceStrength)
     {
+        if (isInvincible) return;
+
         rb.velocity = Vector3.zero; // 기존 속도 제거
         rb.AddForce(forceDirection.normalized * forceStrength, ForceMode.Impulse);
+    }
+
+    public void SetInvincibility(bool on)
+    {
+        isInvincible = on;
+        Debug.Log($"무적 모드: {(on ? "활성화" : "비활성화")}");
     }
 }
