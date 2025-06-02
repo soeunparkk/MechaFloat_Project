@@ -22,6 +22,7 @@ public class CheatSystem : MonoBehaviour
     [SerializeField] private PlayerController playerController;
 
     [SerializeField] private float flySpeed = 10f;
+    [SerializeField] private float flyBoostMultiplier = 2.5f;
 
     private Dictionary<string, System.Action<string[]>> commands;
     private List<string> outputLines = new List<string>();
@@ -67,6 +68,7 @@ public class CheatSystem : MonoBehaviour
         {
             GodModToMousePosition();
         }
+        // 자유 모드
         if (isFlyMode)
         {
             HandleFlyMovement();
@@ -140,8 +142,8 @@ public class CheatSystem : MonoBehaviour
     {
         if (playerTransform == null) return;
 
-        float h = Input.GetAxis("Horizontal");      // A/D 또는 ←/→
-        float v = Input.GetAxis("Vertical");        // W/S 또는 ↑/↓
+        float h = Input.GetAxis("Horizontal"); // A/D 또는 ←/→
+        float v = Input.GetAxis("Vertical");   // W/S 또는 ↑/↓
 
         Vector3 move = new Vector3(h, 0, v);
 
@@ -150,12 +152,16 @@ public class CheatSystem : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))        // 하강
             move.y -= 1;
 
-        // 카메라 기준 방향으로 움직이기 (플레이어 방향 아님)
+        // Shift 누르면 속도 증가
+        float speedMultiplier = Input.GetKey(KeyCode.LeftShift) ? flyBoostMultiplier : 1f;
+        float currentSpeed = flySpeed * speedMultiplier;
+
+        // 카메라 기준 방향으로 움직이기
         Transform cam = Camera.main.transform;
         Vector3 direction = cam.TransformDirection(move);
         direction.y = move.y; // 상하 이동은 월드 기준으로
 
-        playerTransform.position += direction * flySpeed * Time.deltaTime;
+        playerTransform.position += direction * currentSpeed * Time.deltaTime;
     }
 
     private void Teleportation(string[] args)
@@ -180,6 +186,7 @@ public class CheatSystem : MonoBehaviour
         Log("god - 무적모드");
         Log("Tel - 위치 이동");
         Log("clear - 콘솔 정리");
+        Log("====================");
     }
 
     #endregion
