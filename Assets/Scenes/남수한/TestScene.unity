@@ -1094,9 +1094,9 @@ MonoBehaviour:
   flySpeed: 10
   flyBoostMultiplier: 2.5
   teleportPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 382380921}
+  - {fileID: 396888249}
+  - {fileID: 927768124}
   - {fileID: 1235985846}
 --- !u!1 &238584051
 GameObject:

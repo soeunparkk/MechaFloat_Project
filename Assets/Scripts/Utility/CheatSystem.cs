@@ -163,9 +163,9 @@ public class CheatSystem : MonoBehaviour
 
         Vector3 move = new Vector3(h, 0, v);
 
-        if (Input.GetKey(KeyCode.Space))    // 상승
+        if (Input.GetKey(KeyCode.Space))                // 상승
             move.y += 1;
-        if (Input.GetKey(KeyCode.Q))        // 하강
+        if (Input.GetKey(KeyCode.LeftControl))          // 하강
             move.y -= 1;
 
         // Shift 누르면 속도 증가
