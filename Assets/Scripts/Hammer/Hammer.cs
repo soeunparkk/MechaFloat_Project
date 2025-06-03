@@ -1,18 +1,31 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hammer : MonoBehaviour, ICheckTrigger
+public class Hammer : MonoBehaviour
 {
     public float knockbackForce = 10f;
-    public float downAngle = 90f;       // ³»·ÁÄ¥ °¢µµ (ZÃà ±âÁØ)
-    public float upAngle = 0f;          // ¿ø·¡ À§Ä¡ °¢µµ
-    public float downSpeed = 300f;      // ³»·ÁÄ¡´Â ¼Óµµ (µµ/ÃÊ)
-    public float upSpeed = 100f;        // ¿Ã¶ó°¡´Â ¼Óµµ
-    public float waitTime = 1f;         // ³»·ÁÄ£ ÈÄ ±â´Ù¸®´Â ½Ã°£
+    public float downAngle = 90f;
+    public float upAngle = 0f;
+    public float downSpeed = 300f;
+    public float upSpeed = 100f;
+    public float waitTime = 1f;
 
     private bool isFalling = true;
     private float waitTimer = 0f;
+    private float effectTimer = 0f;
+
+    [Header("í•´ë¨¸ ì”ìƒ ì´í™íŠ¸ ì„¸íŒ…")]
+    [SerializeField] private Transform effectPos; // ë¨¼ì§€ íš¨ê³¼ ìœ„ì¹˜(ë¹ˆ ì˜¤ë¸Œì íŠ¸ í•´ë¨¸ ìì‹ ë“±)
+    public string effectName = "HammerTrail";      // EffectManager ë“±ë¡í•œ ì´í™íŠ¸ ì´ë¦„
+    public float effectInterval = 0.08f;           // ì´í™íŠ¸ ë‚˜ì˜¤ëŠ” ì‹œê°„ ê°„ê²©(ì´ˆ)
+
+    private float lastAngle;
+
+    void Start()
+    {
+        lastAngle = transform.localEulerAngles.z;
+    }
 
     void Update()
     {
@@ -23,11 +36,32 @@ public class Hammer : MonoBehaviour, ICheckTrigger
         float newZ = Mathf.MoveTowardsAngle(currentZ, targetAngle, speed * Time.deltaTime);
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, newZ);
 
+        // 1. í•´ë¨¸ê°€ ì›€ì§ì´ê³  ìˆëŠ”ì§€ ì²´í¬(ê°ë„ ë³€í™”ëŸ‰)
+        float angleDelta = Mathf.Abs(Mathf.DeltaAngle(currentZ, newZ));
+        bool isMoving = angleDelta > 0.1f; // 0.1 ì´ìƒ ë³€í•˜ë©´ ì›€ì§ì„ ê°„ì£¼
+
+        if (isMoving)
+        {
+            effectTimer += Time.deltaTime;
+            if (effectTimer >= effectInterval)
+            {
+                // 2. ì´í™íŠ¸ ìƒì„±(ì£¼ê¸°ë§ˆë‹¤)
+                Vector3 spawnPos = (effectPos != null) ? effectPos.position : transform.position;
+                EffectManager.instance.PlayEffect(effectName, spawnPos, Quaternion.identity);
+
+                effectTimer = 0f;
+            }
+        }
+        else
+        {
+            effectTimer = effectInterval; // ë©ˆì¶”ë©´ ë°”ë¡œ ì¿¨íƒ€ì„ ì´ˆê¸°í™”
+        }
+
+        // ì›ë˜ í•´ë¨¸ ì›€ì§ì„ ë¡œì§
         if (Mathf.Abs(Mathf.DeltaAngle(newZ, targetAngle)) < 0.1f)
         {
             if (isFalling)
             {
-                // ³»·ÁÄ£ »óÅÂÀÏ ¶§ ÀÏÁ¤ ½Ã°£ ´ë±â
                 waitTimer += Time.deltaTime;
                 if (waitTimer >= waitTime)
                 {
@@ -37,24 +71,10 @@ public class Hammer : MonoBehaviour, ICheckTrigger
             }
             else
             {
-                // ´Ù½Ã ³»·ÁÄ¡±â
                 isFalling = true;
             }
         }
-    }
 
-    public void OnTriggerEntered(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
-
-            if (rb != null)
-            {
-                // ÇÃ·¹ÀÌ¾î ¹æÇâ °è»êÇØ¼­ ³¯¸®±â
-                Vector3 direction = (other.transform.position - transform.position).normalized;
-                rb.AddForce(direction * knockbackForce, ForceMode.Impulse);
-            }
-        }
+        lastAngle = newZ;
     }
 }
