@@ -59,4 +59,3 @@ public class JumpZone : MonoBehaviour
         rb.velocity = movement;
     }
 }
-

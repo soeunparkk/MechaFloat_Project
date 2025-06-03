@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - WindZone
   - SlipperySurface
+  - JumpZone
   layers:
   - Default
   - TransparentFX
