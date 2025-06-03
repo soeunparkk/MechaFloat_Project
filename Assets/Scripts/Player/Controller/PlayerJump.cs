@@ -39,7 +39,6 @@ public class PlayerJump : MonoBehaviour
     public float fallMultiplier = 2.5f;                     // 하강 중 중력 강화 배율
     public float lowJumpMultiplier = 2.0f;                  // 짧은 점프 중 중력 강화 배율
 
-    private float defaultJumpForce = 7f;
     private float currentJumpForce;
 
     #endregion
@@ -50,8 +49,7 @@ public class PlayerJump : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerPickup = GetComponent<PlayerPickup>();
-        currentJumpForce = defaultJumpForce;
-
+        currentJumpForce = jumpForce;
 
         if (!isZeroGravity)
         {
@@ -282,9 +280,10 @@ public class PlayerJump : MonoBehaviour
     {
         currentJumpForce = newForce;
     }
+
     public void ResetJumpForce()
     {
-        currentJumpForce = defaultJumpForce;
+        currentJumpForce = jumpForce;
     }
 
     #endregion
