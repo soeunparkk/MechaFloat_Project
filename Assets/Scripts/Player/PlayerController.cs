@@ -54,8 +54,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //SoundManager.instance.PlaySound("Test");
-
         rb = GetComponent<Rigidbody>();
         playerJump = GetComponent<PlayerJump>();
         playerPickup = GetComponent<PlayerPickup>();

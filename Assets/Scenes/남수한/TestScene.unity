@@ -5871,7 +5871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842a6c6f609102844b026306cbf4c353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: c09a12d1b0fd5c642aab86af4a09c6cd, type: 2}
   musicMasterSlider: {fileID: 0}
   musicBGMSlider: {fileID: 0}
   musicSFXSlider: {fileID: 0}
