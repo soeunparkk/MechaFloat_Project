@@ -1176,11 +1176,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51a188301cb4f4d4cac9d5468c5e7970, type: 2}
   - {fileID: 11400000, guid: 2f4eaf68080eddc41af131d8b6b6631f, type: 2}
   - {fileID: 11400000, guid: d9c95b0c573bec14e8d044c7ff29600c, type: 2}
+  skinApplier: {fileID: 8625678166215646144}
   skinsPanel: {fileID: 1877694001}
   skinButtonParent: {fileID: 102170486}
   skinButtonPrefab: {fileID: 5493539969921622849, guid: 3006d5efa8d4e1247a5485e6e021ffab,
     type: 3}
-  skinApplier: {fileID: 8625678166215646144}
 --- !u!1 &238584051
 GameObject:
   m_ObjectHideFlags: 0
@@ -5927,7 +5927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1492839942
 Transform:
   m_ObjectHideFlags: 0
@@ -6150,7 +6150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589113327}
   m_Layer: 5
-  m_Name: CheatPanel
+  m_Name: SkinCheatPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7244,7 +7244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1877694002
 RectTransform:
   m_ObjectHideFlags: 0
