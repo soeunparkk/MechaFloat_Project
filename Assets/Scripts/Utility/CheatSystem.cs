@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CheatSystem : MonoBehaviour
@@ -30,6 +31,13 @@ public class CheatSystem : MonoBehaviour
     private bool isTeleportModeActive = false;
     private int currentPointIndex = 0;
     [SerializeField] private List<Transform> teleportPoints;
+
+    [Header("스킨 모드")]
+    [SerializeField] private List<SkinSO> allSkins;
+    [SerializeField] private PlayerSkinApplier skinApplier;
+    [SerializeField] private GameObject skinsPanel;
+    [SerializeField] private Transform skinButtonParent;
+    [SerializeField] private GameObject skinButtonPrefab;
     
     private Dictionary<string, System.Action<string[]>> commands;
     private List<string> outputLines = new List<string>();
@@ -98,6 +106,7 @@ public class CheatSystem : MonoBehaviour
             { "god", ToggleGodMod },
             { "fly", ToggleFlyMod },
             { "tel", Teleportation },
+            { "skin", ShowSkins },
             { "clear", ClearConsole },
             { "help", ShowHelp }
         };
@@ -209,6 +218,39 @@ public class CheatSystem : MonoBehaviour
         ShowToast($"다음 구간({currentPointIndex + 1}) 이동", ToastMessage.MessageType.Success);
     }
 
+    private void ShowSkins(string[] args)
+    {
+        if (allSkins == null || allSkins.Count == 0)
+        {
+            Log("사용 가능한 스킨이 없습니다.");
+            return;
+        }
+
+        foreach (Transform child in skinButtonParent)
+            Destroy(child.gameObject);
+
+        skinsPanel.SetActive(true);
+        Log("스킨 선택 UI 표시됨.");
+
+        for (int i = 0; i < allSkins.Count; i++)
+        {
+            int index = i;
+            SkinSO skin = allSkins[i];
+
+            GameObject btnObj = Instantiate(skinButtonPrefab, skinButtonParent);
+            TMP_Text btnText = btnObj.GetComponentInChildren<TMP_Text>();
+            btnText.text = skin.skinName;
+
+            Button btn = btnObj.GetComponent<Button>();
+            btn.onClick.AddListener(() =>
+            {
+                skinApplier.ApplySkin(skin);
+                ShowToast($"스킨 '{skin.skinName}' 착용", ToastMessage.MessageType.Success);
+                Log($"스킨 '{skin.skinName}' 착용 완료");
+            });
+        }
+    }
+
     private void ClearConsole(string[] args)
     {
         outputLines.Clear();
@@ -221,7 +263,8 @@ public class CheatSystem : MonoBehaviour
     {
         Log("=== 치트 명령어 ===");
         Log("god - 무적모드");
-        Log("Tel - 위치 이동");
+        Log("tel - 위치 이동");
+        Log("skin - 스킨 확인 ");
         Log("clear - 콘솔 정리");
         Log("====================");
     }
@@ -291,6 +334,8 @@ public class CheatSystem : MonoBehaviour
             {
                 // 패널 비활성화될 때 모든 치트 모드 해제
                 DisableAllCheats();
+
+                skinsPanel.SetActive(false);
             }
         }
     }
