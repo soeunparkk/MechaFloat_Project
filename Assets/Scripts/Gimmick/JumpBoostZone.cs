@@ -4,58 +4,19 @@ using UnityEngine;
 
 public class JumpZone : MonoBehaviour
 {
-    [SerializeField] float jumpForce = 400f, speed = 5f, jumpZoneForce = 2f;
-    int jumpCount = 1;
-    float moveX, moveZ;
+    public float jumpForce = 20f; // 점프 힘 조절용
 
-    bool isGround = false;
-    bool isJumpZone = false;
-    Rigidbody rb;
-
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        rb = GetComponent<Rigidbody>();
-        jumpCount = 0;
-    }
-
-    void Update()
-    {
-        Movement();
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.CompareTag("Ground"))
+        if (other.CompareTag("Player"))
         {
-            isGround = true;
-            jumpCount = 1;
-        }
-        if (col.gameObject.CompareTag("JumpZone"))
-        {
-            isJumpZone = true;
-        }
-    }
-
-    void Movement()
-    {
-        if (isGround)
-        {
-            if (jumpCount > 0 && Input.GetButtonDown("Jump"))
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                rb.AddForce(Vector3.up * jumpForce);
-                jumpCount--;
-            }
-
-            if (isJumpZone)
-            {
-                rb.AddForce(Vector3.up * jumpForce * jumpZoneForce);
-                isJumpZone = false;
+                // Y축 방향으로 힘을 가함
+                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // 기존 Y 속도 초기화
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
-
-        moveX = Input.GetAxis("Horizontal") * speed;
-        moveZ = Input.GetAxis("Vertical") * speed;
-        Vector3 movement = new Vector3(moveX, rb.velocity.y, moveZ);
-        rb.velocity = movement;
     }
 }
