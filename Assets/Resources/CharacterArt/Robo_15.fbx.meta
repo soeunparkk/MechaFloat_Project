@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Gl
-    second: {fileID: 2100000, guid: 262ae8afbae869541b8c80e9cd5dfb40, type: 2}
+    second: {fileID: 2100000, guid: 1f58a0cd89478ce4fa4000eda7c350c0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -18,17 +18,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 2100000, guid: 9345dad636a1fe7479f50863cede8c06, type: 2}
+    second: {fileID: 2100000, guid: 1f58a0cd89478ce4fa4000eda7c350c0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Muffler
-    second: {fileID: 2100000, guid: 8282f9792df4cb14b977dcbb2870467f, type: 2}
+    second: {fileID: 2100000, guid: 1f58a0cd89478ce4fa4000eda7c350c0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Point
-    second: {fileID: 2100000, guid: 052c5f64a0943e34db0d3e38c6fda228, type: 2}
+    second: {fileID: 2100000, guid: 1f58a0cd89478ce4fa4000eda7c350c0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -1931,14 +1931,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 383468159}
-    - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 383468158}
-    - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 383468163}
     - targetCorrespondingSourceObject: {fileID: 962580581712032218, guid: c9c63caad22dd95449824455bd1bea97,
         type: 3}
@@ -1966,50 +1958,6 @@ MonoBehaviour:
   playerTag: Player
   targetPosition: {fileID: 599740237}
   moveSpeed: 2
---- !u!64 &383468158
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383468155}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6788521596529134596, guid: 406f0bf989aba26439bb7e19b36d8cb0, type: 3}
---- !u!64 &383468159
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383468155}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6788521596529134596, guid: 406f0bf989aba26439bb7e19b36d8cb0, type: 3}
 --- !u!54 &383468163
 Rigidbody:
   m_ObjectHideFlags: 0
