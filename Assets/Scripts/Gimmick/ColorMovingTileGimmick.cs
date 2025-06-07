@@ -11,7 +11,7 @@ public class ColorMovingTileGimmick : MonoBehaviour
 
     [Header("이동 설정")]
     [SerializeField] private MoveDirection moveDirection = MoveDirection.XAxis;
-    [SerializeField, Range(0.1f, 20f)] private float moveDistance = 5f;
+    [SerializeField, Range(0.1f, 1000f)] private float moveDistance = 5f;
     [SerializeField, Range(0.1f, 10f)] private float moveSpeed = 2f;
 
     private Rigidbody rb;

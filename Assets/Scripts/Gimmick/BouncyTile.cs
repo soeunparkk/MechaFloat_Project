@@ -1,40 +1,43 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BouncyTile : MonoBehaviour
 {
-    [Header("¹Ù¿î½º ¼³Á¤")]
-    [Tooltip("¿ÀºêÁ§Æ®¸¦ Æ¨°Ü ¿Ã¸®´Â ÈûÀÇ °­µµÀÔ´Ï´Ù.")]
+    [Header("ë°”ìš´ìŠ¤ ì„¤ì •")]
+    [Tooltip("ì˜¤ë¸Œì íŠ¸ë¥¼ íŠ•ê²¨ ì˜¬ë¦¬ëŠ” í˜ì˜ ê°•ë„ì…ë‹ˆë‹¤.")]
     public float bounceForce = 20f;
-    [Tooltip("ÈûÀ» Àû¿ëÇÒ ¹æ½ÄÀÔ´Ï´Ù. Impulse´Â ¼ø°£ÀûÀÎ Å« Èû, VelocityChange´Â Áï½Ã ¼Óµµ º¯°æÀÔ´Ï´Ù.")]
+    [Tooltip("í˜ì„ ì ìš©í•  ë°©ì‹ì…ë‹ˆë‹¤. ImpulseëŠ” ìˆœê°„ì ì¸ í° í˜, VelocityChangeëŠ” ì¦‰ì‹œ ì†ë„ ë³€ê²½ì…ë‹ˆë‹¤.")]
     public ForceMode bounceForceMode = ForceMode.Impulse;
-    [Tooltip("ÇÑ ¹ø Æ¨±ä ÈÄ µ¿ÀÏ ¿ÀºêÁ§Æ®°¡ ´Ù½Ã Æ¨±â±â±îÁöÀÇ ÃÖ¼Ò ½Ã°£ (ÃÊ)ÀÔ´Ï´Ù. 0ÀÌ¸é Äğ´Ù¿î ¾øÀ½.")]
+    [Tooltip("í•œ ë²ˆ íŠ•ê¸´ í›„ ë™ì¼ ì˜¤ë¸Œì íŠ¸ê°€ ë‹¤ì‹œ íŠ•ê¸°ê¸°ê¹Œì§€ì˜ ìµœì†Œ ì‹œê°„ (ì´ˆ)ì…ë‹ˆë‹¤. 0ì´ë©´ ì¿¨ë‹¤ìš´ ì—†ìŒ.")]
     public float bounceCooldown = 0.5f;
 
-    [Header("¿ÀºêÁ§Æ®º° Èû ¹èÀ² (¼±ÅÃ »çÇ×)")]
-    [Tooltip("ÇÃ·¹ÀÌ¾î°¡ Æ¨±æ ¶§ Àû¿ëµÉ Èû ¹èÀ²ÀÔ´Ï´Ù.")]
+    [Header("ì˜¤ë¸Œì íŠ¸ë³„ í˜ ë°°ìœ¨ (ì„ íƒ ì‚¬í•­)")]
+    [Tooltip("í”Œë ˆì´ì–´ê°€ íŠ•ê¸¸ ë•Œ ì ìš©ë  í˜ ë°°ìœ¨ì…ë‹ˆë‹¤.")]
     public float playerBounceMultiplier = 1.0f;
-    // ÇÊ¿äÇÏ´Ù¸é ´Ù¸¥ Æ¯Á¤ ÅÂ±×³ª ÄÄÆ÷³ÍÆ®¸¦ °¡Áø ¿ÀºêÁ§Æ®¿¡ ´ëÇÑ ¹èÀ²µµ Ãß°¡ °¡´É
 
-    [Header("È¿°ú ¼³Á¤")]
-    [Tooltip("Æ¨±æ ¶§ Àç»ıÇÒ ¿Àµğ¿À Å¬¸³ÀÔ´Ï´Ù.")]
+    [Header("íš¨ê³¼ ì„¤ì •")]
+    [Tooltip("íŠ•ê¸¸ ë•Œ ì¬ìƒí•  ì˜¤ë””ì˜¤ í´ë¦½ì…ë‹ˆë‹¤.")]
     public AudioClip bounceSoundClip;
-    [Tooltip("Æ¨±æ ¶§ Àç»ıÇÒ »ç¿îµåÀÇ º¼·ıÀÔ´Ï´Ù. (0.0 ~ 1.0)")]
-    [Range(0f, 1f)] // Inspector¿¡¼­ ½½¶óÀÌ´õ·Î Á¶Àı °¡´É
+    [Tooltip("íŠ•ê¸¸ ë•Œ ì¬ìƒí•  ì‚¬ìš´ë“œì˜ ë³¼ë¥¨ì…ë‹ˆë‹¤. (0.0 ~ 1.0)")]
+    [Range(0f, 1f)]
     public float bounceSoundVolume = 0.7f;
-    [Tooltip("Æ¨±æ ¶§ »ı¼ºÇÒ ÆÄÆ¼Å¬ ½Ã½ºÅÛ ÇÁ¸®ÆÕÀÔ´Ï´Ù. Project Ã¢¿¡¼­ ÇÒ´çÇÏ¼¼¿ä.")]
-    public GameObject bounceParticlesPrefab; // GameObject Å¸ÀÔÀ¸·Î º¯°æÇÏ¿© ÇÁ¸®ÆÕ Á÷Á¢ ÇÒ´ç
-    [Tooltip("ÆÄÆ¼Å¬ »ı¼º À§Ä¡ ¿ÀÇÁ¼ÂÀÔ´Ï´Ù (Å¸ÀÏ Áß½É ±âÁØ).")]
-    public Vector3 particleOffset = Vector3.up * 0.1f;
 
-    // ³»ºÎÀûÀ¸·Î »ç¿ëÇÒ º¯¼öµé
+    [Header("íŒŒí‹°í´ íš¨ê³¼ ì„¤ì •")]
+    [Tooltip("íŒŒí‹°í´ íš¨ê³¼ë¥¼ ë°œìƒì‹œí‚¬ ìœ„ì¹˜ë¥¼ ë‚˜íƒ€ë‚´ëŠ” Transform ì…ë‹ˆë‹¤. (íƒ€ì¼ì˜ ìì‹ìœ¼ë¡œ ë¹ˆ ì˜¤ë¸Œì íŠ¸ë¥¼ ë§Œë“¤ì–´ í• ë‹¹)")]
+    public Transform particleSpawnPoint; // <<< íŒŒí‹°í´ ìƒì„± ìœ„ì¹˜ë¥¼ ìœ„í•œ Transform
+    [Tooltip("íŠ•ê¸¸ ë•Œ ìƒì„±í•  íŒŒí‹°í´ ì‹œìŠ¤í…œ í”„ë¦¬íŒ¹ì…ë‹ˆë‹¤. Project ì°½ì—ì„œ í• ë‹¹í•˜ì„¸ìš”.")]
+    public GameObject bounceParticlesPrefab;
+    [Tooltip("ìƒì„±ë  íŒŒí‹°í´ì˜ í¬ê¸° ë°°ìœ¨ì…ë‹ˆë‹¤. 1ì€ í”„ë¦¬íŒ¹ì˜ ì›ë˜ í¬ê¸°ì…ë‹ˆë‹¤.")]
+    public float particleScaleMultiplier = 1.0f;
+    // particleSpawnOffset, particleRotationMode, customParticleRotation ë“±ì€ ì´ì œ í•„ìš” ì—†ì–´ì§€ê±°ë‚˜ ì—­í• ì´ ì¤„ì–´ë“­ë‹ˆë‹¤.
+    // particleSpawnPointì˜ Transformì´ ìœ„ì¹˜ì™€ íšŒì „ì„ ëª¨ë‘ ê²°ì •í•©ë‹ˆë‹¤.
+
     private Dictionary<Rigidbody, float> lastBounceTimes = new Dictionary<Rigidbody, float>();
     private AudioSource audioSource;
 
-    private void Awake() // Start ´ë½Å Awake »ç¿ë ±ÇÀå (´Ù¸¥ ½ºÅ©¸³Æ®ÀÇ Startº¸´Ù ¸ÕÀú ÃÊ±âÈ­µÉ ¼ö ÀÖµµ·Ï)
+    private void Awake()
     {
-        // AudioSource ÄÄÆ÷³ÍÆ® °¡Á®¿À°Å³ª Ãß°¡
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null && bounceSoundClip != null)
         {
@@ -43,7 +46,14 @@ public class BouncyTile : MonoBehaviour
         }
         else if (audioSource != null)
         {
-            audioSource.playOnAwake = false; // ±âÁ¸ AudioSourceµµ ÀÚµ¿ Àç»ı ¹æÁö
+            audioSource.playOnAwake = false;
+        }
+
+        if (bounceParticlesPrefab != null && particleSpawnPoint == null)
+        {
+            Debug.LogWarning("BouncyTile: bounceParticlesPrefabì€ í• ë‹¹ë˜ì—ˆìœ¼ë‚˜ particleSpawnPointê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. íŒŒí‹°í´ì´ íƒ€ì¼ ìœ„ì¹˜ì—ì„œ ìƒì„±ë  ìˆ˜ ìˆìŠµë‹ˆë‹¤.", gameObject);
+            // particleSpawnPointê°€ ì—†ìœ¼ë©´ this.transformì„ ê¸°ë³¸ê°’ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+            // particleSpawnPoint = transform; // ë˜ëŠ” ê²½ê³ ë§Œ í‘œì‹œ
         }
     }
 
@@ -63,7 +73,7 @@ public class BouncyTile : MonoBehaviour
         float currentBounceForce = bounceForce;
         float currentMultiplier = 1.0f;
 
-        PlayerController player = rb.GetComponent<PlayerController>(); // PlayerController ½ºÅ©¸³Æ®°¡ ÀÖ´Ù°í °¡Á¤
+        PlayerController player = rb.GetComponent<PlayerController>(); // PlayerController ìŠ¤í¬ë¦½íŠ¸ê°€ ìˆë‹¤ê³  ê°€ì •
         if (player != null)
         {
             currentMultiplier = playerBounceMultiplier;
@@ -81,55 +91,74 @@ public class BouncyTile : MonoBehaviour
             lastBounceTimes.Remove(rb);
         }
 
-        PlayBounceEffects(collision.contacts[0].point);
+        // ì¶©ëŒ ì •ë³´ëŠ” ë” ì´ìƒ PlayBounceEffectsì— í•„ìš” ì—†ì„ ìˆ˜ ìˆìŒ (particleSpawnPoint ì‚¬ìš© ì‹œ)
+        PlayBounceEffects();
     }
 
-    void PlayBounceEffects(Vector3 collisionPoint)
+    void PlayBounceEffects() // íŒŒë¼ë¯¸í„° ì œê±° ë˜ëŠ” ë³€ê²½
     {
-        // »ç¿îµå Àç»ı
+        // ì‚¬ìš´ë“œ ì¬ìƒ
         if (bounceSoundClip != null && audioSource != null)
         {
-            audioSource.PlayOneShot(bounceSoundClip, bounceSoundVolume); // º¼·ı ÁöÁ¤ÇÏ¿© Àç»ı
+            audioSource.PlayOneShot(bounceSoundClip, bounceSoundVolume);
         }
 
-        // ÆÄÆ¼Å¬ »ı¼º
+        // íŒŒí‹°í´ ìƒì„±
         if (bounceParticlesPrefab != null)
         {
-            // ÆÄÆ¼Å¬ ÇÁ¸®ÆÕ¿¡¼­ ParticleSystem ÄÄÆ÷³ÍÆ®¸¦ Á÷Á¢ °¡Á®¿Í¼­ »ç¿ëÇÏ´Â °Íº¸´Ù,
-            // GameObject·Î InstantiateÇÏ°í ÇÊ¿ä½Ã ParticleSystemÀ» Ã£´Â °ÍÀÌ ÀÏ¹İÀûÀÔ´Ï´Ù.
-            // ¿©±â¼­´Â ÇÁ¸®ÆÕ ÀÚÃ¼°¡ ParticleSystemÀ» ·çÆ®¿¡ °¡Áö°í ÀÖ´Ù°í °¡Á¤ÇÕ´Ï´Ù.
-            GameObject particleInstance = Instantiate(bounceParticlesPrefab, transform.position + particleOffset, bounceParticlesPrefab.transform.rotation);
+            Transform spawnTransform = particleSpawnPoint != null ? particleSpawnPoint : transform; // particleSpawnPointê°€ ì—†ìœ¼ë©´ íƒ€ì¼ ìì²´ ìœ„ì¹˜ ì‚¬ìš©
 
-            // ¸¸¾à ÆÄÆ¼Å¬ÀÇ ¼ö¸íÀ» °ü¸®ÇÏ°Å³ª, Æ¯Á¤ ½Ã°£ ÈÄ ÆÄ±«ÇÏ°í ½Í´Ù¸é:
-            // ParticleSystem ps = particleInstance.GetComponent<ParticleSystem>();
-            // if (ps != null)
-            // {
-            //     Destroy(particleInstance, ps.main.duration + ps.main.startLifetime.constantMax);
-            // }
-            // else // ParticleSystemÀÌ ·çÆ®°¡ ¾Æ´Ñ °æ¿ì ÀÚ½Ä¿¡¼­ Ã£¾Æ¾ß ÇÒ ¼öµµ ÀÖÀ½
-            // {
-            //     Destroy(particleInstance, 5f); // ±âº» ½Ã°£ ÈÄ ÆÄ±« (¿¹½Ã)
-            // }
+            // particleSpawnPointì˜ ìœ„ì¹˜ì™€ íšŒì „ì„ ê·¸ëŒ€ë¡œ ì‚¬ìš©
+            GameObject particleInstance = Instantiate(bounceParticlesPrefab, spawnTransform.position, spawnTransform.rotation);
+
+            // íŒŒí‹°í´ í¬ê¸° ì¡°ì ˆ
+            if (particleScaleMultiplier != 1.0f)
+            {
+                particleInstance.transform.localScale *= particleScaleMultiplier;
+            }
+
+            // íŒŒí‹°í´ ìë™ íŒŒê´´ (íŒŒí‹°í´ í”„ë¦¬íŒ¹ì˜ Stop Actionì„ Destroyë¡œ ì„¤ì •í•˜ëŠ” ê²ƒì„ ê¶Œì¥)
+            ParticleSystem ps = particleInstance.GetComponentInChildren<ParticleSystem>(true);
+            if (ps != null)
+            {
+                float lifetime;
+                switch (ps.main.startLifetime.mode)
+                {
+                    case ParticleSystemCurveMode.Constant: lifetime = ps.main.startLifetime.constant; break;
+                    case ParticleSystemCurveMode.TwoConstants: lifetime = ps.main.startLifetime.constantMax; break;
+                    default:
+                        lifetime = ps.main.startLifetime.constantMax * (ps.main.startLifetime.curveMultiplier > 0 ? ps.main.startLifetime.curveMultiplier : 1f);
+                        if (lifetime <= 0) lifetime = 5f;
+                        break;
+                }
+                Destroy(particleInstance, Mathf.Max(ps.main.duration, lifetime));
+            }
+            else
+            {
+                Destroy(particleInstance, 5f);
+            }
         }
     }
 
     private void OnDrawGizmosSelected()
     {
+        // ë°”ìš´ìŠ¤ ë°©í–¥ Gizmo
         Gizmos.color = Color.green;
-
-        float gizmoLineLength = 1.5f + (bounceForce * 0.05f);
-        float arrowHeadLength = 0.35f;
-        float arrowHeadAngle = 20.0f;
-
         Vector3 direction = transform.up;
-        Vector3 endPoint = transform.position + direction * gizmoLineLength;
-
+        Vector3 endPoint = transform.position + direction * (1.5f + (bounceForce * 0.05f));
         Gizmos.DrawLine(transform.position, endPoint);
+        // ... (í™”ì‚´í‘œ ë¨¸ë¦¬ ê·¸ë¦¬ëŠ” ì½”ë“œ)
 
-        Vector3 right = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 + arrowHeadAngle, 0) * Vector3.forward;
-        Vector3 left = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 - arrowHeadAngle, 0) * Vector3.forward;
-        Gizmos.DrawLine(endPoint, endPoint + right * arrowHeadLength);
-        Gizmos.DrawLine(endPoint, endPoint + left * arrowHeadLength);
+        // íŒŒí‹°í´ ìŠ¤í° ì§€ì  Gizmo
+        if (particleSpawnPoint != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(particleSpawnPoint.position, 0.2f * particleScaleMultiplier); // ìŠ¤í° ì§€ì ì— êµ¬ í‘œì‹œ
+            Gizmos.DrawLine(transform.position, particleSpawnPoint.position); // íƒ€ì¼ ì¤‘ì‹¬ì—ì„œ ìŠ¤í° ì§€ì ê¹Œì§€ ì„ 
+            // ìŠ¤í° ì§€ì ì˜ forward ë°©í–¥ (íŒŒí‹°í´ì´ ë°©ì¶œë  ë°©í–¥) í‘œì‹œ
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(particleSpawnPoint.position, particleSpawnPoint.forward * 0.5f);
+        }
     }
 
     private void OnDisable()

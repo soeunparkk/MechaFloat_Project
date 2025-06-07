@@ -90,8 +90,6 @@ public class CustomWindZone : MonoBehaviour
                 rb.useGravity = affectedBody.originalUseGravity;
                 bodiesInZone.Remove(affectedBody);
             }
-            // 예외: 만약 Enter를 거치지 않고 Exit이 호출되었다면 (드물지만)
-            // else { rb.drag = normalDrag; rb.useGravity = true; /* 기본값으로 복원 시도 */ }
         }
     }
 
@@ -99,10 +97,10 @@ public class CustomWindZone : MonoBehaviour
     {
         Vector3 windUpDirection = transform.up; // 바람은 계속 위로
 
-        for (int i = bodiesInZone.Count - 1; i >= 0; i--) // 역순으로 순회해야 제거 시 인덱스 문제 없음
+        for (int i = bodiesInZone.Count - 1; i >= 0; i--)
         {
             AffectedBody affected = bodiesInZone[i];
-            if (affected.rb == null) // Rigidbody가 파괴되었거나 null인 경우 리스트에서 제거
+            if (affected.rb == null)
             {
                 bodiesInZone.RemoveAt(i);
                 continue;
@@ -111,16 +109,14 @@ public class CustomWindZone : MonoBehaviour
             affected.timeInZone += Time.fixedDeltaTime;
             float forceMultiplier = GetForceMultiplier(affected.rb);
 
-            // 1. 초기 급상승 힘 (한 번만 적용)
             if (!affected.initialBoostApplied)
             {
                 affected.rb.AddForce(windUpDirection * initialUpwardBoostForce * forceMultiplier, initialBoostForceMode);
                 affected.initialBoostApplied = true;
             }
 
-            // 2. 지속적인 부유 힘 (사인파를 이용한 변화)
             float hoverFactor = 0f;
-            if (hoverCycleDuration > 0) // 0으로 나누는 것 방지
+            if (hoverCycleDuration > 0)
             {
                 hoverFactor = Mathf.Sin((affected.timeInZone / hoverCycleDuration) * 2 * Mathf.PI);
             }
@@ -128,9 +124,7 @@ public class CustomWindZone : MonoBehaviour
             float currentSustainedForceValue = sustainedUpwardForce + (hoverFactor * hoverForceAmplitude);
             Vector3 sustainedForceVector = windUpDirection * currentSustainedForceValue * forceMultiplier;
 
-
-            // --- 풍선 플레이어 최대 상승 속도 제한 로직 (옵션 활성화 시) ---
-            PlayerController player = affected.rb.GetComponent<PlayerController>(); // 매번 GetComponent 호출은 피할 수 있으면 좋지만, 여기서는 상태 확인 위해 필요
+            PlayerController player = affected.rb.GetComponent<PlayerController>();
             bool isPlayerWithBalloon = (player != null && player.HasBalloon);
 
             if (limitBalloonPlayerMaxSpeed && isPlayerWithBalloon)
@@ -140,13 +134,10 @@ public class CustomWindZone : MonoBehaviour
                     sustainedForceVector.y = 0;
                 }
             }
-            // --- 속도 제한 로직 끝 ---
-
             affected.rb.AddForce(sustainedForceVector, ForceMode.Force);
         }
     }
 
-    // 오브젝트 타입에 따른 힘 배율 반환 함수
     private float GetForceMultiplier(Rigidbody rb)
     {
         PlayerController player = rb.GetComponent<PlayerController>();
@@ -159,17 +150,19 @@ public class CustomWindZone : MonoBehaviour
         {
             return balloonMultiplier;
         }
-        return 1.0f; // 기본값
+        return 1.0f;
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0.5f, 0.8f, 1f, 0.7f);
+        Gizmos.color = Color.red; // <<< Gizmo 색상을 빨간색으로 변경했습니다!
 
         float gizmoLineLength = 5f;
         float arrowHeadLength = 0.75f;
         float arrowHeadAngle = 20.0f;
 
+        // 현재 스크립트는 바람 방향을 transform.up (오브젝트의 로컬 Y축, 위쪽)으로 사용하고 있습니다.
+        // 따라서 Gizmo도 transform.up을 기준으로 그립니다.
         Vector3 direction = transform.up;
         Vector3 endPoint = transform.position + direction * gizmoLineLength;
 
@@ -193,4 +186,4 @@ public class CustomWindZone : MonoBehaviour
         }
         bodiesInZone.Clear();
     }
-} // <--- 이 중괄호가 CustomWindZone 클래스의 마지막 닫는 중괄호입니다.
+}
