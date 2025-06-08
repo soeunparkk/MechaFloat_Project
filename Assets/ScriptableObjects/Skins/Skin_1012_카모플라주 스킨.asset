@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1012
   skinName: "\uCE74\uBAA8\uD50C\uB77C\uC8FC \uC2A4\uD0A8"
-  skinImage: {fileID: 0}
+  skinImage: {fileID: 21300000, guid: 6d6dc8fedf397cb4c9c449f75fdd7e00, type: 3}
   skinPrefab: {fileID: 4969994467502906826, guid: 44103253f72cca346849bc06dcbee8c9,
     type: 3}
   unlockCondition: {fileID: 11400000, guid: 76e83267883125a4484b0628a25c71d2, type: 2}
