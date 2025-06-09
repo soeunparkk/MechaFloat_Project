@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeFloat1 : MonoBehaviour
+public class CubeFloat_LeftRight : MonoBehaviour
 {
     public float speed = 2f;      // 움직이는 속도
     public float distance = 0.5f; // 좌우 이동 거리
