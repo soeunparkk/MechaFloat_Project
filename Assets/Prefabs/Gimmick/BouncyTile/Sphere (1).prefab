@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: cecad440fe09ea8458fc9e9b173ceace, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   playerBounceMultiplier: 1.1
   bounceSoundClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
   bounceSoundVolume: 0.263
+  particleSpawnPoint: {fileID: 0}
   bounceParticlesPrefab: {fileID: 4841558100064140769, guid: e37b8c9f00ae1de4c9bf6bccbb8909db,
     type: 3}
-  particleOffset: {x: 0, y: 0.1, z: 0}
+  particleScaleMultiplier: 1

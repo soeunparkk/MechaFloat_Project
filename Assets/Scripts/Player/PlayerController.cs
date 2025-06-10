@@ -38,15 +38,7 @@ public class PlayerController : MonoBehaviour
     public bool HasBalloon { get; private set; } = false;
     public BalloonController balloon;
 
-    [Header("Footstep Sound")]
-    public AudioSource footstepAudioSource;
-    public AudioClip walkClip;
-    public AudioClip runClip;
-    public float walkSpeedThreshold = 2.0f;
-    public float runSpeedThreshold = 5.0f;
-    private float footstepTimer = 0f;
-    private float walkInterval = 0.6f;
-    private float runInterval = 0.3f;
+  
 
     [Header("God Mod")]
     private bool isInvincible = false;
@@ -103,7 +95,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        HandleFootstepSound();
+        
     }
 
     private void FixedUpdate()
@@ -189,33 +181,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleFootstepSound()
-    {
-        if (!IsMoving || !thirdPersonCamera.gameObject.activeSelf)
-        {
-            footstepTimer = 0f;
-            return;
-        }
-
-        footstepTimer -= Time.deltaTime;
-        if (footstepTimer <= 0f)
-        {
-            float speed = rb.velocity.magnitude;
-
-            if (speed < walkSpeedThreshold)
-            {
-                footstepAudioSource.clip = walkClip;
-                footstepTimer = walkInterval;
-            }
-            else
-            {
-                footstepAudioSource.clip = runClip;
-                footstepTimer = runInterval;
-            }
-
-            footstepAudioSource.Play();
-        }
-    }
+   
 
     public void Knockback(Vector3 forceDirection, float forceStrength)
     {

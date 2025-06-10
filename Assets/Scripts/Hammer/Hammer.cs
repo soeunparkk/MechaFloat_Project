@@ -47,7 +47,7 @@ public class Hammer : MonoBehaviour
             {
                 // 2. 이펙트 생성(주기마다)
                 Vector3 spawnPos = (effectPos != null) ? effectPos.position : transform.position;
-                EffectManager.instance.PlayEffect(effectName, spawnPos, Quaternion.identity);
+                //EffectManager.instance.PlayEffect(effectName, spawnPos, Quaternion.identity);
 
                 effectTimer = 0f;
             }
