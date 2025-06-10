@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeFloat_DownUp : MonoBehaviour
+public class CubeFloat : MonoBehaviour
 {
     public float speed = 2f;      // 움직이는 속도
     public float height = 0.5f;   // 이동 높이
