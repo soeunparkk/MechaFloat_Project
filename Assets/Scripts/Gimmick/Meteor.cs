@@ -4,37 +4,54 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    public float speed = 15f; // 운석 속도
-
-    Transform player;     
-    Transform safeZone;   
+    public float forcePower = 1000f;
+    private Rigidbody rb;
+    private Transform player;
 
     void Start()
     {
-        GameObject p = GameObject.FindGameObjectWithTag("Player");
-        if (p != null) player = p.transform;
+        rb = GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        GameObject s = GameObject.Find("SafeZone");
-        if (s != null) safeZone = s.transform;
+        // 충돌 감지 세팅 안전하게 보강
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0; // 수평만
+
+        rb.AddForce(direction * forcePower);
+    }
+
+    void FixedUpdate()
+    {
+        // 속도 제한
+        float maxSpeed = 40f;
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
     }
 
     void Update()
     {
-        if (player == null) return;
-
-        Vector3 dir = (player.position - transform.position).normalized;
-        transform.position += dir * speed * Time.deltaTime;
-
-        transform.LookAt(player);
+        // Y좌표 너무 낮으면 리셋
+        if (transform.position.y < -10f)
+        {
+            transform.position = new Vector3(0, 5, 0);
+            rb.velocity = Vector3.zero;
+        }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        // 플레이어랑 부딪히면
-        if (other.CompareTag("Player") && safeZone != null)
+        if (other.collider.CompareTag("Player"))
         {
-            // 세이프존으로 순간이동
-            other.transform.position = safeZone.position;
+            GameObject safeZone = GameObject.Find("savezon_1");
+            if (safeZone != null)
+            {
+                other.transform.position = safeZone.transform.position;
+            }
         }
     }
 }
