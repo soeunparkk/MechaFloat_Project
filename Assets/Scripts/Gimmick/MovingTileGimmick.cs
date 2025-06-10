@@ -13,8 +13,8 @@ public class MovingTileGimmick : MonoBehaviour
 
     [Header("이동 설정")]
     [SerializeField] private MoveDirection moveDirection = MoveDirection.XAxis;
-    [SerializeField, Range(0.1f, 10f)] private float moveDistance = 2f;
-    [SerializeField, Range(0.1f, 10f)] private float moveSpeed = 2f;
+    [SerializeField, Range(0.1f, 1000f)] private float moveDistance = 2f;
+    [SerializeField, Range(0.1f, 1000f)] private float moveSpeed = 2f;
 
     private Rigidbody rb;
     private Vector3 startPos;
