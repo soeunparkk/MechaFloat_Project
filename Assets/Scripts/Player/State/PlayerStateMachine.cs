@@ -40,7 +40,5 @@ public class PlayerStateMachine : MonoBehaviour
         currentState = newState;
 
         currentState.Enter();
-
-        Debug.Log($"상태 전환 되는 스테이트 {newState.GetType().Name}");
     }
 }

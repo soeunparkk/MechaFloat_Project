@@ -8,7 +8,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance { get; private set; }
 
     private Vector3 savedPosition;
-    private bool hasSavedPosition = false;
+    public bool hasSavedPosition = false;
 
     private Vector3 startPosition;
 
