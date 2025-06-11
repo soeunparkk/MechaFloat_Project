@@ -4,49 +4,35 @@ using UnityEngine;
 
 public class MeteorSpawner : MonoBehaviour
 {
-    [Header("기본 설정")]
     public GameObject meteorPrefab;
     public Transform player;
+    public float spawnRadius = 30f;
     public float spawnInterval = 3f;
 
-    [Header("스폰 가능 구역")]
-    public BoxCollider spawnArea;
+    private bool isSpawning = false;
 
-    [Header("운석 스폰 허용 높이")]
-    public float minSpawnHeight = 400f;
-    public float maxSpawnHeight = 500f; 
-
-    void Start()
+    public void StartSpawning()
     {
-        if (meteorPrefab != null && spawnArea != null && player != null)
+        if (!isSpawning)
         {
-            InvokeRepeating(nameof(SpawnMeteor), 1f, spawnInterval);
-        }
-        else
-        {
-            Debug.LogWarning("MeteorSpawner 설정이 부족합니다.");
+            isSpawning = true;
+            SpawnMeteor(); // 즉시 1회 생성
+            InvokeRepeating(nameof(SpawnMeteor), spawnInterval, spawnInterval);
         }
     }
 
     void SpawnMeteor()
     {
-        float playerY = player.position.y;
+        if (meteorPrefab == null || player == null) return;
 
-        // 높이 체크
-        if (playerY < minSpawnHeight || playerY > maxSpawnHeight)
-            return;
+        // 플레이어 앞으로만 운석 생성 위치 지정 (플레이어 전방 10~30m 거리, 약간 랜덤 위치)
+        Vector3 forward = player.forward.normalized;
+        float distanceAhead = Random.Range(10f, 30f);
+        Vector3 randomOffset = new Vector3(Random.Range(-5f, 5f), 0, Random.Range(-5f, 5f)); // 좌우 약간 랜덤
 
-        // 스폰 구역 기준으로 랜덤 위치 설정
-        Vector3 center = spawnArea.bounds.center;
-        Vector3 size = spawnArea.bounds.size * 0.8f;
+        Vector3 spawnPos = player.position + forward * distanceAhead + randomOffset;
+        spawnPos.y = player.position.y + 10f; // 위에서 떨어뜨리기
 
-        Vector3 spawnPos = new Vector3(
-            Random.Range(center.x - size.x / 2, center.x + size.x / 2),
-            center.y + size.y / 2,
-            Random.Range(center.z - size.z / 2, center.z + size.z / 2)
-        );
-
-        // 운석 생성
         Instantiate(meteorPrefab, spawnPos, Quaternion.identity);
     }
 }
