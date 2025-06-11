@@ -8,25 +8,28 @@ public class MaxHeight : MonoBehaviour
     public Transform player;
     public TextMeshProUGUI maxHeightText;
 
-    private float maxHeight;
+    private float maxHeight = 0f;
+    private float startY = 0f; // 기준점 (시작 y값)
 
     void Start()
     {
-        // 플레이어의 시작 높이로 초기화
-        maxHeight = player.position.y;
+        // 시작 시 플레이어의 y좌표를 기준으로 저장
+        startY = player.position.y;
+        maxHeight = 0f;
+        maxHeightText.text = $"최고 높이: {maxHeight:F2}m";
     }
 
     void Update()
     {
-        float currentY = player.position.y;
+        // 현재 위치에서 시작 지점을 뺀 상대 높이
+        float relativeY = player.position.y - startY;
 
-        if (currentY > maxHeight)
+        // 최고 높이 갱신
+        if (relativeY > maxHeight)
         {
-            maxHeight = currentY;
+            maxHeight = relativeY;
         }
 
-        // 최고 높이 계속 표시 (조건문 밖으로 이동)
         maxHeightText.text = $"최고 높이: {maxHeight:F2}m";
     }
-
 }
