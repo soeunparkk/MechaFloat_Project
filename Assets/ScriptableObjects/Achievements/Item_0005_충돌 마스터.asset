@@ -15,6 +15,6 @@ MonoBehaviour:
   id: 5
   achievementName: "\uCDA9\uB3CC \uB9C8\uC2A4\uD130"
   description: "\uB9DD\uCE58\uC640 4\uD68C \uCDA9\uB3CC"
-  isAchievement: 1
+  isAchievement: 0
   compensationSkin: 105
   compensationTitle: 1005

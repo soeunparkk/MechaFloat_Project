@@ -15,6 +15,6 @@ MonoBehaviour:
   id: 8
   achievementName: "\uC9C4\uACA9\uC758 \uB85C\uBD07"
   description: "300m \uB192\uC774\uC5D0 \uB3C4\uB2EC"
-  isAchievement: 1
+  isAchievement: 0
   compensationSkin: 108
   compensationTitle: 1008
