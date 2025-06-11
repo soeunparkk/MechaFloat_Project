@@ -4,27 +4,49 @@ using UnityEngine;
 
 public class MeteorSpawner : MonoBehaviour
 {
-    public GameObject meteorPrefab;      // 운석 프리팹
-    public Transform player;             // 플레이어 위치
-    public float spawnRadius = 30f;      // 플레이어 주변 몇 m 반경에 떨어질지
-    public float spawnInterval = 3f;     // 몇 초마다 운석 생성
+    [Header("기본 설정")]
+    public GameObject meteorPrefab;
+    public Transform player;
+    public float spawnInterval = 3f;
+
+    [Header("스폰 가능 구역")]
+    public BoxCollider spawnArea;
+
+    [Header("운석 스폰 허용 높이")]
+    public float minSpawnHeight = 400f;
+    public float maxSpawnHeight = 500f; 
 
     void Start()
     {
-        InvokeRepeating(nameof(SpawnMeteor), 1f, spawnInterval);
+        if (meteorPrefab != null && spawnArea != null && player != null)
+        {
+            InvokeRepeating(nameof(SpawnMeteor), 1f, spawnInterval);
+        }
+        else
+        {
+            Debug.LogWarning("MeteorSpawner 설정이 부족합니다.");
+        }
     }
 
     void SpawnMeteor()
     {
-        if (meteorPrefab == null || player == null)
+        float playerY = player.position.y;
+
+        // 높이 체크
+        if (playerY < minSpawnHeight || playerY > maxSpawnHeight)
             return;
 
-        // 플레이어 주변에서 랜덤 위치 생성
-        Vector3 spawnPos = player.position + Random.onUnitSphere * spawnRadius;
-        spawnPos.y = player.position.y + 10f; // 위에서 떨어뜨리기
+        // 스폰 구역 기준으로 랜덤 위치 설정
+        Vector3 center = spawnArea.bounds.center;
+        Vector3 size = spawnArea.bounds.size * 0.8f;
 
-        GameObject meteor = Instantiate(meteorPrefab, spawnPos, Quaternion.identity);
+        Vector3 spawnPos = new Vector3(
+            Random.Range(center.x - size.x / 2, center.x + size.x / 2),
+            center.y + size.y / 2,
+            Random.Range(center.z - size.z / 2, center.z + size.z / 2)
+        );
 
-        // 방향으로 힘 주는 건 Meteor.cs에서 알아서 처리
+        // 운석 생성
+        Instantiate(meteorPrefab, spawnPos, Quaternion.identity);
     }
 }
