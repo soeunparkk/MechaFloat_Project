@@ -15,6 +15,6 @@ MonoBehaviour:
   id: 2
   achievementName: "\uCCAB \uBC1C\uAC78\uC74C"
   description: "\uCCAB \uC2A4\uD14C\uC774\uC9C0 \uD074\uB9AC\uC5B4!"
-  isAchievement: 0
+  isAchievement: 1
   compensationSkin: 102
   compensationTitle: 1002
