@@ -26,8 +26,7 @@ public class PlayerDie : MonoBehaviour
 
         isDead = true;
 
-        // 사망 시 처리 (애니메이션, 이펙트 등 추가 가능)
-        Debug.Log("플레이어 사망");
+        SoundManager.instance.PlaySound("Die");
 
         // 즉시 리스폰 처리
         Respawn();
