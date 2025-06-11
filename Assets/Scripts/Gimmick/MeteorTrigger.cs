@@ -21,5 +21,15 @@ public class MeteorTrigger : MonoBehaviour
             Debug.Log("Player entered meteor trigger tile");
             spawner.StartSpawning();
         }
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log($"Trigger exit: {other.name}");
+        if (other.CompareTag("Player") && spawner != null)
+        {
+            Debug.Log("Player exited meteor trigger tile");
+            spawner.StopSpawning();
+        }
     }
 }

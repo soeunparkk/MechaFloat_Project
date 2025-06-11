@@ -55,9 +55,11 @@ public class BlackHoleGimmick : MonoBehaviour, ICheckTrigger
         if (!other.CompareTag(targetTag)) return;
 
         float distance = Vector3.Distance(other.transform.position, centerPoint.position);
-        if (distance < 0.5f)
+        Debug.Log($"[Distance Check] {other.name} - Distance: {distance}");
+        if (distance < 1.3f)
         {
             other.transform.position = spawnPoint.position;
+            Debug.Log("집가고싶어요!");
 
             if (other.attachedRigidbody != null)
             {

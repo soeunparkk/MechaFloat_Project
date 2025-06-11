@@ -11,13 +11,24 @@ public class MeteorSpawner : MonoBehaviour
 
     private bool isSpawning = false;
 
+    // 운석 스폰 시작
     public void StartSpawning()
     {
         if (!isSpawning)
         {
             isSpawning = true;
-            SpawnMeteor(); // 즉시 1회 생성
+            SpawnMeteor(); // 즉시 한 번 생성
             InvokeRepeating(nameof(SpawnMeteor), spawnInterval, spawnInterval);
+        }
+    }
+
+    // 운석 스폰 멈춤
+    public void StopSpawning()
+    {
+        if (isSpawning)
+        {
+            isSpawning = false;
+            CancelInvoke(nameof(SpawnMeteor));
         }
     }
 
