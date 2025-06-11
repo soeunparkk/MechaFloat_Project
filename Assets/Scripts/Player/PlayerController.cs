@@ -38,11 +38,14 @@ public class PlayerController : MonoBehaviour
     public bool HasBalloon { get; private set; } = false;
     public BalloonController balloon;
 
-  
-
     [Header("God Mod")]
     private bool isInvincible = false;
     public bool IsInvincible => isInvincible;
+
+    private void Awake()
+    {
+        GameSaveManager.Instance.Player = this;
+    }
 
     void Start()
     {
@@ -94,8 +97,6 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("풍선 효과 종료 - 중력 원래대로 복구");
             }
         }
-
-        
     }
 
     private void FixedUpdate()
@@ -181,8 +182,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
-
     public void Knockback(Vector3 forceDirection, float forceStrength)
     {
         if (isInvincible) return;
@@ -196,4 +195,23 @@ public class PlayerController : MonoBehaviour
         isInvincible = on;
         Debug.Log($"무적 모드: {(on ? "활성화" : "비활성화")}");
     }
+
+    #region 저장
+    public void Save(ref PlayerSaveData data)
+    {
+        data.Position = transform.position;
+    }
+
+    public void Load(PlayerSaveData data)
+    {
+        transform.position = data.Position;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public struct PlayerSaveData
+{
+    public Vector3 Position;
 }
