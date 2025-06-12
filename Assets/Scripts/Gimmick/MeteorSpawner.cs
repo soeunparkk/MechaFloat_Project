@@ -34,7 +34,10 @@ public class MeteorSpawner : MonoBehaviour
 
     void SpawnMeteor()
     {
+        
         if (meteorPrefab == null || player == null) return;
+
+       
 
         // 플레이어 앞으로만 운석 생성 위치 지정 (플레이어 전방 10~30m 거리, 약간 랜덤 위치)
         Vector3 forward = player.forward.normalized;
