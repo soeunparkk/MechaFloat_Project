@@ -42,8 +42,8 @@ public class SkinCarouselUI : MonoBehaviour
 
     private void OnClickEquip()
     {
-        SkinSelectorData.selectedSkin = skins[currentIndex];        // 선택된 스킨 저장
-        SceneManager.LoadScene("GameScene_3_Test");                        // 또는 인게임 씬 이름
+        SkinSelectorData.selectedSkin = skins[currentIndex];                // 선택된 스킨 저장
+        SceneManager.LoadScene("GameScene_3_Test 1");                        // 또는 인게임 씬 이름
     }
 
     private void RefreshUI()

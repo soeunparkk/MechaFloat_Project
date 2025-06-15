@@ -264,6 +264,7 @@ public class CheatSystem : MonoBehaviour
         Log("=== 치트 명령어 ===");
         Log("god - 무적모드");
         Log("tel - 위치 이동");
+        Log("fly - 자유 이동");
         Log("skin - 스킨 확인 ");
         Log("clear - 콘솔 정리");
         Log("====================");
