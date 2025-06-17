@@ -17,9 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScene_2.unity
     guid: 2393f81871625e249b86df6e3c32658a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameScene_3_Test.unity
     guid: b97b75464fa985e438b4422e4bab103d
+  - enabled: 1
+    path: "Assets/Scenes/\uB0A8\uC218\uD55C/GameScene_3_Test 1.unity"
+    guid: 8e6088c921a81c3419b56601f700bd8a
   - enabled: 1
     path: "Assets/Scenes/\uB0A8\uC218\uD55C/SkinSelectionScene.unity"
     guid: 4938f19af8327d945b49780160d09b05
