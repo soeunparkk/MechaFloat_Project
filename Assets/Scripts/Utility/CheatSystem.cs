@@ -91,11 +91,11 @@ public class CheatSystem : MonoBehaviour
         // 순간 이동 모드
         if (isTeleportModeActive)
         {
-            if (Input.GetKeyDown(KeyCode.F1)) TeleportToIndex(0);
+            /*if (Input.GetKeyDown(KeyCode.F1)) TeleportToIndex(0);
             if (Input.GetKeyDown(KeyCode.F2)) TeleportToIndex(1);
             if (Input.GetKeyDown(KeyCode.F3)) TeleportToIndex(2);
-            if (Input.GetKeyDown(KeyCode.F4)) TeleportToIndex(3);
-            if (Input.GetKeyDown(KeyCode.F)) TeleportToNextPoint();
+            if (Input.GetKeyDown(KeyCode.F4)) TeleportToIndex(3);*/
+            if (Input.GetKeyDown(KeyCode.F1)) TeleportToNextPoint();
         }
     }
 
