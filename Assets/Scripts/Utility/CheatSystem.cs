@@ -15,7 +15,7 @@ public class CheatSystem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI outputText;
 
     [Header("세팅")]
-    [SerializeField] private KeyCode toggleKey = KeyCode.F12;
+    [SerializeField] private KeyCode toggleKey;
 
     [Header("갓모드")]
     private bool isGodMode = false;
@@ -64,6 +64,7 @@ public class CheatSystem : MonoBehaviour
         if (cheatPanel != null)
         {
             cheatPanel.SetActive(false);
+            outputText.gameObject.SetActive(false);
         }
         Log("치트 시스템 준비 완료. F12 키로 열기");
     }
@@ -95,7 +96,7 @@ public class CheatSystem : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F2)) TeleportToIndex(1);
             if (Input.GetKeyDown(KeyCode.F3)) TeleportToIndex(2);
             if (Input.GetKeyDown(KeyCode.F4)) TeleportToIndex(3);*/
-            if (Input.GetKeyDown(KeyCode.F1)) TeleportToNextPoint();
+            if (Input.GetKeyDown(KeyCode.F)) TeleportToNextPoint();
         }
     }
 
@@ -316,6 +317,13 @@ public class CheatSystem : MonoBehaviour
 
         commandInput.text = "";
         commandInput.ActivateInputField();
+
+        if (cheatPanel != null)
+        {
+            cheatPanel.SetActive(false);
+            outputText.gameObject.SetActive(false);
+            isActive = false;
+        }
     }
 
     private void TogglePanel()
@@ -325,6 +333,7 @@ public class CheatSystem : MonoBehaviour
         if (cheatPanel != null)
         {
             cheatPanel.SetActive(isActive);
+            outputText.gameObject.SetActive(isActive);
 
             if (isActive && commandInput != null)
             {
